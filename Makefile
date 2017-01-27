@@ -29,6 +29,8 @@ APP_MIME_SIG = application/x-vnd.dw-Boggle
 #	same name (source.c or source.cpp) are included from different directories.
 #	Also note that spaces in folder names do not work well with this Makefile.
 SRCS = \
+	 src/inputwindow.cpp  \
+	 src/letterview.cpp  \
 	 src/app.cpp  \
 	 src/mainwindow.cpp  \
 
@@ -45,6 +47,8 @@ RSRCS = \
 
 # End Pe/Eddie support.
 # @<-src@ 
+#%}
+
 #%}
 
 #%}

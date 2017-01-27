@@ -27,6 +27,8 @@
 
 //local includes
 #include "defs.h"
+#include "letterview.h"
+#include "inputwindow.h"
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -36,7 +38,7 @@
 enum WhatCodes 
 {
 	MW_ABOUT = 'mw00',
-
+	MW_GO_BUTTON,
 };	
 
 
@@ -52,10 +54,14 @@ class MainWindow : public BWindow
 	private:
 		
 		//GUI elements
-		BMenuBar *top_menu_bar;
+		BMenuBar	*top_menu_bar;
+		InputWindow	*input_window;
+		LetterView	*letter_view;
+		BButton		*go_button;
 		
 		
-
+		
+		
 		//methods
 		
 		

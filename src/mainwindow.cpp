@@ -8,6 +8,10 @@ MainWindow::MainWindow(void)
 	
 	//initialize GUI Objects
 	top_menu_bar = new BMenuBar("topmenubar");
+	letter_view = new LetterView();
+	go_button = new BButton("Go", new BMessage(MW_GO_BUTTON));
+	
+	input_window = new InputWindow();
 	
 	
 	//build the menu layout
@@ -26,12 +30,16 @@ MainWindow::MainWindow(void)
 		.SetInsets(0)
 		.Add(top_menu_bar)
 		.AddGroup(B_HORIZONTAL)
-			
+			.Add(letter_view)
+			//.Add(go_button)	
+		.End()	
+		.AddGroup(B_HORIZONTAL)
+			.Add(go_button)
 		.End()	
 	.Layout();	
 		
 	
-
+	input_window->Show();
 	
 
 
