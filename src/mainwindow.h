@@ -29,6 +29,7 @@
 #include "defs.h"
 #include "letterview.h"
 #include "inputwindow.h"
+#include "settingswindow.h"
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -39,6 +40,7 @@ enum WhatCodes
 {
 	MW_ABOUT = 'mw00',
 	MW_GO_BUTTON,
+	MW_SETTINGS_MENU,
 };	
 
 
@@ -58,7 +60,6 @@ class MainWindow : public BWindow
 		InputWindow	*input_window;
 		LetterView	*letter_view;
 		BButton		*go_button;
-		
 		
 		
 		

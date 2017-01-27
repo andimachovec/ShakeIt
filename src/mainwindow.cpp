@@ -17,6 +17,7 @@ MainWindow::MainWindow(void)
 	//build the menu layout
 	BLayoutBuilder::Menu<>(top_menu_bar)
 		.AddMenu(B_TRANSLATE("File"))
+			.AddItem(B_TRANSLATE("Settings"), MW_SETTINGS_MENU, 'S')
 			.AddItem(B_TRANSLATE("Quit"), B_QUIT_REQUESTED, 'Q')
 		.End()
 		.AddMenu(B_TRANSLATE("Help"))
@@ -63,6 +64,14 @@ void MainWindow::MessageReceived(BMessage *msg)
 		}		
 		
 		
+		case MW_SETTINGS_MENU:
+		{
+			
+			SettingsWindow *settings_window = new SettingsWindow();		
+			settings_window->CenterOnScreen();
+			settings_window->Show();
+			break;
+		}
 				
 		default:
 		{
