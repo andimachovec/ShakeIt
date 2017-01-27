@@ -1,0 +1,6 @@
+<?xml version='1.0' standalone='yes'?>
+<config>
+  <dictionary>dictionary.txt</dictionary>
+  <dictionary_update_url>raspi.machovec.lan</dictionary_update_url>
+  <sound>off</sound> 
+</config>
