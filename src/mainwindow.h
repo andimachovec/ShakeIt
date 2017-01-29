@@ -30,6 +30,7 @@
 #include "letterview.h"
 #include "inputwindow.h"
 #include "settingswindow.h"
+#include "gamecontroller.h"
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -61,10 +62,12 @@ class MainWindow : public BWindow
 		LetterView	*letter_view;
 		BButton		*go_button;
 		
+		//other properties
+		GameController *game_controller;
 		
 		
 		//methods
-		
+		void start_game();
 		
 };
 

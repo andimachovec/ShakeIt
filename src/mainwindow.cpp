@@ -42,7 +42,8 @@ MainWindow::MainWindow(void)
 	
 	input_window->Show();
 	
-
+	game_controller = new GameController("../data/dictionary.txt");
+	
 
 }
 
@@ -73,6 +74,15 @@ void MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}
 				
+				
+		case MW_GO_BUTTON:
+		{
+			start_game();	
+			break;
+		}
+		
+		
+						
 		default:
 		{
 			BWindow::MessageReceived(msg);
@@ -93,6 +103,22 @@ bool MainWindow::QuitRequested(void)
 	return true;
 }	
 
+
+
+//----------------------------------------------------------------------------
+void MainWindow::start_game()
+//----------------------------------------------------------------------------
+{
+	
+	go_button->SetEnabled(false);
+	//input_window->ClearText();
+	//input_window->SetTextActive();
+	
+	game_controller->StartRound();
+	
+	letter_view->SetLetters(game_controller->GetBoardLetters(),game_controller->GetBoardLetterOrientation());
+	
+}	
 
 
 
