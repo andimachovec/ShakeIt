@@ -16,10 +16,10 @@ class InputWindow : public BWindow
 	
 	public:
 		InputWindow();
-		//void ClearText(void);
-		//void SetTextActive(void);
-		//void SetTextInactive(void);
-		//std::vector<std::string> GetWordList(void);
+		void ClearText();
+		void SetTextActive();
+		void SetTextInactive();
+		std::vector<std::string> GetWordList();
 		//void DisplayResults(round_results results, int points_current_round, std::vector<std::string> missing_words);
 	
 	private:
