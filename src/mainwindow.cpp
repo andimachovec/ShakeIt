@@ -31,15 +31,12 @@ MainWindow::MainWindow(void)
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
 		.Add(top_menu_bar)
-		.AddGroup(B_HORIZONTAL)
+		.AddGroup(B_HORIZONTAL,50)
 			.Add(letter_view)
-			//.Add(go_button)	
 		.End()	
-		.AddGroup(B_HORIZONTAL)
+		.AddGroup(B_HORIZONTAL,0)	
 			.Add(go_button)
-		.End()	
-		.AddGroup(B_HORIZONTAL)
-			.Add(timer_view)
+			.Add(timer_view)	
 		.End()
 	.Layout();	
 		
@@ -86,9 +83,9 @@ void MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}
 		
-		case B_PULSE:
+		case TV_TIME_OVER:
 		{
-			std::cout << "Pulse from MainWindow..." << std::endl;	
+			end_game();	
 			break;
 		}	
 		
@@ -127,10 +124,45 @@ void MainWindow::start_game()
 	
 	game_controller->StartRound();
 	
-	
 	letter_view->SetLetters(game_controller->GetBoardLetters(),game_controller->GetBoardLetterOrientation());
+	timer_view->StartTimer();
 	
 }	
+
+
+
+//----------------------------------------------------------------------------
+void MainWindow::end_game()
+//----------------------------------------------------------------------------
+{
+	
+
+	input_window->SetTextInactive();
+	
+	std::vector<std::string>::iterator iter;
+	std::vector<std::string> word_list = input_window->GetWordList();
+	
+	//give the word list to the gamecontroller for evaluation
+	//game_controller->SetWordList(word_list);
+	
+	//inform the user that the time is over
+	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
+	time_over_alert->Go();
+	
+	//Let the GameController evaluate the words and get back the results
+	//round_results results=game_controller->RoundFinished();
+	
+	//std::vector<std::string> missing_words = game_controller->GetMissingWords();
+
+	//Display the results on the wordframe
+	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
+
+	
+	go_button->SetEnabled(true);
+	
+	
+}	
+
 
 
 

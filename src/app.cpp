@@ -16,6 +16,12 @@ void App::MessageReceived(BMessage *msg)
 	
 	switch(msg->what)
 	{
+		
+		case TV_TIME_OVER:
+		{
+			mainwindow->PostMessage(msg);	
+			break;
+		}
 			
 		default:
 		{

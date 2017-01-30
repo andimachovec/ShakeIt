@@ -43,6 +43,8 @@ enum WhatCodes
 	MW_ABOUT = 'mw00',
 	MW_GO_BUTTON,
 	MW_SETTINGS_MENU,
+	MW_TIME_OVER,
+				
 };	
 
 
@@ -70,7 +72,7 @@ class MainWindow : public BWindow
 		
 		//methods
 		void start_game();
-		
+		void end_game();
 };
 
 #endif
