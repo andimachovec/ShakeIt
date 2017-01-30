@@ -36,7 +36,7 @@ void InputWindow::ClearText()
 void InputWindow::SetTextActive()
 //-----------------------------------------------------------------------------
 {
-	words_textview->MakeEditable(true);
+	//words_textview->MakeEditable(true);
 	
 }	
 
@@ -46,7 +46,7 @@ void InputWindow::SetTextActive()
 void InputWindow::SetTextInactive()
 //-----------------------------------------------------------------------------
 {
-	words_textview->MakeEditable(false);
+	//words_textview->MakeEditable(false);
 }	
 
 
