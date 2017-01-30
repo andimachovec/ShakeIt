@@ -31,6 +31,7 @@
 #include "inputwindow.h"
 #include "settingswindow.h"
 #include "gamecontroller.h"
+#include "timerview.h"
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -61,6 +62,7 @@ class MainWindow : public BWindow
 		InputWindow	*input_window;
 		LetterView	*letter_view;
 		BButton		*go_button;
+		TimerView	*timer_view;
 		
 		//other properties
 		GameController *game_controller;

@@ -12,6 +12,7 @@ MainWindow::MainWindow(void)
 	go_button = new BButton("Go", new BMessage(MW_GO_BUTTON));
 	
 	input_window = new InputWindow();
+	timer_view = new TimerView();
 	
 	
 	//build the menu layout
@@ -37,6 +38,9 @@ MainWindow::MainWindow(void)
 		.AddGroup(B_HORIZONTAL)
 			.Add(go_button)
 		.End()	
+		.AddGroup(B_HORIZONTAL)
+			.Add(timer_view)
+		.End()
 	.Layout();	
 		
 	
@@ -82,6 +86,11 @@ void MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}
 		
+		case B_PULSE:
+		{
+			std::cout << "Pulse from MainWindow..." << std::endl;	
+			break;
+		}	
 		
 						
 		default:
