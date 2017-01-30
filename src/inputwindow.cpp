@@ -17,7 +17,7 @@ InputWindow::InputWindow()
 		.End()	
 	.Layout();	
 	
-	SetTextInactive();
+	
 	
 }	
 
@@ -46,8 +46,7 @@ void InputWindow::SetTextActive()
 void InputWindow::SetTextInactive()
 //-----------------------------------------------------------------------------
 {
-	words_textview->MakeEditable(false);	
-	
+	words_textview->MakeEditable(false);
 }	
 
 

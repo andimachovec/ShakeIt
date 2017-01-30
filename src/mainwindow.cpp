@@ -41,6 +41,7 @@ MainWindow::MainWindow(void)
 		
 	
 	input_window->Show();
+	input_window->SetTextInactive();
 	
 	game_controller = new GameController("../data/dictionary.txt");
 	
@@ -111,10 +112,12 @@ void MainWindow::start_game()
 {
 	
 	go_button->SetEnabled(false);
-	//input_window->ClearText();
-	//input_window->SetTextActive();
+	
+	input_window->SetTextActive();
+	input_window->ClearText();
 	
 	game_controller->StartRound();
+	
 	
 	letter_view->SetLetters(game_controller->GetBoardLetters(),game_controller->GetBoardLetterOrientation());
 	
