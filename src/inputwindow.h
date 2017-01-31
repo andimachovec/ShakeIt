@@ -9,7 +9,11 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
+#include <boost/algorithm/string/trim.hpp>
+#include <iostream>
 
+#include "gamecontroller.h"  //just for the round_results typedef
 
 class InputWindow : public BWindow
 {
@@ -20,10 +24,14 @@ class InputWindow : public BWindow
 		void SetTextActive();
 		void SetTextInactive();
 		std::vector<std::string> GetWordList();
-		//void DisplayResults(round_results results, int points_current_round, std::vector<std::string> missing_words);
+		void DisplayResults(round_results results, int points_current_round, std::vector<std::string> missing_words);
 	
 	private:
 		BTextView *words_textview;
+		
+		std::vector<std::string> word_list;
+	
+		
 		
 };	
 
