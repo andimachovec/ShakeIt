@@ -11,6 +11,8 @@
 #include <vector>
 #include <sstream>
 #include <boost/algorithm/string/trim.hpp>
+#include <array>
+
 #include <iostream>
 
 #include "gamecontroller.h"  //just for the round_results typedef
@@ -30,7 +32,7 @@ class InputWindow : public BWindow
 		BTextView *words_textview;
 		
 		std::vector<std::string> word_list;
-	
+		std::array<std::string,5> result_text;
 		
 		
 };	

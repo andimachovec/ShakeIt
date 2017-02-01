@@ -17,7 +17,13 @@ InputWindow::InputWindow()
 		.End()	
 	.Layout();	
 	
-	
+	//assign status messages for the word evaluation
+	result_text[0]="OK";
+	result_text[1]="too short";
+	result_text[2]="not possible";
+	result_text[3]="not in dictionary";
+	result_text[4]="duplicate";
+
 	
 }	
 
@@ -95,6 +101,8 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 	
 	//loop through wordlist and output the words an the status (valid or not, points)
 	
+	std::stringstream result_stream;
+	
 	for (int i=0; i < word_list.size(); ++i)
 	{
 	
@@ -106,8 +114,8 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 		if (result_code == 0)  //display the valid word along with the given points
 		{ 
 			
-			//*WordInput << word_list[i] << " (" << result_points << ")\n";	
-			words_textview.Insert();
+			result_stream << word_list[i] << " (" << result_points << ")\n";	
+			words_textview->Insert(result_stream.str().c_str());
 			
 			
 		}
@@ -116,36 +124,44 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 		
 			
 			
-			//*WordInput << word_list[i] << " (" << result_text[result_code] << ")\n";
-			words_textview.Insert()
+			result_stream << word_list[i] << " (" << result_text[result_code] << ")\n";
+			words_textview->Insert(result_stream.str().c_str());
 		
 		}
 	
-
+		result_stream.str("");
+	    result_stream.clear();
 		
 	}
 
 
 	//display total points in this round
-	*WordInput << "\n" << _("Points in this round") << ": " << points_current_round << "\n";
+	result_stream.str("");
+	result_stream.clear();
+	result_stream << "\n" << "Points in this round" << ": " << points_current_round << "\n";
+	words_textview->Insert(result_stream.str().c_str());
 	
 	
-//	//if there are words that the player didn´t find, display them
-//	if (!missing_words.empty())
-//	{
-//		
-//		*WordInput << "\n\n";
-//		*WordInput << _("Missing words") << ":\n";
-//	
-//		std::vector<std::string>::iterator mw_iter;
-//	
-//		for (mw_iter=missing_words.begin();mw_iter!=missing_words.end();++mw_iter)
-//		{
-//	
-//			*WordInput << *mw_iter << "\n";
-//	
-//		}
-//
-//	}
+	//if there are words that the player didn´t find, display them
+	if (!missing_words.empty())
+	{
+		result_stream.str("");
+		result_stream.clear();
+		
+		result_stream << "\n\n";
+		result_stream << "Missing words" << ":\n";
+	
+		std::vector<std::string>::iterator mw_iter;
+	
+		for (mw_iter=missing_words.begin();mw_iter!=missing_words.end();++mw_iter)
+		{
+	
+			result_stream << *mw_iter << "\n";
+	
+		}
+		
+		words_textview->Insert(result_stream.str().c_str());
+
+	}
 	
 }	

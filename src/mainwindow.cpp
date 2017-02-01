@@ -143,19 +143,19 @@ void MainWindow::end_game()
 	std::vector<std::string> word_list = input_window->GetWordList();
 	
 	//give the word list to the gamecontroller for evaluation
-	//game_controller->SetWordList(word_list);
+	game_controller->SetWordList(word_list);
 	
 	//inform the user that the time is over
 	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
 	time_over_alert->Go();
 	
 	//Let the GameController evaluate the words and get back the results
-	//round_results results=game_controller->RoundFinished();
+	round_results results=game_controller->RoundFinished();
 	
-	//std::vector<std::string> missing_words = game_controller->GetMissingWords();
+	std::vector<std::string> missing_words = game_controller->GetMissingWords();
 
-	//Display the results on the wordframe
-	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
+	//Display the results on the input window
+	input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
 
 	
 	go_button->SetEnabled(true);
