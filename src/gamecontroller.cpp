@@ -391,6 +391,14 @@ bool GameController::check_dictionary(std::string word)
 	std::ifstream dict_file;
 	dict_file.open(dictionary_filename);
 	
+	if (!dict_file.is_open())
+	{
+		throw std::runtime_error("could not open dictionary file");
+	}	
+	
+	
+	
+	
 	while ((!dict_file.eof()) and (!is_in_dictionary))
 	{
 	

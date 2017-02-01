@@ -9,6 +9,7 @@
 #include <array>
 #include <fstream>
 #include <sstream>
+#include <exception>
 
 #include "boggleboard.h"
 #include "boggledie.h"
