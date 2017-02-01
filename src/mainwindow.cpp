@@ -44,7 +44,7 @@ MainWindow::MainWindow(void)
 	input_window->Show();
 	input_window->SetTextInactive();
 	
-	game_controller = new GameController("../data/dictionary.txt");
+	game_controller = new GameController("/boot/home/Development/Boggle/data/dictionary.txt");
 	
 
 }
@@ -136,25 +136,35 @@ void MainWindow::end_game()
 //----------------------------------------------------------------------------
 {
 	
-
+	std::cout << "Deactivating text input..." << std::endl;
 	input_window->SetTextInactive();
 	
+	//inform the user that the time is over
+	std::cout << "Display time over message..." << std::endl;
+	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
+	time_over_alert->Go();
+	
+	//get the word list from InputWindow object
+	
+	std::cout << "Calling InputWindow::GetWordList..." << std::endl;
 	std::vector<std::string>::iterator iter;
 	std::vector<std::string> word_list = input_window->GetWordList();
 	
 	//give the word list to the gamecontroller for evaluation
+	std::cout << "Calling GameController::SetWordList..." << std::endl;
 	game_controller->SetWordList(word_list);
 	
-	//inform the user that the time is over
-	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
-	time_over_alert->Go();
 	
 	//Let the GameController evaluate the words and get back the results
+	std::cout << "Calling GameController::RoundFinished..." << std::endl;
 	round_results results=game_controller->RoundFinished();
 	
+	
+	std::cout << "Calling GameController::GetMissingWords..." << std::endl;
 	std::vector<std::string> missing_words = game_controller->GetMissingWords();
 
 	//Display the results on the input window
+	std::cout << "Calling InputWindow::DisplayResults..." << std::endl;
 	input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
 
 	

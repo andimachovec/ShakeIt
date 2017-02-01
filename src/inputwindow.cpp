@@ -42,7 +42,7 @@ void InputWindow::ClearText()
 void InputWindow::SetTextActive()
 //-----------------------------------------------------------------------------
 {
-	words_textview->MakeEditable(true);
+	//words_textview->MakeEditable(true);
 	
 }	
 
@@ -52,7 +52,9 @@ void InputWindow::SetTextActive()
 void InputWindow::SetTextInactive()
 //-----------------------------------------------------------------------------
 {
-	words_textview->MakeEditable(false);
+	//words_textview->MakeEditable(false);
+	
+
 }	
 
 
@@ -115,6 +117,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 		{ 
 			
 			result_stream << word_list[i] << " (" << result_points << ")\n";	
+			std::cout << result_stream.str();
 			words_textview->Insert(result_stream.str().c_str());
 			
 			
@@ -125,6 +128,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 			
 			
 			result_stream << word_list[i] << " (" << result_text[result_code] << ")\n";
+			std::cout << result_stream.str();
 			words_textview->Insert(result_stream.str().c_str());
 		
 		}
@@ -139,7 +143,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 	result_stream.str("");
 	result_stream.clear();
 	result_stream << "\n" << "Points in this round" << ": " << points_current_round << "\n";
-	words_textview->Insert(result_stream.str().c_str());
+	//words_textview->Insert(result_stream.str().c_str());
 	
 	
 	//if there are words that the player didn´t find, display them
@@ -160,7 +164,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 	
 		}
 		
-		words_textview->Insert(result_stream.str().c_str());
+		//words_textview->Insert(result_stream.str().c_str());
 
 	}
 	
