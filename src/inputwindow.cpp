@@ -98,7 +98,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 {
 	
 	//empty the text view
-	ClearText();
+	//ClearText();
 	
 	
 	//loop through wordlist and output the words an the status (valid or not, points)
@@ -118,7 +118,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 			
 			result_stream << word_list[i] << " (" << result_points << ")\n";	
 			std::cout << result_stream.str();
-			words_textview->Insert(result_stream.str().c_str());
+			//words_textview->Insert(result_stream.str().c_str());
 			
 			
 		}
@@ -129,7 +129,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 			
 			result_stream << word_list[i] << " (" << result_text[result_code] << ")\n";
 			std::cout << result_stream.str();
-			words_textview->Insert(result_stream.str().c_str());
+			//words_textview->Insert(result_stream.str().c_str());
 		
 		}
 	
@@ -144,7 +144,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 	result_stream.clear();
 	result_stream << "\n" << "Points in this round" << ": " << points_current_round << "\n";
 	//words_textview->Insert(result_stream.str().c_str());
-	
+	std::cout << result_stream.str();
 	
 	//if there are words that the player didn´t find, display them
 	if (!missing_words.empty())
@@ -165,7 +165,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 		}
 		
 		//words_textview->Insert(result_stream.str().c_str());
-
+		std::cout << result_stream.str();
 	}
 	
 }	

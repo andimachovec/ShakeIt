@@ -119,8 +119,8 @@ void MainWindow::start_game()
 	
 	go_button->SetEnabled(false);
 	
-	input_window->SetTextActive();
-	input_window->ClearText();
+	//input_window->SetTextActive();
+	//input_window->ClearText();
 	
 	game_controller->StartRound();
 	
