@@ -24,7 +24,7 @@ InputWindow::InputWindow()
 	result_text[3]="not in dictionary";
 	result_text[4]="duplicate";
 
-	
+	std::cout << "InputWindow::InputWindow done...." << std::endl;
 }	
 
 
@@ -35,6 +35,7 @@ void InputWindow::ClearText()
 	words_textview->SelectAll();
 	words_textview->Clear();
 	
+	std::cout << "InputWindow::ClearText done...." << std::endl;
 }	
 
 
@@ -44,6 +45,7 @@ void InputWindow::SetTextActive()
 {
 	//words_textview->MakeEditable(true);
 	
+	std::cout << "InputWindow::SetTextActive done...." << std::endl;
 }	
 
 
@@ -54,6 +56,7 @@ void InputWindow::SetTextInactive()
 {
 	//words_textview->MakeEditable(false);
 	
+	std::cout << "InputWindow::SetTextInactive done...." << std::endl;
 
 }	
 
@@ -82,10 +85,13 @@ std::vector<std::string> InputWindow::GetWordList()
 		if (!line.empty())
 		{
 			word_list.push_back(line);
-			std::cout << line << std::endl;
+			//std::cout << line << std::endl;
 		}
 		
 	}
+	
+	
+	std::cout << "InputWindow::GetWordList done...." << std::endl;
 	
 	return word_list;
 }	
@@ -97,8 +103,11 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 //-----------------------------------------------------------------------------
 {
 	
+	std::cout << "-----------------------------------------------------------" << std::endl;
+	std::cout << "InputWindow::DisplayResults starting...." << std::endl;
+	
 	//empty the text view
-	//ClearText();
+	ClearText();
 	
 	
 	//loop through wordlist and output the words an the status (valid or not, points)
@@ -168,4 +177,6 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 		std::cout << result_stream.str();
 	}
 	
+	std::cout << "InputWindow::DisplayResults done...." << std::endl;
+	std::cout << "-----------------------------------------------------------" << std::endl;
 }	
