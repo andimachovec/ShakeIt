@@ -11,7 +11,6 @@ MainWindow::MainWindow(void)
 	letter_view = new LetterView();
 	go_button = new BButton("Go", new BMessage(MW_GO_BUTTON));
 	
-	input_window = new InputWindow();
 	timer_view = new TimerView();
 	
 	
@@ -40,10 +39,6 @@ MainWindow::MainWindow(void)
 		.End()
 	.Layout();	
 		
-	
-	input_window->Show();
-	input_window->SetTextInactive();
-	
 	game_controller = new GameController("/boot/home/Development/Boggle/data/dictionary.txt");
 	
 
@@ -119,8 +114,8 @@ void MainWindow::start_game()
 	
 	go_button->SetEnabled(false);
 	
-	input_window->SetTextActive();
-	input_window->ClearText();
+	//input_window->SetTextActive();
+	//input_window->ClearText();
 	
 	game_controller->StartRound();
 	
@@ -137,25 +132,25 @@ void MainWindow::end_game()
 {
 	
 
-	input_window->SetTextInactive();
+	//input_window->SetTextInactive();
 	
 	//inform the user that the time is over
 	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
 	time_over_alert->Go();
 	
 	//get the word list from InputWindow object
-	std::vector<std::string>::iterator iter;
-	std::vector<std::string> word_list = input_window->GetWordList();
+	//std::vector<std::string>::iterator iter;
+	//std::vector<std::string> word_list = input_window->GetWordList();
 	
 	//give the word list to the gamecontroller for evaluation
-	game_controller->SetWordList(word_list);
+	//game_controller->SetWordList(word_list);
 	
 	//Let the GameController evaluate the words and get back the results
-	round_results results=game_controller->RoundFinished();
-	std::vector<std::string> missing_words = game_controller->GetMissingWords();
+	//round_results results=game_controller->RoundFinished();
+	//std::vector<std::string> missing_words = game_controller->GetMissingWords();
 
 	//Display the results on the input window
-	input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
+	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
 
 	
 	go_button->SetEnabled(true);

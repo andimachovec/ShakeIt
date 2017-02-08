@@ -7,6 +7,7 @@
 #include <Catalog.h>
 
 #include "mainwindow.h"
+#include "inputwindow.h"
 #include "defs.h"
 
 #undef B_TRANSLATION_CONTEXT
@@ -24,8 +25,8 @@ class App : public BApplication
 		void ReadyToRun(void);
 
 	private:
-		MainWindow *mainwindow;
-		
+		MainWindow *main_window;
+		InputWindow *input_window;
 };
 
 

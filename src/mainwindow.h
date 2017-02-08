@@ -28,7 +28,6 @@
 //local includes
 #include "defs.h"
 #include "letterview.h"
-#include "inputwindow.h"
 #include "settingswindow.h"
 #include "gamecontroller.h"
 #include "timerview.h"
@@ -61,7 +60,6 @@ class MainWindow : public BWindow
 		
 		//GUI elements
 		BMenuBar	*top_menu_bar;
-		InputWindow	*input_window;
 		LetterView	*letter_view;
 		BButton		*go_button;
 		TimerView	*timer_view;

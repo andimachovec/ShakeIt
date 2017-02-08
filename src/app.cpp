@@ -19,7 +19,7 @@ void App::MessageReceived(BMessage *msg)
 		
 		case TV_TIME_OVER:
 		{
-			mainwindow->PostMessage(msg);	
+			main_window->PostMessage(msg);	
 			break;
 		}
 			
@@ -75,10 +75,11 @@ void App::ReadyToRun(void)
 //----------------------------------------------------------------------------
 {
 
-	mainwindow = new MainWindow();
-	mainwindow->CenterOnScreen();
-	mainwindow->Show();
-	
+	main_window = new MainWindow();
+	input_window = new InputWindow();
+	//main_window->CenterOnScreen();
+	main_window->Show();
+	input_window->Show();
 }	
 
 
