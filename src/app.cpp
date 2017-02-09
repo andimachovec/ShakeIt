@@ -189,18 +189,64 @@ void App::end_game()
 	//get the missing words from the gamecontroller
 	std::vector<std::string> missing_words = game_controller->GetMissingWords();
 	
+	//assign status messages for the word evaluation
+	std::array<std::string,5> result_text;
+	result_text[0]="OK";
+	result_text[1]="too short";
+	result_text[2]="not possible";
+	result_text[3]="not in dictionary";
+	result_text[4]="duplicate";
 
+	
+	
 	//Display the results on the input window
 	std::stringstream result_stream;
 	
-	result_stream << "Not yet implemented. But soon ;-)";
+	for (int i=0; i < word_list.size(); ++i)
+	{
+	
+		int result_code = results[i].first;
+		int result_points = results[i].second;
+		
+		
+		
+		if (result_code == 0)  //display the valid word along with the given points
+		{ 
+			result_stream << word_list[i] << " (" << result_points << ")\n";	
+		}
+		
+		else	//display invalid word in red along with the reason why they´re invalid
+		{
+			result_stream << word_list[i] << " (" << result_text[result_code] << ")\n";
+		}
+	
+	}
+	
+	//total points in this round
+	result_stream << "\n" << "Points in this round" << ": " << game_controller->GetCurrentRoundPoints() << "\n";
+	
+	
+	//missing words
+	if (!missing_words.empty())
+	{
+		
+		result_stream << "\n\n";
+		result_stream << "Missing words" << ":\n";
+	
+		std::vector<std::string>::iterator mw_iter;
+	
+		for (mw_iter=missing_words.begin();mw_iter!=missing_words.end();++mw_iter)
+		{
+			result_stream << *mw_iter << "\n";
+		}
+		
+	}
 	
 	BMessage *result_display_message=new BMessage(IW_TEXT_SHOW);
 	result_display_message->AddString("text",result_stream.str().c_str());
 	input_window->PostMessage(result_display_message);
 	
-	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
-
+	
 	//enable the go button again
 	main_window->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
 	

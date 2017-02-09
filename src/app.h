@@ -14,6 +14,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <array>
 
 //local includes
 #include "defs.h"

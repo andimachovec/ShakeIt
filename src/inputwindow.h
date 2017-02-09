@@ -11,11 +11,9 @@
 #include <vector>
 #include <sstream>
 #include <boost/algorithm/string/trim.hpp>
-#include <array>
+
 
 #include <iostream>
-
-#include "gamecontroller.h"  //just for the round_results typedef
 
 
 enum
@@ -35,14 +33,12 @@ class InputWindow : public BWindow
 		InputWindow();
 		void MessageReceived(BMessage *msg);
 		std::vector<std::string> GetWordList();
-		//void DisplayResults(round_results results, int points_current_round, std::vector<std::string> missing_words);
+		
 	
 	private:
 		BTextView *words_textview;
 		
 		std::vector<std::string> word_list;
-		std::array<std::string,5> result_text;
-		
 		
 };	
 

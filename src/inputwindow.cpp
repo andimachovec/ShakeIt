@@ -17,13 +17,7 @@ InputWindow::InputWindow()
 		.End()	
 	.Layout();	
 	
-	//assign status messages for the word evaluation
-	result_text[0]="OK";
-	result_text[1]="too short";
-	result_text[2]="not possible";
-	result_text[3]="not in dictionary";
-	result_text[4]="duplicate";
-
+	
 }	
 
 
