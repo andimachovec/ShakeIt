@@ -113,6 +113,26 @@ void MainWindow::MessageReceived(BMessage *msg)
 		}
 		
 		
+		case MW_BOARD_SETUP:
+		{
+			
+			
+			//get board data from message
+			std::vector<std::string> board_letters;
+			std::vector<int> board_letter_orientation;
+				
+			for (int i=0; i<16; ++i)
+			{
+				board_letters.push_back(std::string(msg->GetString("letter",i,NULL)));
+				board_letter_orientation.push_back(msg->GetInt32("orientation",i,0));	
+			}	
+			
+			//pass the board data to the letter view
+			letter_view->SetLetters(board_letters,board_letter_orientation);
+			
+			break;	
+		}	
+		
 						
 		default:
 		{

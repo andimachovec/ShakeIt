@@ -45,6 +45,7 @@ enum WhatCodes
 	MW_TIMER_UPDATE,
 	MW_TIMER_START,
 	MW_TIMER_STOP,
+	MW_BOARD_SETUP,
 };	
 
 
@@ -55,7 +56,7 @@ class MainWindow : public BWindow
 		MainWindow();
 		void MessageReceived(BMessage *msg);
 		bool QuitRequested();
-
+		
 	private:
 		
 		//GUI elements

@@ -19,7 +19,7 @@ void App::MessageReceived(BMessage *msg)
 		
 		case TV_TIME_OVER:
 		{
-			main_window->PostMessage(msg);	
+			end_game();	
 			break;
 		}
 			
@@ -121,19 +121,35 @@ void App::Pulse()
 void App::start_game()
 //----------------------------------------------------------------------------
 {
-	std::cout << "Disabling Go Button" << std::endl;
 	
+	//disable the go button
 	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
 	
+	//clear the input window and enable text input
 	input_window->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
 	input_window->PostMessage(new BMessage(IW_TEXT_CLEAR));
 	
 	
-	std::cout << "Starting Round" << std::endl;
+	//tell the game controller to start the round
 	game_controller->StartRound();
 	
-	//letter_view->SetLetters(game_controller->GetBoardLetters(),game_controller->GetBoardLetterOrientation());
 	
+	//get the board data from the game controller, pack it into a message, and send it to the main window
+	std::vector<std::string> board_letters=game_controller->GetBoardLetters();
+	std::vector<int> board_letter_orientation=game_controller->GetBoardLetterOrientation();
+	 
+	BMessage *board_setup_msg = new BMessage(MW_BOARD_SETUP); 
+	 
+	for (int i=0; i<16; ++i)
+	{
+			board_setup_msg->AddString("letter",board_letters[i].c_str());
+			board_setup_msg->AddInt32("orientation", board_letter_orientation[i]);
+	}	
+	
+	main_window->PostMessage(board_setup_msg);
+	
+	
+	//start the timer
 	main_window->PostMessage(new BMessage(MW_TIMER_START));
 	
 }	
@@ -146,31 +162,47 @@ void App::end_game()
 {
 	//stop the timer
 	main_window->PostMessage(new BMessage(MW_TIMER_STOP));
+
 	
 	//disable text editing on the input window
 	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+
 	
 	//inform the user that the time is over
 	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
 	time_over_alert->Go();
+
 	
 	//get the word list from InputWindow object
 	std::vector<std::string>::iterator iter;
 	std::vector<std::string> word_list = input_window->GetWordList();
+
 	
 	//give the word list to the gamecontroller for evaluation
 	game_controller->SetWordList(word_list);
+
 	
 	//Let the GameController evaluate the words and get back the results
 	round_results results=game_controller->RoundFinished();
+
+	
+	//get the missing words from the gamecontroller
 	std::vector<std::string> missing_words = game_controller->GetMissingWords();
+	
 
 	//Display the results on the input window
+	std::stringstream result_stream;
+	
+	result_stream << "Not yet implemented. But soon ;-)";
+	
+	BMessage *result_display_message=new BMessage(IW_TEXT_SHOW);
+	result_display_message->AddString("text",result_stream.str().c_str());
+	input_window->PostMessage(result_display_message);
+	
 	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
 
 	//enable the go button again
-	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
-	
+	main_window->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
 	
 	
 }	

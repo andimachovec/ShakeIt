@@ -13,7 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-
+#include <sstream>
 
 //local includes
 #include "defs.h"

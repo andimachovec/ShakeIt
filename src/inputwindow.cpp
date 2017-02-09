@@ -24,7 +24,6 @@ InputWindow::InputWindow()
 	result_text[3]="not in dictionary";
 	result_text[4]="duplicate";
 
-	std::cout << "InputWindow::InputWindow done...." << std::endl;
 }	
 
 
@@ -58,8 +57,7 @@ void InputWindow::MessageReceived(BMessage *msg)
 		}
 		
 		case IW_TEXT_SHOW:
-		{
-			 
+		{ 
 			words_textview->SetText(msg->GetString("text"),strlen(msg->GetString("text")));
 			break;
 		}
@@ -102,9 +100,7 @@ std::vector<std::string> InputWindow::GetWordList()
 		}
 		
 	}
-	
-	
-	std::cout << "InputWindow::GetWordList done...." << std::endl;
+
 	
 	return word_list;
 }	
