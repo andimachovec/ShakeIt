@@ -22,7 +22,7 @@ class TimerView : public BTextView
 		TimerView();
 		void StartTimer();
 		void StopTimer();
-		void Pulse();
+		void UpdateTimer();
 	
 	private:
 		

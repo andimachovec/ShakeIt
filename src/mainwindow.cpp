@@ -9,7 +9,7 @@ MainWindow::MainWindow()
 	//initialize GUI Objects
 	top_menu_bar = new BMenuBar("topmenubar");
 	letter_view = new LetterView();
-	go_button = new BButton("Go", new BMessage(MW_GO_BUTTON));
+	go_button = new BButton("Go", new BMessage(MW_GO_BUTTON_CLICKED));
 	
 	timer_view = new TimerView();
 	
@@ -17,11 +17,11 @@ MainWindow::MainWindow()
 	//build the menu layout
 	BLayoutBuilder::Menu<>(top_menu_bar)
 		.AddMenu(B_TRANSLATE("File"))
-			.AddItem(B_TRANSLATE("Settings"), MW_SETTINGS_MENU, 'S')
+			.AddItem(B_TRANSLATE("Settings"), MW_MENU_SETTINGS, 'S')
 			.AddItem(B_TRANSLATE("Quit"), B_QUIT_REQUESTED, 'Q')
 		.End()
 		.AddMenu(B_TRANSLATE("Help"))
-			.AddItem(B_TRANSLATE("About"), MW_ABOUT)
+			.AddItem(B_TRANSLATE("About"), MW_MENU_ABOUT)
 		.End()
 	.End();	
 		
@@ -53,21 +53,21 @@ void MainWindow::MessageReceived(BMessage *msg)
 		
 		
 		
-		case MW_ABOUT:
+		case MW_MENU_ABOUT:
 		{
 			be_app->PostMessage(B_ABOUT_REQUESTED);
 			break;	
 		}		
 		
 		
-		case MW_SETTINGS_MENU:
+		case MW_MENU_SETTINGS:
 		{
 			be_app->PostMessage(msg);
 			break;
 		}
 				
 				
-		case MW_GO_BUTTON:
+		case MW_GO_BUTTON_CLICKED:
 		{
 			be_app->PostMessage(msg);	
 			break;
@@ -80,18 +80,38 @@ void MainWindow::MessageReceived(BMessage *msg)
 		}	
 		
 		
-		case MW_ENABLE_GO_BUTTON:
+		case MW_GO_BUTTON_ENABLE:
 		{
 			go_button->SetEnabled(true);
 			break;
 		}	
 		
 		
-		case MW_DISABLE_GO_BUTTON:
+		case MW_GO_BUTTON_DISABLE:
 		{
 			go_button->SetEnabled(false);
 			break;
 		}	
+		
+		case MW_TIMER_UPDATE:
+		{
+			timer_view->UpdateTimer();
+			break;	
+		}	
+		
+		case MW_TIMER_START:
+		{
+			timer_view->StartTimer();
+			break;	
+		}	
+		
+		
+		case MW_TIMER_STOP:
+		{
+			timer_view->StopTimer();
+			break;
+		}
+		
 		
 						
 		default:

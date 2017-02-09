@@ -24,7 +24,7 @@ void App::MessageReceived(BMessage *msg)
 		}
 			
 		
-		case MW_SETTINGS_MENU:
+		case MW_MENU_SETTINGS:
 		{
 			SettingsWindow *settings_window = new SettingsWindow();		
 			settings_window->CenterOnScreen();
@@ -32,7 +32,7 @@ void App::MessageReceived(BMessage *msg)
 			break;
 		}
 		
-		case MW_GO_BUTTON:
+		case MW_GO_BUTTON_CLICKED:
 		{
 			start_game();
 			break;
@@ -101,7 +101,7 @@ void App::ReadyToRun()
 	input_window = new InputWindow();
 	main_window->Show();
 	input_window->Show();
-	//input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
 
 }	
 
@@ -113,7 +113,7 @@ void App::Pulse()
 
 	if (game_controller->IsRoundRunning())
 	{
-		std::cout << "Määhhhh" << std::endl;
+		main_window->PostMessage(new BMessage(MW_TIMER_UPDATE));
 	}
 }
 
@@ -123,7 +123,7 @@ void App::start_game()
 {
 	std::cout << "Disabling Go Button" << std::endl;
 	
-	main_window->PostMessage(new BMessage(MW_DISABLE_GO_BUTTON));
+	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
 	
 	input_window->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
 	input_window->PostMessage(new BMessage(IW_TEXT_CLEAR));
@@ -133,7 +133,8 @@ void App::start_game()
 	game_controller->StartRound();
 	
 	//letter_view->SetLetters(game_controller->GetBoardLetters(),game_controller->GetBoardLetterOrientation());
-	//timer_view->StartTimer();
+	
+	main_window->PostMessage(new BMessage(MW_TIMER_START));
 	
 }	
 
@@ -143,9 +144,11 @@ void App::start_game()
 void App::end_game()
 //----------------------------------------------------------------------------
 {
+	//stop the timer
+	main_window->PostMessage(new BMessage(MW_TIMER_STOP));
 	
-
-	//input_window->SetTextInactive();
+	//disable text editing on the input window
+	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
 	
 	//inform the user that the time is over
 	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
@@ -166,7 +169,7 @@ void App::end_game()
 	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
 
 	//enable the go button again
-	//main_window->EnableGoButton();
+	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
 	
 	
 	
