@@ -28,8 +28,6 @@
 //local includes
 #include "defs.h"
 #include "letterview.h"
-#include "settingswindow.h"
-#include "gamecontroller.h"
 #include "timerview.h"
 
 
@@ -43,7 +41,9 @@ enum WhatCodes
 	MW_GO_BUTTON,
 	MW_SETTINGS_MENU,
 	MW_TIME_OVER,
-				
+	MW_ENABLE_GO_BUTTON,
+	MW_DISABLE_GO_BUTTON,				
+
 };	
 
 
@@ -51,10 +51,9 @@ class MainWindow : public BWindow
 {
 	
 	public:
-		MainWindow(void);
+		MainWindow();
 		void MessageReceived(BMessage *msg);
-		bool QuitRequested(void);
-		
+		bool QuitRequested();
 
 	private:
 		
@@ -64,13 +63,7 @@ class MainWindow : public BWindow
 		BButton		*go_button;
 		TimerView	*timer_view;
 		
-		//other properties
-		GameController *game_controller;
-		
-		
-		//methods
-		void start_game();
-		void end_game();
 };
+
 
 #endif

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 
 //----------------------------------------------------------------------------
-MainWindow::MainWindow(void)
+MainWindow::MainWindow()
 	:BWindow(BRect(100,100,620,500),APPTITLE, B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 //----------------------------------------------------------------------------
 {
@@ -39,9 +39,7 @@ MainWindow::MainWindow(void)
 		.End()
 	.Layout();	
 		
-	game_controller = new GameController("/boot/home/Development/Boggle/data/dictionary.txt");
-	
-
+		
 }
 
 
@@ -64,23 +62,34 @@ void MainWindow::MessageReceived(BMessage *msg)
 		
 		case MW_SETTINGS_MENU:
 		{
-			
-			SettingsWindow *settings_window = new SettingsWindow();		
-			settings_window->CenterOnScreen();
-			settings_window->Show();
+			be_app->PostMessage(msg);
 			break;
 		}
 				
 				
 		case MW_GO_BUTTON:
 		{
-			start_game();	
+			be_app->PostMessage(msg);	
 			break;
 		}
 		
 		case TV_TIME_OVER:
 		{
-			end_game();	
+			//end_game();	
+			break;
+		}	
+		
+		
+		case MW_ENABLE_GO_BUTTON:
+		{
+			go_button->SetEnabled(true);
+			break;
+		}	
+		
+		
+		case MW_DISABLE_GO_BUTTON:
+		{
+			go_button->SetEnabled(false);
 			break;
 		}	
 		
@@ -97,65 +106,12 @@ void MainWindow::MessageReceived(BMessage *msg)
 
 
 //----------------------------------------------------------------------------
-bool MainWindow::QuitRequested(void)
+bool MainWindow::QuitRequested()
 //----------------------------------------------------------------------------
 {
 	
 	be_app->PostMessage(B_QUIT_REQUESTED);	
 	return true;
-}	
-
-
-
-//----------------------------------------------------------------------------
-void MainWindow::start_game()
-//----------------------------------------------------------------------------
-{
-	
-	go_button->SetEnabled(false);
-	
-	//input_window->SetTextActive();
-	//input_window->ClearText();
-	
-	game_controller->StartRound();
-	
-	letter_view->SetLetters(game_controller->GetBoardLetters(),game_controller->GetBoardLetterOrientation());
-	timer_view->StartTimer();
-	
-}	
-
-
-
-//----------------------------------------------------------------------------
-void MainWindow::end_game()
-//----------------------------------------------------------------------------
-{
-	
-
-	//input_window->SetTextInactive();
-	
-	//inform the user that the time is over
-	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
-	time_over_alert->Go();
-	
-	//get the word list from InputWindow object
-	//std::vector<std::string>::iterator iter;
-	//std::vector<std::string> word_list = input_window->GetWordList();
-	
-	//give the word list to the gamecontroller for evaluation
-	//game_controller->SetWordList(word_list);
-	
-	//Let the GameController evaluate the words and get back the results
-	//round_results results=game_controller->RoundFinished();
-	//std::vector<std::string> missing_words = game_controller->GetMissingWords();
-
-	//Display the results on the input window
-	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
-
-	
-	go_button->SetEnabled(true);
-	
-	
 }	
 
 

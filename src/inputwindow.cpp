@@ -28,35 +28,41 @@ InputWindow::InputWindow()
 }	
 
 
-//-----------------------------------------------------------------------------
-void InputWindow::ClearText()
-//-----------------------------------------------------------------------------
+
+//----------------------------------------------------------------------------
+void InputWindow::MessageReceived(BMessage *msg)
+//----------------------------------------------------------------------------
 {
-	words_textview->SelectAll();
-	words_textview->Clear();
 	
-	std::cout << "InputWindow::ClearText done...." << std::endl;
-}	
-
-
-//-----------------------------------------------------------------------------
-void InputWindow::SetTextActive()
-//-----------------------------------------------------------------------------
-{
-	//words_textview->MakeEditable(true);
-	
-	std::cout << "InputWindow::SetTextActive done...." << std::endl;
-}	
-
-
-
-//-----------------------------------------------------------------------------
-void InputWindow::SetTextInactive()
-//-----------------------------------------------------------------------------
-{
-	//words_textview->MakeEditable(false);
-	
-	std::cout << "InputWindow::SetTextInactive done...." << std::endl;
+	switch (msg->what)	
+	{
+		
+		
+		case IW_TEXT_ENABLE_EDIT:
+		{
+			words_textview->MakeEditable(true);
+			break;
+		}
+		
+		case IW_TEXT_DISABLE_EDIT:
+		{
+			words_textview->MakeEditable(false);
+			break;
+		}
+		
+		case IW_TEXT_CLEAR:
+		{
+			words_textview->SelectAll();
+			words_textview->Clear();
+			break;
+		}
+						
+		default:
+		{
+			BWindow::MessageReceived(msg);
+			break;
+		}
+	}
 
 }	
 
@@ -107,7 +113,7 @@ void InputWindow::DisplayResults(round_results results, int points_current_round
 	std::cout << "InputWindow::DisplayResults starting...." << std::endl;
 	
 	//empty the text view
-	ClearText();
+	//ClearText();
 	
 	
 	//loop through wordlist and output the words an the status (valid or not, points)
