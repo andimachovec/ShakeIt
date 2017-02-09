@@ -39,7 +39,10 @@ class GameController
 		int GetTotalPoints(void);								//returns the total points in the game
 		std::vector<std::string> GetMissingWords(void);         //returns the list of possible words that the player didn´t find 
 																//for the last finished round                    
-	
+		bool IsRoundRunning();
+		bool IsGameRunning();
+		
+		
 	private:
 		
 		//methods
@@ -76,6 +79,9 @@ class GameController
 		int minimum_word_length;				//minimum word length for the valid words 	
 		std::string dictionary_filename;		//filename of the wordlist file used for the dictionary check and to find missing words
 		std::vector<std::string> missing_words; //list of the possible words that the user didnt find (updated in RoundFinished())
+
+		bool game_running;
+		bool round_running;
 
 };
 

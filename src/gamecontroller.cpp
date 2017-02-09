@@ -10,15 +10,14 @@ GameController::GameController(std::string dictionary_file)
 	boggle_board = new BoggleBoard();
 
 
-	//set total points to 0
+	//initialize properties
 	points_total=0;
-
-	//set minimum word length
 	minimum_word_length = 4;
-	
-	//set dictionary filename
 	dictionary_filename=dictionary_file;	
+	round_running=false;
+	game_running=false;
 	
+
 
 	//initialize the already used matrix to false for all positions
 	//(the matrix is supplied by value to word_search and not actually changed, so it´s sufficient to initialize it once here)
@@ -36,7 +35,7 @@ void GameController::StartGame(void)
 //-----------------------------------------------------------------------------
 {
 
-
+	game_running=true;
 
 }
 
@@ -47,7 +46,7 @@ void GameController::GameFinished(void)
 //-----------------------------------------------------------------------------
 {
 
-
+	game_running=false;
 
 }
 
@@ -64,6 +63,7 @@ void GameController::StartRound(void)
 	//fill the letter matrix
 	this->setup_letter_matrix();
 	
+	round_running=true;
 }
 
 
@@ -73,6 +73,7 @@ round_results GameController::RoundFinished(void)
 //-----------------------------------------------------------------------------
 {
 
+	round_running=false;
 
 	round_results results;
 	std::vector<std::string>::iterator word_list_iter;
@@ -221,6 +222,25 @@ std::vector<std::string> GameController::GetMissingWords(void)
 	return missing_words;
 
 }
+
+
+
+
+//-----------------------------------------------------------------------------
+bool GameController::IsRoundRunning()
+//-----------------------------------------------------------------------------
+{
+	return round_running;
+}	
+
+
+
+//-----------------------------------------------------------------------------
+bool GameController::IsGameRunning()
+//-----------------------------------------------------------------------------
+{
+	return game_running;
+}	
 
 
 
