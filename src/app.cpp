@@ -101,7 +101,7 @@ void App::ReadyToRun()
 	input_window = new InputWindow();
 	main_window->Show();
 	input_window->Show();
-	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+	//input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
 
 }	
 
@@ -163,7 +163,7 @@ void App::end_game()
 	std::vector<std::string> missing_words = game_controller->GetMissingWords();
 
 	//Display the results on the input window
-	input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
+	//input_window->DisplayResults(results, game_controller->GetCurrentRoundPoints(), missing_words);
 
 	//enable the go button again
 	//main_window->EnableGoButton();

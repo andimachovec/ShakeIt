@@ -23,6 +23,7 @@ enum
 	IW_TEXT_ENABLE_EDIT='iw00',
 	IW_TEXT_DISABLE_EDIT,	
 	IW_TEXT_CLEAR,
+	IW_TEXT_SHOW,
 };	
 
 
@@ -34,7 +35,7 @@ class InputWindow : public BWindow
 		InputWindow();
 		void MessageReceived(BMessage *msg);
 		std::vector<std::string> GetWordList();
-		void DisplayResults(round_results results, int points_current_round, std::vector<std::string> missing_words);
+		//void DisplayResults(round_results results, int points_current_round, std::vector<std::string> missing_words);
 	
 	private:
 		BTextView *words_textview;
