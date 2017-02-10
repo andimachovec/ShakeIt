@@ -17,11 +17,11 @@ MainWindow::MainWindow(float left, float top, float right, float bottom)
 	//build the menu layout
 	BLayoutBuilder::Menu<>(top_menu_bar)
 		.AddMenu(B_TRANSLATE("File"))
-			.AddItem(B_TRANSLATE("Settings"), MW_MENU_SETTINGS, 'S')
+			.AddItem(B_TRANSLATE("Settings"), MW_MENU_SETTINGS_CLICKED, 'S')
 			.AddItem(B_TRANSLATE("Quit"), B_QUIT_REQUESTED, 'Q')
 		.End()
 		.AddMenu(B_TRANSLATE("Help"))
-			.AddItem(B_TRANSLATE("About"), MW_MENU_ABOUT)
+			.AddItem(B_TRANSLATE("About"), MW_MENU_ABOUT_CLICKED)
 		.End()
 	.End();	
 		
@@ -51,16 +51,14 @@ void MainWindow::MessageReceived(BMessage *msg)
 	switch (msg->what)	
 	{
 		
-		
-		
-		case MW_MENU_ABOUT:
+		case MW_MENU_ABOUT_CLICKED:
 		{
 			be_app->PostMessage(B_ABOUT_REQUESTED);
 			break;	
 		}		
 		
 		
-		case MW_MENU_SETTINGS:
+		case MW_MENU_SETTINGS_CLICKED:
 		{
 			be_app->PostMessage(msg);
 			break;
@@ -73,11 +71,21 @@ void MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}
 		
-		case TV_TIME_OVER:
+		
+		case MW_MENU_SETTINGS_ENABLE:
 		{
-			//end_game();	
+			BMenuItem *settings_menu=top_menu_bar->FindItem(MW_MENU_SETTINGS_CLICKED);
+			settings_menu->SetEnabled(true);
 			break;
 		}	
+		
+		
+		case MW_MENU_SETTINGS_DISABLE:
+		{
+			BMenuItem *settings_menu=top_menu_bar->FindItem(MW_MENU_SETTINGS_CLICKED);
+			settings_menu->SetEnabled(false);
+			break;
+		}
 		
 		
 		case MW_GO_BUTTON_ENABLE:
@@ -139,6 +147,8 @@ void MainWindow::MessageReceived(BMessage *msg)
 			BWindow::MessageReceived(msg);
 			break;
 		}
+	
+	
 	}
 
 }	

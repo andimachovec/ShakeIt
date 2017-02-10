@@ -24,7 +24,7 @@ void App::MessageReceived(BMessage *msg)
 		}
 			
 		
-		case MW_MENU_SETTINGS:
+		case MW_MENU_SETTINGS_CLICKED:
 		{
 			SettingsWindow *settings_window = new SettingsWindow();		
 			settings_window->CenterOnScreen();
@@ -127,6 +127,9 @@ void App::Pulse()
 void App::start_game()
 //----------------------------------------------------------------------------
 {
+	
+	//disable the settings menu
+	main_window->PostMessage(new BMessage(MW_MENU_SETTINGS_DISABLE));
 	
 	//disable the go button
 	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
@@ -256,6 +259,9 @@ void App::end_game()
 	//enable the go button again
 	main_window->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
 	
+	//enable the settings menu again
+	//disable the settings menu
+	main_window->PostMessage(new BMessage(MW_MENU_SETTINGS_ENABLE));
 	
 }	
 
