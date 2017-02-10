@@ -97,7 +97,7 @@ void App::ReadyToRun()
 	SetPulseRate(1000000);	
 	
 	//create and show the main and the input window
-	main_window = new MainWindow();
+	main_window = new MainWindow(100,100,620,500);
 	input_window = new InputWindow(100,100,500,400);
 	main_window->Show();
 	input_window->Show();

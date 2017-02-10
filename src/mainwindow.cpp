@@ -1,8 +1,8 @@
 #include "mainwindow.h"
 
 //----------------------------------------------------------------------------
-MainWindow::MainWindow()
-	:BWindow(BRect(100,100,620,500),APPTITLE, B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+MainWindow::MainWindow(float left, float top, float right, float bottom)
+	:BWindow(BRect(left,top,right,bottom),APPTITLE, B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 //----------------------------------------------------------------------------
 {
 	
