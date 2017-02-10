@@ -9,6 +9,7 @@ InputWindow::InputWindow()
 	
 	
 	words_textview = new BTextView("wordinput");
+	words_textview_scrollbar = new BScrollBar("wordscroll",words_textview,1,100,B_VERTICAL);
 	
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)

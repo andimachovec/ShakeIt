@@ -6,6 +6,7 @@
 #include <LayoutBuilder.h>
 #include <Layout.h>
 #include <LayoutItem.h>
+#include <ScrollBar.h>
 
 #include <string>
 #include <vector>
@@ -37,6 +38,7 @@ class InputWindow : public BWindow
 	
 	private:
 		BTextView *words_textview;
+		BScrollBar *words_textview_scrollbar;
 		
 		std::vector<std::string> word_list;
 		
