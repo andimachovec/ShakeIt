@@ -98,10 +98,16 @@ void App::ReadyToRun()
 	
 	//create and show the main and the input window
 	main_window = new MainWindow(100,100,620,500);
-	input_window = new InputWindow(100,100,500,400);
+	
+	BRect main_window_rect = main_window->Frame();
+	std::cout << main_window_rect.right << std::endl;
+	
+	input_window = new InputWindow(main_window_rect.right+20,100,main_window_rect.right+420,500);
 	main_window->Show();
 	input_window->Show();
 	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+	main_window->Activate(true);
+
 
 }	
 
