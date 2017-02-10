@@ -7,13 +7,13 @@
 #include <Layout.h>
 #include <LayoutItem.h>
 #include <ScrollBar.h>
+#include <Catalog.h>
+
 
 #include <string>
 #include <vector>
 #include <sstream>
 #include <boost/algorithm/string/trim.hpp>
-
-
 #include <iostream>
 
 

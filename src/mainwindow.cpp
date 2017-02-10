@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "MainWindow"
+
 //----------------------------------------------------------------------------
 MainWindow::MainWindow(float left, float top, float right, float bottom)
 	:BWindow(BRect(left,top,right,bottom),APPTITLE, B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
@@ -9,7 +12,7 @@ MainWindow::MainWindow(float left, float top, float right, float bottom)
 	//initialize GUI Objects
 	top_menu_bar = new BMenuBar("topmenubar");
 	letter_view = new LetterView();
-	go_button = new BButton("Go", new BMessage(MW_GO_BUTTON_CLICKED));
+	go_button = new BButton(B_TRANSLATE("Go"), new BMessage(MW_GO_BUTTON_CLICKED));
 	
 	timer_view = new TimerView();
 	

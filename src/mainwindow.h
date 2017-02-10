@@ -19,7 +19,6 @@
 #include <Alert.h>
 
 
-
 //other system includes
 #include <string>
 #include <iostream>
@@ -31,11 +30,7 @@
 #include "timerview.h"
 
 
-#undef B_TRANSLATION_CONTEXT
-#define B_TRANSLATION_CONTEXT "MainWindow"
-
-
-enum WhatCodes 
+enum  
 {
 	MW_MENU_ABOUT_CLICKED = 'mw00',
 	MW_MENU_SETTINGS_CLICKED,

@@ -1,0 +1,23 @@
+1	English	application/x-vnd.dw-Boggle	920288555
+OK	App		OK
+a word searching game	App		a word searching game
+too short	App		too short
+File	MainWindow		File
+duplicate	App		duplicate
+Time over	App		Time over
+Quit	MainWindow		Quit
+Dictionary file	SettingsWindow		Dictionary file
+Cancel	SettingsWindow		Cancel
+Minimum word length	SettingsWindow		Minimum word length
+not possible	App		not possible
+Go	MainWindow		Go
+Help	MainWindow		Help
+Missing words	App		Missing words
+Settings	SettingsWindow		Settings
+look at the sun and be happy!	App		look at the sun and be happy!
+Word Input	InputWindow		Word Input
+Save	SettingsWindow		Save
+About	MainWindow		About
+not in dictionary	App		not in dictionary
+Settings	MainWindow		Settings
+Points in this round	App		Points in this round

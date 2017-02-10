@@ -1,5 +1,6 @@
 #include "app.h"
 
+
 //----------------------------------------------------------------------------
 App::App(void)
 		: BApplication(APP_SIGNATURE)
@@ -49,6 +50,7 @@ void App::MessageReceived(BMessage *msg)
 }
 
 
+
 //----------------------------------------------------------------------------
 void App::AboutRequested()
 //----------------------------------------------------------------------------
@@ -85,6 +87,7 @@ bool App::QuitRequested()
 }
 
 
+
 //----------------------------------------------------------------------------
 void App::ReadyToRun()
 //----------------------------------------------------------------------------
@@ -93,14 +96,13 @@ void App::ReadyToRun()
 	//create GameController object
 	game_controller = new GameController("/boot/home/Development/Boggle/data/dictionary.txt");
 	
-	//set app pulse to 1 second	
+	//set app pulse to 1 second	(for the timer)
 	SetPulseRate(1000000);	
 	
 	//create and show the main and the input window
 	main_window = new MainWindow(100,100,620,500);
 	
 	BRect main_window_rect = main_window->Frame();
-	std::cout << main_window_rect.right << std::endl;
 	
 	input_window = new InputWindow(main_window_rect.right+20,100,main_window_rect.right+420,500);
 	main_window->Show();
@@ -112,8 +114,9 @@ void App::ReadyToRun()
 }	
 
 
+
 //----------------------------------------------------------------------------
-void App::Pulse()
+void App::Pulse() //sends a message every second to update the timer
 //----------------------------------------------------------------------------
 {
 
@@ -122,6 +125,8 @@ void App::Pulse()
 		main_window->PostMessage(new BMessage(MW_TIMER_UPDATE));
 	}
 }
+
+
 
 //----------------------------------------------------------------------------
 void App::start_game()
@@ -178,7 +183,7 @@ void App::end_game()
 
 	
 	//inform the user that the time is over
-	BAlert *time_over_alert = new BAlert("Boggle","Time over","OK");
+	BAlert *time_over_alert = new BAlert("Boggle",B_TRANSLATE("Time over"),"OK");
 	time_over_alert->Go();
 
 	
@@ -200,11 +205,11 @@ void App::end_game()
 	
 	//assign status messages for the word evaluation
 	std::array<std::string,5> result_text;
-	result_text[0]="OK";
-	result_text[1]="too short";
-	result_text[2]="not possible";
-	result_text[3]="not in dictionary";
-	result_text[4]="duplicate";
+	result_text[0]=B_TRANSLATE("OK");
+	result_text[1]=B_TRANSLATE("too short");
+	result_text[2]=B_TRANSLATE("not possible");
+	result_text[3]=B_TRANSLATE("not in dictionary");
+	result_text[4]=B_TRANSLATE("duplicate");
 
 	
 	
@@ -232,7 +237,7 @@ void App::end_game()
 	}
 	
 	//total points in this round
-	result_stream << "\n" << "Points in this round" << ": " << game_controller->GetCurrentRoundPoints() << "\n";
+	result_stream << "\n" << B_TRANSLATE("Points in this round") << ": " << game_controller->GetCurrentRoundPoints() << "\n";
 	
 	
 	//missing words
@@ -240,7 +245,7 @@ void App::end_game()
 	{
 		
 		result_stream << "\n\n";
-		result_stream << "Missing words" << ":\n";
+		result_stream << B_TRANSLATE("Missing words") << ":\n";
 	
 		std::vector<std::string>::iterator mw_iter;
 	
@@ -264,8 +269,6 @@ void App::end_game()
 	main_window->PostMessage(new BMessage(MW_MENU_SETTINGS_ENABLE));
 	
 }	
-
-
 
 
 

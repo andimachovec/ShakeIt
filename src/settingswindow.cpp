@@ -1,17 +1,21 @@
 #include "settingswindow.h"
 
 
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "SettingsWindow"
+
+
 //-----------------------------------------------------------------------------
 SettingsWindow::SettingsWindow()
-		: BWindow(BRect(100,100,400,200),"Settings", B_MODAL_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+		: BWindow(BRect(100,100,400,200),B_TRANSLATE("Settings"), B_MODAL_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 //-----------------------------------------------------------------------------
 {
 	
 	
-	save_button = new BButton("Save", new BMessage(SW_SAVE_BUTTON));
-	cancel_button = new BButton("Cancel", new BMessage(SW_CANCEL_BUTTON));
-	dictionary_textcontrol = new BTextControl("Dictionary file","dictionary.txt",new BMessage(SW_DICTIONARY_TEXT));
-	minwordlength_textcontrol = new BTextControl("Minimum word length","4",new BMessage(SW_MINWORDLENGTH_TEXT));
+	save_button = new BButton(B_TRANSLATE("Save"), new BMessage(SW_SAVE_BUTTON));
+	cancel_button = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_CANCEL_BUTTON));
+	dictionary_textcontrol = new BTextControl(B_TRANSLATE("Dictionary file"),"dictionary.txt",new BMessage(SW_DICTIONARY_TEXT));
+	minwordlength_textcontrol = new BTextControl(B_TRANSLATE("Minimum word length"),"4",new BMessage(SW_MINWORDLENGTH_TEXT));
 	
 	 
 	

@@ -7,6 +7,7 @@
 #include <LayoutBuilder.h>
 #include <Layout.h>
 #include <LayoutItem.h>
+#include <Catalog.h>
 
 
 enum
