@@ -98,7 +98,7 @@ void App::ReadyToRun()
 	
 	//create and show the main and the input window
 	main_window = new MainWindow();
-	input_window = new InputWindow();
+	input_window = new InputWindow(100,100,500,400);
 	main_window->Show();
 	input_window->Show();
 	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));

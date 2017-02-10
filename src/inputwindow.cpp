@@ -2,8 +2,8 @@
 
 
 //-----------------------------------------------------------------------------
-InputWindow::InputWindow()
-		: BWindow(BRect(100,100,500,400),"Word Input", B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
+InputWindow::InputWindow(float left, float top, float right, float bottom)
+		: BWindow(BRect(left, top, right, bottom),"Word Input", B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
 //-----------------------------------------------------------------------------
 {
 	

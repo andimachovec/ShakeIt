@@ -31,7 +31,7 @@ class InputWindow : public BWindow
 {
 	
 	public:
-		InputWindow();
+		InputWindow(float left, float top, float right, float bottom);
 		void MessageReceived(BMessage *msg);
 		std::vector<std::string> GetWordList();
 		
