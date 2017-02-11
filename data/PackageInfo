@@ -1,0 +1,28 @@
+name			Boggle
+version			0.5.8-1
+architecture	x86_64
+summary			"a word guessing game"
+description		"an implementation of the Boggle word guessing game"
+packager		"Andi Machovec <achmidrashid@gmail.com>"
+vendor			"Ghost Dog Software"
+
+licenses 
+{
+	"MIT"	
+}
+
+copyrights 
+{		
+	"Copyright (C) 2017 by Andi Machovec <achmidrashid@gmail.com>"
+}
+
+provides
+{
+	
+}
+
+requires
+{
+	
+}		
+
