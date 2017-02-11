@@ -22,6 +22,7 @@
 #include "inputwindow.h"
 #include "settingswindow.h"
 #include "gamecontroller.h"
+#include "configparser.h"
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -42,12 +43,13 @@ class App : public BApplication
 	private:
 		
 		//windows
-		MainWindow *main_window;
-		InputWindow *input_window;
+		MainWindow	*main_window;
+		InputWindow	*input_window;
 
 		//other properties
-		GameController *game_controller;
-
+		GameController 	*game_controller;
+		ConfigParser	*config_parser;
+		
 		//methods
 		void start_game();
 		void end_game();

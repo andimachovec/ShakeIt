@@ -93,8 +93,12 @@ void App::ReadyToRun()
 //----------------------------------------------------------------------------
 {
 
-	//create GameController object
-	game_controller = new GameController("/boot/home/Development/Boggle/data/dictionary.txt");
+	//initialize config parser and game controller
+	config_parser=new ConfigParser(CONFIG_FILE);
+	config_parser->ReadConfig();
+	
+	game_controller = new GameController(config_parser->GetParam("dictionary_file"));
+	
 	
 	//set app pulse to 1 second	(for the timer)
 	SetPulseRate(1000000);	
