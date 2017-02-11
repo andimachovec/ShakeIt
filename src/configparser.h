@@ -14,8 +14,8 @@ class ConfigParser
 		ConfigParser(const char *xmlfilename);
 		std::string GetParam(std::string parametername);	
 		bool SetParam(std::string parametername, std::string value);
-		bool ReadConfig(void);
-		bool WriteConfig(void);
+		bool ReadConfig();
+		bool WriteConfig();
 		
 		
 	private:

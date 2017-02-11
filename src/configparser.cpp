@@ -13,7 +13,7 @@ ConfigParser::ConfigParser(const char *xmlfilename) : XMLFile(xmlfilename)
 
 
 //-----------------------------------------------------------------------------
-bool ConfigParser::ReadConfig(void) //read parameters from XML config file
+bool ConfigParser::ReadConfig() //read parameters from XML config file
 //-----------------------------------------------------------------------------
 {
 	
@@ -41,7 +41,7 @@ bool ConfigParser::ReadConfig(void) //read parameters from XML config file
 
 
 //-----------------------------------------------------------------------------
-bool ConfigParser::WriteConfig(void) //write parameters into XML config file 
+bool ConfigParser::WriteConfig() //write parameters into XML config file 
 //-----------------------------------------------------------------------------
 {
 	
