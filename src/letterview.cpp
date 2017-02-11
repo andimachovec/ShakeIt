@@ -62,8 +62,7 @@ void LetterView::load_bitmaps()
 
 	for (int i=0; i<16; ++i)
 	{
-		std::string bitmap_name="../images/"+letter_filenames[i];
-		board_letters[i] = BTranslationUtils::GetBitmap(bitmap_name.c_str());		
+		board_letters[i] = BTranslationUtils::GetBitmap(B_PNG_FORMAT,letter_filenames[i].c_str());		
 	}	 
 
 }	
