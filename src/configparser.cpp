@@ -36,9 +36,7 @@ bool ConfigParser::ReadConfig() //read parameters from XML config file
 	
 	for(TiXmlElement *XMLElement = RootNode->FirstChildElement(); XMLElement != NULL; XMLElement = XMLElement->NextSiblingElement())
 	{
-		
-		Parameters[XMLElement->Value()] = XMLElement->GetText();
-		std::cout << XMLElement->Value() << " - " << XMLElement->GetText() << std::endl;			
+		Parameters[XMLElement->Value()] = XMLElement->GetText();			
 	}
 	
 	return true;

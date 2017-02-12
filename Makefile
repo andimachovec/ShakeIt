@@ -29,17 +29,21 @@ APP_MIME_SIG = application/x-vnd.dw-Boggle
 #	same name (source.c or source.cpp) are included from different directories.
 #	Also note that spaces in folder names do not work well with this Makefile.
 SRCS = \
-	 src/configparser.cpp  \
 	 src/app.cpp  \
 	 src/boggleboard.cpp  \
 	 src/boggledie.cpp  \
 	 src/boggleletter.cpp  \
+	 src/configparser.cpp  \
 	 src/gamecontroller.cpp  \
 	 src/inputwindow.cpp  \
 	 src/letterview.cpp  \
 	 src/mainwindow.cpp  \
 	 src/settingswindow.cpp  \
 	 src/timerview.cpp  \
+	 src/tinyxml/tinystr.cpp  \
+	 src/tinyxml/tinyxml.cpp  \
+	 src/tinyxml/tinyxmlerror.cpp  \
+	 src/tinyxml/tinyxmlparser.cpp  \
 
 
 #	Specify the resource definition files to use. Full or relative paths can be
@@ -93,6 +97,8 @@ RSRCS = \
 
 #%}
 
+#%}
+
 #	Specify libraries to link against.
 #	There are two acceptable forms of library specifications:
 #	-	if your library follows the naming pattern of libXXX.so or libXXX.a,
@@ -105,7 +111,7 @@ RSRCS = \
 #	- 	if your library does not follow the standard library naming scheme,
 #		you need to specify the path to the library and it's name.
 #		(e.g. for mylib.a, specify "mylib.a" or "path/mylib.a")
-LIBS = $(STDCPPLIBS) be root translation localestub tinyxml
+LIBS = $(STDCPPLIBS) be root translation localestub
 
 #	Specify additional paths to directories following the standard libXXX.so
 #	or libXXX.a naming scheme. You can specify full paths or paths relative
