@@ -94,26 +94,35 @@ void App::ReadyToRun()
 {
 
 	//initialize config parser and game controller
-	config_parser=new ConfigParser(CONFIG_FILE);
-	config_parser->ReadConfig();
 	
-	game_controller = new GameController(config_parser->GetParam("dictionary_file"));
+	try
+	{
+		config_parser=new ConfigParser(CONFIG_FILE);
 	
+		game_controller = new GameController(config_parser->GetParam("dictionary_file"));
 	
-	//set app pulse to 1 second	(for the timer)
-	SetPulseRate(1000000);	
+		//set app pulse to 1 second	(for the timer)
+		SetPulseRate(1000000);	
 	
-	//create and show the main and the input window
-	main_window = new MainWindow(100,100,620,500);
+		//create and show the main and the input window
+		main_window = new MainWindow(100,100,620,500);
 	
-	BRect main_window_rect = main_window->Frame();
+		BRect main_window_rect = main_window->Frame();
 	
-	input_window = new InputWindow(main_window_rect.right+20,100,main_window_rect.right+420,500);
-	main_window->Show();
-	input_window->Show();
-	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
-	main_window->Activate(true);
+		input_window = new InputWindow(main_window_rect.right+20,100,main_window_rect.right+420,500);
+		main_window->Show();
+		input_window->Show();
+		input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+		main_window->Activate(true);
+	}
 
+
+	catch(const std::runtime_error &e)
+	{
+		BAlert *time_over_alert = new BAlert("Boggle",e.what(),"OK");
+		time_over_alert->Go();
+		this->PostMessage(new BMessage(B_QUIT_REQUESTED));
+	}	
 
 }	
 

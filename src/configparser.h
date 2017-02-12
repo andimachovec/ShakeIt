@@ -4,7 +4,7 @@
 #include <tinyxml.h>
 #include <map>
 #include <string>
-
+#include <exception>
 
 class ConfigParser
 {

@@ -18,7 +18,13 @@ bool ConfigParser::ReadConfig() //read parameters from XML config file
 {
 	
 	//Load Content from XML file
-	XMLFile.LoadFile();
+	bool load_ok = XMLFile.LoadFile();
+	
+	if (!load_ok)
+	{
+		throw std::runtime_error("could not open config file");
+	}	
+	
 	
 	// make sure the parameter map is empty
 	Parameters.clear();
