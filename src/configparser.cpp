@@ -38,7 +38,7 @@ bool ConfigParser::ReadConfig() //read parameters from XML config file
 	{
 		
 		Parameters[XMLElement->Value()] = XMLElement->GetText();
-					
+		std::cout << XMLElement->Value() << " - " << XMLElement->GetText() << std::endl;			
 	}
 	
 	return true;
