@@ -2,7 +2,8 @@
 
 
 //-----------------------------------------------------------------------------
-GameController::GameController(std::string dictionary_file)
+GameController::GameController(std::string DictionaryFile, int MinimumWordLength)
+		: dictionary_filename(DictionaryFile), minimum_word_length(MinimumWordLength) 
 //-----------------------------------------------------------------------------
 {
 
@@ -12,8 +13,6 @@ GameController::GameController(std::string dictionary_file)
 
 	//initialize properties
 	points_total=0;
-	minimum_word_length = 4;
-	dictionary_filename=dictionary_file;	
 	round_running=false;
 	game_running=false;
 	

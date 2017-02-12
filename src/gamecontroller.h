@@ -27,17 +27,17 @@ class GameController
 {
 
 	public:
-		GameController(std::string dictionary_file);			//constructor
-		void StartGame(void);									//starts the game
-		void GameFinished(void);								//finishes the game
-		void StartRound(void);									//starts a game round
-		round_results RoundFinished(void);						//finishes a game round	
-		std::vector<std::string> GetBoardLetters(void);			//called by MainFrame to get the letter list for display on the board
-		std::vector<int> GetBoardLetterOrientation(void);       //called by Mainframe to get the orientation of the letters on the board
+		GameController(std::string DictionaryFile, int MinimumWordLength);			//constructor
+		void StartGame();									//starts the game
+		void GameFinished();								//finishes the game
+		void StartRound();									//starts a game round
+		round_results RoundFinished();						//finishes a game round	
+		std::vector<std::string> GetBoardLetters();			//called by MainFrame to get the letter list for display on the board
+		std::vector<int> GetBoardLetterOrientation();       //called by Mainframe to get the orientation of the letters on the board
 		void SetWordList(std::vector<std::string> WordList);	//called by MainFrame to give the word list from WordFrame back to GameController
-		int GetCurrentRoundPoints(void);						//returns the points of the current (finished) round
-		int GetTotalPoints(void);								//returns the total points in the game
-		std::vector<std::string> GetMissingWords(void);         //returns the list of possible words that the player didn´t find 
+		int GetCurrentRoundPoints();						//returns the points of the current (finished) round
+		int GetTotalPoints();								//returns the total points in the game
+		std::vector<std::string> GetMissingWords();         //returns the list of possible words that the player didn´t find 
 																//for the last finished round                    
 		bool IsRoundRunning();
 		bool IsGameRunning();

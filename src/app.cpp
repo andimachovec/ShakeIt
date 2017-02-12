@@ -93,16 +93,22 @@ void App::ReadyToRun()
 //----------------------------------------------------------------------------
 {
 
-	//initialize config parser and game controller
+	
 	
 	try
 	{
+		
+		//initialize config parser and game controller
 		config_parser=new ConfigParser(CONFIG_FILE);
 	
-		game_controller = new GameController(config_parser->GetParam("dictionary_file"));
+		std::string dictionary_file = config_parser->GetParam("dictionary_file");
+		int minimum_word_length = std::stoi(config_parser->GetParam("minimum_word_length"));
+		game_controller = new GameController(dictionary_file, minimum_word_length);
+	
 	
 		//set app pulse to 1 second	(for the timer)
 		SetPulseRate(1000000);	
+	
 	
 		//create and show the main and the input window
 		main_window = new MainWindow(100,100,620,500);
