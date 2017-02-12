@@ -30,7 +30,7 @@ GameController::GameController(std::string DictionaryFile, int MinimumWordLength
 
 
 //-----------------------------------------------------------------------------
-void GameController::StartGame(void)
+void GameController::StartGame()
 //-----------------------------------------------------------------------------
 {
 
@@ -41,7 +41,7 @@ void GameController::StartGame(void)
 
 
 //-----------------------------------------------------------------------------
-void GameController::GameFinished(void)
+void GameController::GameFinished()
 //-----------------------------------------------------------------------------
 {
 
@@ -52,7 +52,7 @@ void GameController::GameFinished(void)
 
 
 //-----------------------------------------------------------------------------
-void GameController::StartRound(void)
+void GameController::StartRound()
 //-----------------------------------------------------------------------------
 {
 
@@ -68,7 +68,7 @@ void GameController::StartRound(void)
 
 
 //-----------------------------------------------------------------------------
-round_results GameController::RoundFinished(void)
+round_results GameController::RoundFinished()
 //-----------------------------------------------------------------------------
 {
 
@@ -123,7 +123,7 @@ round_results GameController::RoundFinished(void)
 
 
 //-----------------------------------------------------------------------------
-std::vector<std::string> GameController::GetBoardLetters(void)	
+std::vector<std::string> GameController::GetBoardLetters()	
 //-----------------------------------------------------------------------------
 {
 
@@ -153,7 +153,7 @@ std::vector<std::string> GameController::GetBoardLetters(void)
 
 
 //-----------------------------------------------------------------------------
-std::vector<int> GameController::GetBoardLetterOrientation(void)	
+std::vector<int> GameController::GetBoardLetterOrientation()	
 //-----------------------------------------------------------------------------
 {
 
@@ -192,7 +192,7 @@ void GameController::SetWordList(std::vector<std::string> WordList)
 
 
 //-----------------------------------------------------------------------------
-int GameController::GetCurrentRoundPoints(void)
+int GameController::GetCurrentRoundPoints()
 //-----------------------------------------------------------------------------
 {
 
@@ -203,7 +203,7 @@ int GameController::GetCurrentRoundPoints(void)
 
 
 //-----------------------------------------------------------------------------
-int GameController::GetTotalPoints(void)
+int GameController::GetTotalPoints()
 //-----------------------------------------------------------------------------
 {
 
@@ -214,7 +214,7 @@ int GameController::GetTotalPoints(void)
 
 
 //-----------------------------------------------------------------------------
-std::vector<std::string> GameController::GetMissingWords(void)
+std::vector<std::string> GameController::GetMissingWords()
 //-----------------------------------------------------------------------------
 {
 
@@ -441,7 +441,7 @@ bool GameController::check_dictionary(std::string word)
 
 
 //-----------------------------------------------------------------------------------
-void GameController::find_missing_words(void)
+void GameController::find_missing_words()
 //-----------------------------------------------------------------------------------
 {
 
@@ -544,7 +544,7 @@ int GameController::give_points(std::string word)
 
 
 //-----------------------------------------------------------------------------
-void GameController::setup_letter_matrix(void)
+void GameController::setup_letter_matrix()
 //-----------------------------------------------------------------------------
 {
 
@@ -583,7 +583,7 @@ void GameController::setup_letter_matrix(void)
 
 
 //-----------------------------------------------------------------------------------
-void GameController::initialize_already_used_matrix(void)
+void GameController::initialize_already_used_matrix()
 //-----------------------------------------------------------------------------------
 {
 
