@@ -1,6 +1,6 @@
 <?xml version='1.0' standalone='yes'?>
 <config>
-  <dictionary>/boot/home/config/settings/Boggle/dictionary.txt</dictionary>
+  <dictionary_file>/boot/home/config/settings/Boggle/dictionary.txt</dictionary_file>
   <dictionary_update_url>raspi.machovec.lan</dictionary_update_url>
   <minimum_word_length>4</minimum_word_length>
   <sound>off</sound> 
