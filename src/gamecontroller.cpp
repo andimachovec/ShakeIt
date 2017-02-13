@@ -242,6 +242,27 @@ bool GameController::IsGameRunning()
 }	
 
 
+//-----------------------------------------------------------------------------
+void GameController::SetDictionaryFile(std::string DictionaryFileName)
+//-----------------------------------------------------------------------------
+{
+	
+	dictionary_filename=DictionaryFileName;	
+	
+}	
+
+
+//-----------------------------------------------------------------------------
+void GameController::SetMinimumWordLength(int MinimumWordLength)
+//-----------------------------------------------------------------------------
+{
+	
+	minimum_word_length=MinimumWordLength;	
+	
+}	
+
+
+
 
 //-----------------------------------------------------------------------------
 int GameController::validate_word(std::string word)

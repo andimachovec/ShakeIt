@@ -42,6 +42,9 @@ class GameController
 		bool IsRoundRunning();
 		bool IsGameRunning();
 		
+		void SetDictionaryFile(std::string DictionaryFileName);
+		void SetMinimumWordLength(int MinimumWordLength);
+		
 		
 	private:
 		
