@@ -104,3 +104,19 @@ std::vector<std::string> InputWindow::GetWordList()
 	return word_list;
 }	
 
+
+
+//-----------------------------------------------------------------------------
+void InputWindow::WindowActivated(bool active)
+//-----------------------------------------------------------------------------
+{
+
+	if (active)
+	{
+	
+		words_textview->MakeFocus(true);
+
+	}
+	
+}	
+
