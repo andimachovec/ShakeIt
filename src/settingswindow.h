@@ -8,14 +8,15 @@
 #include <Layout.h>
 #include <LayoutItem.h>
 #include <Catalog.h>
-
+#include <Application.h>
 
 enum
 {
-	SW_SAVE_BUTTON='sw00',
-	SW_CANCEL_BUTTON,
-	SW_DICTIONARY_TEXT,
-	SW_MINWORDLENGTH_TEXT,	
+	SW_BUTTON_SAVE_CLICKED='sw00',
+	SW_BUTTON_CANCEL_CLICKED,
+	SW_TEXT_DICTIONARY_ENTERED,
+	SW_TEXT_MINWORDLENGTH_ENTERED,	
+	SW_SETTINGS_SAVE,
 };	
 
 

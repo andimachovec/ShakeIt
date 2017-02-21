@@ -12,10 +12,10 @@ SettingsWindow::SettingsWindow()
 {
 	
 	
-	save_button = new BButton(B_TRANSLATE("Save"), new BMessage(SW_SAVE_BUTTON));
-	cancel_button = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_CANCEL_BUTTON));
-	dictionary_textcontrol = new BTextControl(B_TRANSLATE("Dictionary file"),"dictionary.txt",new BMessage(SW_DICTIONARY_TEXT));
-	minwordlength_textcontrol = new BTextControl(B_TRANSLATE("Minimum word length"),"4",new BMessage(SW_MINWORDLENGTH_TEXT));
+	save_button = new BButton(B_TRANSLATE("Save"), new BMessage(SW_BUTTON_SAVE_CLICKED));
+	cancel_button = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_BUTTON_CANCEL_CLICKED));
+	dictionary_textcontrol = new BTextControl(B_TRANSLATE("Dictionary file"),"dictionary.txt",new BMessage(SW_TEXT_DICTIONARY_ENTERED));
+	minwordlength_textcontrol = new BTextControl(B_TRANSLATE("Minimum word length"),"4",new BMessage(SW_TEXT_MINWORDLENGTH_ENTERED));
 	
 	 
 	
@@ -41,16 +41,21 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 	{	
 	
 	
-		case SW_SAVE_BUTTON:
+		case SW_BUTTON_SAVE_CLICKED:
 		{
 			
+			BMessage *save_settings_msg = new BMessage(SW_SETTINGS_SAVE);
+			//save_settings_msg->AddString()
+			
+			
+			be_app->PostMessage(save_settings_msg);
 			this->Quit();
 			break;
 			
 		}
 	
 	
-		case SW_CANCEL_BUTTON:
+		case SW_BUTTON_CANCEL_CLICKED:
 		{
 			
 			this->Quit();

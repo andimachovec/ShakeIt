@@ -39,6 +39,14 @@ void App::MessageReceived(BMessage *msg)
 			break;
 		}
 		
+		case SW_SETTINGS_SAVE:
+		{
+			
+				
+			break;	
+		}	
+		
+		
 		default:
 		{
 			BApplication::MessageReceived(msg);
