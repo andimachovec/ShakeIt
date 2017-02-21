@@ -146,7 +146,7 @@ LOCALES = en de
 #	use. For example, setting DEFINES to "DEBUG=1" will cause the compiler
 #	option "-DDEBUG=1" to be used. Setting DEFINES to "DEBUG" would pass
 #	"-DDEBUG" on the compiler's command line.
-DEFINES = 
+DEFINES = TIXML_USE_STL 
 
 #	Specify the warning level. Either NONE (suppress all warnings),
 #	ALL (enable all warnings), or leave blank (enable default warnings).
@@ -158,10 +158,10 @@ SYMBOLS :=
 
 #	Includes debug information, which allows the binary to be debugged easily.
 #	If set to "TRUE", debug info will be created.
-DEBUGGER := 
+DEBUGGER := TRUE
 
 #	Specify any additional compiler flags to be used.
-COMPILER_FLAGS = -std=c++11 -gdwarf -DTIXML_USE_STL
+COMPILER_FLAGS = -std=c++11
 
 #	Specify any additional linker flags to be used.
 LINKER_FLAGS = 
