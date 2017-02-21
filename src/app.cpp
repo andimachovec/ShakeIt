@@ -163,6 +163,10 @@ void App::start_game()
 	input_window->PostMessage(new BMessage(IW_TEXT_CLEAR));
 	
 	
+	//activate the input window
+	input_window->PostMessage(new BMessage(IW_ACTIVATE));
+	
+	
 	//tell the game controller to start the round
 	game_controller->StartRound();
 	

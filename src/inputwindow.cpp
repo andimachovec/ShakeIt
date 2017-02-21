@@ -60,6 +60,12 @@ void InputWindow::MessageReceived(BMessage *msg)
 			words_textview->SetText(msg->GetString("text"),strlen(msg->GetString("text")));
 			break;
 		}
+		
+		case IW_ACTIVATE:
+		{
+			Activate(true);
+			break;
+		}
 						
 		default:
 		{
