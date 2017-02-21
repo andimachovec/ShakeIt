@@ -80,7 +80,7 @@ void LetterView::draw_bitmaps()
 	
 	
 	int x_start=80;
-	int y_start=40;
+	int y_start=20;
 	int x_delta=80;
 	int y_delta=80;
 	
