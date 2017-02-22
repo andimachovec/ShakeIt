@@ -50,12 +50,14 @@ void App::MessageReceived(BMessage *msg)
 			if (dictionary_file != NULL)
 			{
 				config_parser->SetParam("dictionary_file",std::string(dictionary_file));
+				game_controller->SetDictionaryFile(std::string(dictionary_file));
 				must_save=true;
 			}		
 			
 			if (minimum_word_length != NULL)
 			{
 				config_parser->SetParam("minimum_word_length",std::string(minimum_word_length));
+				game_controller->SetMinimumWordLength(std::atoi(minimum_word_length));
 				must_save=true;
 			}
 				

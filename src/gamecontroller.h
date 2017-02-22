@@ -38,12 +38,13 @@ class GameController
 		int GetCurrentRoundPoints();						//returns the points of the current (finished) round
 		int GetTotalPoints();								//returns the total points in the game
 		std::vector<std::string> GetMissingWords();         //returns the list of possible words that the player didn´t find 
-																//for the last finished round                    
+															//for the last finished round 
+															
+		bool SetDictionaryFile(std::string DictionaryFile);
+		bool SetMinimumWordLength(int MinimumWordLength);
+																                   
 		bool IsRoundRunning();
 		bool IsGameRunning();
-		
-		void SetDictionaryFile(std::string DictionaryFileName);
-		void SetMinimumWordLength(int MinimumWordLength);
 		
 		
 	private:

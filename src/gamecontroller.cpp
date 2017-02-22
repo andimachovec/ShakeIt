@@ -243,21 +243,40 @@ bool GameController::IsGameRunning()
 
 
 //-----------------------------------------------------------------------------
-void GameController::SetDictionaryFile(std::string DictionaryFileName)
+bool GameController::SetDictionaryFile(std::string DictionaryFileName)
 //-----------------------------------------------------------------------------
 {
 	
-	dictionary_filename=DictionaryFileName;	
+	if (!round_running)
+	{
+		dictionary_filename=DictionaryFileName;	
+		return true;
+	}
+	
+	else
+	{
+		return false;	
+	}		
+
 	
 }	
 
 
 //-----------------------------------------------------------------------------
-void GameController::SetMinimumWordLength(int MinimumWordLength)
+bool GameController::SetMinimumWordLength(int MinimumWordLength)
 //-----------------------------------------------------------------------------
 {
 	
-	minimum_word_length=MinimumWordLength;	
+	if (!round_running)
+	{
+		minimum_word_length=MinimumWordLength;	
+		return true;
+	}	
+	
+	else
+	{
+		return false;	
+	}		
 	
 }	
 
