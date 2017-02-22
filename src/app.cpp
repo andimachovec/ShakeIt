@@ -27,7 +27,7 @@ void App::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow();		
+			SettingsWindow *settings_window = new SettingsWindow(config_parser->GetParam("dictionary_file"),config_parser->GetParam("minimum_word_length"));		
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;
@@ -42,6 +42,27 @@ void App::MessageReceived(BMessage *msg)
 		case SW_SETTINGS_SAVE:
 		{
 			
+			const char *dictionary_file = msg->FindString("dictionaryfile");
+			const char *minimum_word_length = msg->FindString("minimumwordlength");
+			
+			bool must_save=false;
+			
+			if (dictionary_file != NULL)
+			{
+				config_parser->SetParam("dictionary_file",std::string(dictionary_file));
+				must_save=true;
+			}		
+			
+			if (minimum_word_length != NULL)
+			{
+				config_parser->SetParam("minimum_word_length",std::string(minimum_word_length));
+				must_save=true;
+			}
+				
+			if (must_save)
+			{
+				config_parser->WriteConfig();	
+			}		
 				
 			break;	
 		}	

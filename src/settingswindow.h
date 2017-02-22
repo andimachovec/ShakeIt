@@ -10,6 +10,8 @@
 #include <Catalog.h>
 #include <Application.h>
 
+#include <string>
+
 enum
 {
 	SW_BUTTON_SAVE_CLICKED='sw00',
@@ -25,7 +27,7 @@ class SettingsWindow : public BWindow
 {
 	
 	public:
-		SettingsWindow();
+		SettingsWindow(std::string DictionaryFile, std::string MinimumWordLength);
 		void MessageReceived(BMessage *msg);
 	
 	private:
@@ -33,6 +35,10 @@ class SettingsWindow : public BWindow
 		BButton *cancel_button;
 		BTextControl *dictionary_textcontrol;
 		BTextControl *minwordlength_textcontrol;
+
+		const char* dictionary_file_default;
+		const char* minimum_word_length_default;
+		
 
 };	
 
