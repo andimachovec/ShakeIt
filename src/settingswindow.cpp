@@ -1,6 +1,7 @@
 #include "settingswindow.h"
 
 #include <FilePanel.h>
+#include <iostream>
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
@@ -8,7 +9,7 @@
 
 //-----------------------------------------------------------------------------
 SettingsWindow::SettingsWindow(std::string DictionaryFile, std::string MinimumWordLength)
-		: BWindow(BRect(100,100,400,200),B_TRANSLATE("Settings"), B_TITLED_WINDOW,B_ASYNCHRONOUS_CONTROLS), 
+		: BWindow(BRect(100,100,400,200),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS), 
 		dictionary_file_default(DictionaryFile), minimum_word_length_default(std::stoi(MinimumWordLength))
 //-----------------------------------------------------------------------------
 {
@@ -86,11 +87,19 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 		case SW_BUTTON_CHOOSEDICTIONARY_CLICKED:
 		{
 			
+			
 			BFilePanel *dictionary_filepanel = new BFilePanel(B_OPEN_PANEL);
+			dictionary_filepanel->SetTarget(this);
 			dictionary_filepanel->Show();	
 			break;
 		}	
 	
+		case B_REFS_RECEIVED:
+		{	
+			
+			std::cout << "File opened: " << std::endl;
+			break;
+		}
 	
 		default:
 		{
