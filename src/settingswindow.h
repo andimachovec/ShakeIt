@@ -9,6 +9,8 @@
 #include <LayoutItem.h>
 #include <Catalog.h>
 #include <Application.h>
+#include <Spinner.h>
+
 
 #include <string>
 
@@ -16,8 +18,8 @@ enum
 {
 	SW_BUTTON_SAVE_CLICKED='sw00',
 	SW_BUTTON_CANCEL_CLICKED,
-	SW_TEXT_DICTIONARY_ENTERED,
-	SW_TEXT_MINWORDLENGTH_ENTERED,	
+	SW_BUTTON_CHOOSEDICTIONARY_CLICKED,
+	SW_TEXT_DICTIONARY_ENTERED,	
 	SW_SETTINGS_SAVE,
 };	
 
@@ -34,10 +36,11 @@ class SettingsWindow : public BWindow
 		BButton *save_button;
 		BButton *cancel_button;
 		BTextControl *dictionary_textcontrol;
-		BTextControl *minwordlength_textcontrol;
-
-		const char* dictionary_file_default;
-		const char* minimum_word_length_default;
+		BButton *choose_dictionary_button;
+		BSpinner *minwordlength_spinner;
+		
+		std::string dictionary_file_default;
+		int minimum_word_length_default;
 		
 
 };	

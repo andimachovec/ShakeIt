@@ -43,7 +43,7 @@ void App::MessageReceived(BMessage *msg)
 		{
 			
 			const char *dictionary_file = msg->FindString("dictionaryfile");
-			const char *minimum_word_length = msg->FindString("minimumwordlength");
+			int minimum_word_length = msg->FindInt8("minimumwordlength");
 			
 			bool must_save=false;
 			
@@ -54,10 +54,10 @@ void App::MessageReceived(BMessage *msg)
 				must_save=true;
 			}		
 			
-			if (minimum_word_length != NULL)
+			if (minimum_word_length != 0)
 			{
-				config_parser->SetParam("minimum_word_length",std::string(minimum_word_length));
-				game_controller->SetMinimumWordLength(std::atoi(minimum_word_length));
+				config_parser->SetParam("minimum_word_length",std::to_string(minimum_word_length));
+				game_controller->SetMinimumWordLength(minimum_word_length);
 				must_save=true;
 			}
 				
