@@ -39,6 +39,9 @@ enum
 	MW_GO_BUTTON_CLICKED,
 	MW_GO_BUTTON_ENABLE,
 	MW_GO_BUTTON_DISABLE,
+	MW_GIVEUP_BUTTON_CLICKED,
+	MW_GIVEUP_BUTTON_ENABLE,
+	MW_GIVEUP_BUTTON_DISABLE,
 	MW_TIMER_UPDATE,
 	MW_TIMER_START,
 	MW_TIMER_STOP,
@@ -60,6 +63,7 @@ class MainWindow : public BWindow
 		BMenuBar	*top_menu_bar;
 		LetterView	*letter_view;
 		BButton		*go_button;
+		BButton		*giveup_button;
 		TimerView	*timer_view;
 		
 };

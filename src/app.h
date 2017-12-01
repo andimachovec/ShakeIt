@@ -29,6 +29,13 @@
 #define B_TRANSLATION_CONTEXT "App"
 
 
+enum
+{
+	ENDGAME_REASON_TIMEOVER=0,
+	ENDGAME_REASON_GIVENUP	
+};	
+
+
 class App : public BApplication
 {
 
@@ -52,7 +59,7 @@ class App : public BApplication
 		
 		//methods
 		void start_game();
-		void end_game();
+		void end_game(int reason);
 
 };
 

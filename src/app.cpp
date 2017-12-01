@@ -18,9 +18,15 @@ void App::MessageReceived(BMessage *msg)
 	switch(msg->what)
 	{
 		
+		case MW_GIVEUP_BUTTON_CLICKED:
+		{
+			end_game(ENDGAME_REASON_GIVENUP);	
+			break;
+		}	
+		
 		case TV_TIME_OVER:
 		{
-			end_game();	
+			end_game(ENDGAME_REASON_TIMEOVER);	
 			break;
 		}
 			
@@ -186,8 +192,10 @@ void App::start_game()
 	//disable the settings menu
 	main_window->PostMessage(new BMessage(MW_MENU_SETTINGS_DISABLE));
 	
-	//disable the go button
+	//disable the go button and enable the givup button
 	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
+	main_window->PostMessage(new BMessage(MW_GIVEUP_BUTTON_ENABLE));
+	
 	
 	//clear the input window and enable text input
 	input_window->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
@@ -225,7 +233,7 @@ void App::start_game()
 
 
 //----------------------------------------------------------------------------
-void App::end_game()
+void App::end_game(int reason)
 //----------------------------------------------------------------------------
 {
 	//stop the timer
@@ -237,9 +245,11 @@ void App::end_game()
 
 	
 	//inform the user that the time is over
-	BAlert *time_over_alert = new BAlert("Boggle",B_TRANSLATE("Time over"),"OK");
-	time_over_alert->Go();
-
+	if (reason == ENDGAME_REASON_TIMEOVER)
+	{
+		BAlert *time_over_alert = new BAlert("Boggle",B_TRANSLATE("Time over"),"OK");
+		time_over_alert->Go();
+	}
 	
 	//get the word list from InputWindow object
 	std::vector<std::string>::iterator iter;
@@ -315,8 +325,10 @@ void App::end_game()
 	input_window->PostMessage(result_display_message);
 	
 	
-	//enable the go button again
+	//enable the go button and disable the giveup button
 	main_window->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
+	main_window->PostMessage(new BMessage(MW_GIVEUP_BUTTON_DISABLE));
+	
 	
 	//enable the settings menu again
 	//disable the settings menu

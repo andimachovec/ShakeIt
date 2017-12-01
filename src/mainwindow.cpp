@@ -13,7 +13,8 @@ MainWindow::MainWindow(float left, float top, float right, float bottom)
 	top_menu_bar = new BMenuBar("topmenubar");
 	letter_view = new LetterView();
 	go_button = new BButton(B_TRANSLATE("Go"), new BMessage(MW_GO_BUTTON_CLICKED));
-	
+	giveup_button = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
+	giveup_button->SetEnabled(false);
 	timer_view = new TimerView();
 	
 	
@@ -35,7 +36,10 @@ MainWindow::MainWindow(float left, float top, float right, float bottom)
 		.Add(top_menu_bar)
 		.AddGroup(B_VERTICAL)
 			.Add(letter_view,20)
-			.Add(go_button,1)
+			.AddGroup(B_HORIZONTAL)
+				.Add(go_button)
+				.Add(giveup_button)
+			.End()	
 			.Add(timer_view,1)	
 		.End()
 	.Layout();	
@@ -93,12 +97,29 @@ void MainWindow::MessageReceived(BMessage *msg)
 		{
 			go_button->SetEnabled(true);
 			break;
-		}	
-		
+		}			
 		
 		case MW_GO_BUTTON_DISABLE:
 		{
 			go_button->SetEnabled(false);
+			break;
+		}	
+		
+		case MW_GIVEUP_BUTTON_CLICKED:
+		{
+			be_app->PostMessage(msg);	
+			break;
+		}
+		
+		case MW_GIVEUP_BUTTON_ENABLE:
+		{
+			giveup_button->SetEnabled(true);	
+			break;
+		}	
+		
+		case MW_GIVEUP_BUTTON_DISABLE:
+		{
+			giveup_button->SetEnabled(false);	
 			break;
 		}	
 		
