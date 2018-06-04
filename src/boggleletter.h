@@ -9,9 +9,11 @@ class BoggleLetter
 
 	public:
 		BoggleLetter(std::string Name);
-		std::string GetName(void);
-		int	GetOrientation(void);
+		std::string GetName();
+		int	GetOrientation();
 		void SetOrientation(int Orientation);
+		void SetName(std::string Name);
+
 
 	private:
 		std::string name;

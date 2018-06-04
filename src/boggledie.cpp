@@ -18,7 +18,7 @@ BoggleDie::BoggleDie(std::string Letters[6])
 
 
 //-----------------------------------------------------------------------------
-BoggleLetter *BoggleDie::GetActiveLetter(void)
+BoggleLetter *BoggleDie::GetActiveLetter()
 //-----------------------------------------------------------------------------
 {
 
@@ -47,5 +47,23 @@ void BoggleDie::SetActiveLetterOrientation(int Orientation)
 	letters[active_letter_position]->SetOrientation(Orientation);
 	
 }
+
+
+
+//-----------------------------------------------------------------------------
+void BoggleDie::SetLetters(std::string Letters[6])
+//-----------------------------------------------------------------------------
+{
+	
+	for (int i=0; i<6; ++i)
+		{
+			letters[i]->SetName(Letters[i]);
+		}
+
+}
+
+
+
+
 
 

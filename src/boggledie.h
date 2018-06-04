@@ -10,9 +10,11 @@ class BoggleDie
 
 	public:
 		BoggleDie(std::string Letters[6]);
-		BoggleLetter *GetActiveLetter(void);
+		BoggleLetter *GetActiveLetter();
 		void SetActiveLetter(int Position);
 		void SetActiveLetterOrientation(int Orientation);
+		void SetLetters(std::string Letters[6]);
+
 
 	private:
 		BoggleLetter *letters[6];

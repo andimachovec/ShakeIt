@@ -1,14 +1,25 @@
 #include "gamecontroller.h"
 
 
+#include <boost/algorithm/string.hpp>
+#include <iostream>
+#include <sstream>
+#include <exception>
+#include <system_error>
+
+
+
 //-----------------------------------------------------------------------------
-GameController::GameController(std::string DictionaryFile, int MinimumWordLength)
+GameController::GameController(std::string DictionaryFile, std::string DiceFile, int MinimumWordLength)
 		: dictionary_filename(DictionaryFile), minimum_word_length(MinimumWordLength) 
 //-----------------------------------------------------------------------------
 {
 
+	//open database handle for dictionary
+	open_dictionary_db();
+
 	//create Board Object			
-	boggle_board = new BoggleBoard();
+	boggle_board = new BoggleBoard(DiceFile);
 
 
 	//initialize properties
@@ -23,7 +34,16 @@ GameController::GameController(std::string DictionaryFile, int MinimumWordLength
 	initialize_already_used_matrix();
 
 
+}
 
+
+
+//-----------------------------------------------------------------------------
+GameController::~GameController()
+//-----------------------------------------------------------------------------
+{
+
+	close_dictionary_db();
 
 }
 
@@ -249,7 +269,12 @@ bool GameController::SetDictionaryFile(std::string DictionaryFileName)
 	
 	if (!round_running)
 	{
+
 		dictionary_filename=DictionaryFileName;	
+
+		close_dictionary_db();
+		open_dictionary_db();		
+		
 		return true;
 	}
 	
@@ -260,6 +285,28 @@ bool GameController::SetDictionaryFile(std::string DictionaryFileName)
 
 	
 }	
+
+
+
+//-----------------------------------------------------------------------------
+bool GameController::SetDiceFile(std::string DiceFileName)
+//-----------------------------------------------------------------------------
+{
+	
+	if (!round_running)
+	{
+		boggle_board->LoadDiceFile(DiceFileName);	
+		return true;
+	}
+	
+	else
+	{
+		return false;	
+	}		
+
+	
+}	
+
 
 
 //-----------------------------------------------------------------------------
@@ -444,36 +491,26 @@ bool GameController::check_dictionary(std::string word)
 {
 
 	bool is_in_dictionary=false;
+	std::string sql_text = "select count(*) from words where name='"+word+"';";	
 
-	std::string line;
+	sqlite3_stmt *statement;
+	int result=sqlite3_prepare_v2(dictionary_db,sql_text.c_str(), -1, &statement, NULL);
 	
-	std::ifstream dict_file;
-	dict_file.open(dictionary_filename);
-	
-	if (!dict_file.is_open())
+	if (result != 0)
 	{
-		throw std::runtime_error("could not open dictionary file");
+		throw std::system_error(std::error_code(1, std::system_category()), "Could not open dictionary file");
 	}	
 	
 	
-	
-	
-	while ((!dict_file.eof()) and (!is_in_dictionary))
+	sqlite3_step(statement);
+	int number_of_rows = sqlite3_column_int(statement,0);
+
+	if (number_of_rows > 0)
 	{
-	
-		std::getline(dict_file,line);
-		boost::algorithm::trim(line);
-		
-		if (line == word)
-		{
-			is_in_dictionary=true;	
-		}
-		
+		is_in_dictionary=true;
 	}
 	
-	
-	dict_file.close();
-
+	sqlite3_finalize(statement);
 
 	return is_in_dictionary;
 
@@ -485,9 +522,18 @@ void GameController::find_missing_words()
 //-----------------------------------------------------------------------------------
 {
 
-	std::string line;
-	std::ifstream dict_file;
-	dict_file.open(dictionary_filename);
+	
+	//prepare the sql query for the dictionary
+	std::string sql_text = "select name from words;";	
+
+	sqlite3_stmt *statement;
+	int result=sqlite3_prepare_v2(dictionary_db,sql_text.c_str(), -1, &statement, NULL);
+	
+	if (result != 0)
+	{
+		throw std::system_error(std::error_code(1, std::system_category()), "Could not open dictionary file");
+	}	
+	
 	
 	
 	//empty the missing words vector
@@ -495,16 +541,16 @@ void GameController::find_missing_words()
 	
 	
 	//loop through the words in the dictionary and check if a word is possible
-	while (!dict_file.eof()) 
+	while (sqlite3_step(statement) != SQLITE_DONE) 
 	{
 	
-		std::getline(dict_file,line);
-		boost::algorithm::trim(line);
+		std::string dictionary_word(reinterpret_cast<const char*>(sqlite3_column_text(statement,0)));
 		
-		if (line.length() >= minimum_word_length) //check if the word has the minimum length
+	
+		if (dictionary_word.length() >= minimum_word_length) //check if the word has the minimum length
 		{
 			
-			if (check_possible(line)) //check if the word is possible
+			if (check_possible(dictionary_word)) //check if the word is possible
 			{
 			
 				//check if the word is not already in the list of the entered words
@@ -519,7 +565,7 @@ void GameController::find_missing_words()
 					std::string word = *wordlist_iter;
 					boost::to_upper(word);
 				
-					if (word == line)
+					if (word == dictionary_word)
 					{
 						in_wordlist=true;
 					}
@@ -528,9 +574,7 @@ void GameController::find_missing_words()
 			
 				if (!in_wordlist)
 				{
-					
-					missing_words.push_back(line);
-			
+					missing_words.push_back(dictionary_word);
 				}	
 			
 			}
@@ -539,7 +583,7 @@ void GameController::find_missing_words()
 	
 	}
 	
-	dict_file.close();
+	sqlite3_finalize(statement);
 
 }
 
@@ -749,3 +793,47 @@ bool GameController::word_search(std::string word,int start_row, int start_col,i
 
 
 }
+
+
+
+//-----------------------------------------------------------------------------
+void GameController::open_dictionary_db()
+//-----------------------------------------------------------------------------
+{
+
+	//open database handle 
+	int result=sqlite3_open_v2(dictionary_filename.c_str(),&dictionary_db, SQLITE_OPEN_READONLY, NULL);
+	
+	if (result != SQLITE_OK)
+	{
+		throw std::system_error(std::error_code(1, std::system_category()), "Could not open dictionary file");		
+	} 
+
+
+	//check if it is a valid dictionary database
+	sqlite3_stmt *statement;
+	result=sqlite3_prepare_v2(dictionary_db,"select * from words", -1, &statement, NULL);
+	sqlite3_finalize(statement);
+	
+	if (result != SQLITE_OK)
+	{
+		throw std::system_error(std::error_code(2, std::system_category()), "File is not a valid dictionary database");
+	}
+
+
+}
+
+
+
+//-----------------------------------------------------------------------------
+void GameController::close_dictionary_db()
+//-----------------------------------------------------------------------------
+{
+
+	sqlite3_close(dictionary_db);
+
+}
+
+
+
+

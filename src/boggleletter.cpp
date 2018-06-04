@@ -15,7 +15,7 @@ BoggleLetter::BoggleLetter(std::string Name)
 
 
 //-----------------------------------------------------------------------------
-std::string BoggleLetter::GetName(void)
+std::string BoggleLetter::GetName()
 //-----------------------------------------------------------------------------
 {
 
@@ -35,7 +35,7 @@ void BoggleLetter::SetOrientation(int Orientation)
 
 
 //-----------------------------------------------------------------------------
-int BoggleLetter::GetOrientation(void)
+int BoggleLetter::GetOrientation()
 //-----------------------------------------------------------------------------
 {
 
@@ -43,4 +43,12 @@ int BoggleLetter::GetOrientation(void)
 
 }
 
+
+
+//-----------------------------------------------------------------------------
+void BoggleLetter::SetName(std::string Name)
+//-----------------------------------------------------------------------------
+{
+	name=Name;
+}
 
