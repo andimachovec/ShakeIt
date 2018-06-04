@@ -138,9 +138,9 @@ void App::ReadyToRun()
 		//initialize config parser and game controller
 		config_parser=new ConfigParser(CONFIG_FILE);
 	
-		std::string dictionary_file = config_parser->GetParam("dictionary_file");
 		int minimum_word_length = std::stoi(config_parser->GetParam("minimum_word_length"));
-		game_controller = new GameController(dictionary_file, minimum_word_length);
+		game_controller = new GameController("/boot/home/config/settings/Boggle/languages/german/german.dict",
+											 "/boot/home/config/settings/Boggle/languages/german/german.dice", minimum_word_length);
 	
 	
 		//set app pulse to 1 second	(for the timer)
