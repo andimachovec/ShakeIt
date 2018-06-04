@@ -11,7 +11,7 @@
 #define APPCOPYRIGHTNAME "Andi Machovec"
 #define APPCOPYRIGHTYEAR 2017
 #define APPDESCRIPTION    "a word searching game"
-#define APPEXTRAINFO	  "look at the sun and be happy!"
+#define APPEXTRAINFO	  ""
 #define APPSPECIALTHANKS  "me and everybody else"
 #define APP_SIGNATURE    "application/x-vnd.dw-Boggle"
 
