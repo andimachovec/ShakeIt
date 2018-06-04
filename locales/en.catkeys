@@ -1,9 +1,11 @@
-1	English	application/x-vnd.dw-Boggle	920288555
+1	English	application/x-vnd.dw-Boggle	2176717266
 OK	App		OK
+Give Up	MainWindow		Give Up
 a word searching game	App		a word searching game
 too short	App		too short
 File	MainWindow		File
 duplicate	App		duplicate
+	App		
 Time over	App		Time over
 Quit	MainWindow		Quit
 Dictionary file	SettingsWindow		Dictionary file
@@ -14,9 +16,9 @@ Go	MainWindow		Go
 Help	MainWindow		Help
 Missing words	App		Missing words
 Settings	SettingsWindow		Settings
-look at the sun and be happy!	App		look at the sun and be happy!
 Word Input	InputWindow		Word Input
 Save	SettingsWindow		Save
+Choose	SettingsWindow		Choose
 About	MainWindow		About
 not in dictionary	App		not in dictionary
 Settings	MainWindow		Settings
