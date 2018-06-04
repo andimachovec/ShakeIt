@@ -6,8 +6,8 @@
 
 
 //-----------------------------------------------------------------------------
-InputWindow::InputWindow(float left, float top, float right, float bottom)
-		: BWindow(BRect(left, top, right, bottom),B_TRANSLATE("Word Input"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
+InputWindow::InputWindow(std::string title, BRect frame)
+		: BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
 //-----------------------------------------------------------------------------
 {
 	

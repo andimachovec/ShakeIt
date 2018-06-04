@@ -4,8 +4,8 @@
 #define B_TRANSLATION_CONTEXT "MainWindow"
 
 //----------------------------------------------------------------------------
-MainWindow::MainWindow(float left, float top, float right, float bottom)
-	:BWindow(BRect(left,top,right,bottom),APPTITLE, B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+MainWindow::MainWindow(std::string title, BRect frame)
+	:BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 //----------------------------------------------------------------------------
 {
 	

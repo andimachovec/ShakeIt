@@ -32,7 +32,7 @@ class InputWindow : public BWindow
 {
 	
 	public:
-		InputWindow(float left, float top, float right, float bottom);
+		InputWindow(std::string title, BRect frame);
 		void MessageReceived(BMessage *msg);
 		std::vector<std::string> GetWordList();
 		void WindowActivated(bool active);

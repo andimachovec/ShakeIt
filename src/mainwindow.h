@@ -53,7 +53,7 @@ class MainWindow : public BWindow
 {
 	
 	public:
-		MainWindow(float left, float top, float right, float bottom);
+		MainWindow(std::string title, BRect frame);
 		void MessageReceived(BMessage *msg);
 		bool QuitRequested();
 		
