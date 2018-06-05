@@ -37,7 +37,7 @@ void App::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow(ConfigParser::Config().GetParameter("dictionary_file"), ConfigParser::Config().GetParameter("minimum_word_length"));		
+			SettingsWindow *settings_window = new SettingsWindow();		
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;

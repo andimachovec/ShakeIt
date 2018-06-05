@@ -1,40 +1,55 @@
 #include "settingswindow.h"
+#include "configparser.h"
 
 #include <FilePanel.h>
+#include <fstream>
 #include <iostream>
+#include <boost/filesystem.hpp>
+
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
 
 
 //-----------------------------------------------------------------------------
-SettingsWindow::SettingsWindow(std::string DictionaryFile, std::string MinimumWordLength)
-		: BWindow(BRect(100,100,400,200),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS), 
-		dictionary_file_default(DictionaryFile), minimum_word_length_default(std::stoi(MinimumWordLength))
+SettingsWindow::SettingsWindow()
+		: BWindow(BRect(100,100,400,200),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 //-----------------------------------------------------------------------------
 {
 	
-	
+	language_default=(ConfigParser::Config().GetParameter("game_language"));
+	int minimum_word_length_default=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
 	
 	save_button = new BButton(B_TRANSLATE("Save"), new BMessage(SW_BUTTON_SAVE_CLICKED));
 	cancel_button = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_BUTTON_CANCEL_CLICKED));
-	dictionary_textcontrol = new BTextControl(B_TRANSLATE("Dictionary file"),dictionary_file_default.c_str(),new BMessage(SW_TEXT_DICTIONARY_ENTERED));
 	
-	choose_dictionary_button = new BButton(B_TRANSLATE("Choose"), new BMessage(SW_BUTTON_CHOOSEDICTIONARY_CLICKED));
+	sound_checkbox = new BCheckBox("soundcheckbox", B_TRANSLATE("Sound"), new BMessage());
+	
+	
+	language_selector_menu_popup = new BPopUpMenu("languageselectormenu");
+	load_language_choices();
+	std::map<std::string,std::string>::iterator language_iter; 
+	
+	//populate languages dropdown menu
+	for (language_iter=available_languages.begin(); language_iter!=available_languages.end(); ++language_iter)
+	{
+		language_selector_menu_popup->AddItem(new BMenuItem(language_iter->second.c_str(), new BMessage()));	
+	} 
+	//language_selector_menu_popup->ItemAt(0)->SetMarked(true);
+	language_selector_menu_field = new BMenuField(B_TRANSLATE("Language"), language_selector_menu_popup);
 	
 	minwordlength_spinner = new BSpinner("minwordlengthspinner", B_TRANSLATE("Minimum word length"), new BMessage());
 	minwordlength_spinner->SetRange(3,7);
 	minwordlength_spinner->SetValue(minimum_word_length_default);
 	
 	 
-	
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
 		.AddGroup(B_HORIZONTAL)
-			.Add(dictionary_textcontrol)
-			.Add(choose_dictionary_button)
+			.Add(language_selector_menu_field)
 		.End()	
 		.Add(minwordlength_spinner)
+		.Add(sound_checkbox)
 		.AddGroup(B_HORIZONTAL)
 			.Add(cancel_button)
 			.Add(save_button)
@@ -58,10 +73,11 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 			
 			BMessage *save_settings_msg = new BMessage(SW_SETTINGS_SAVE);
 			
-			if (dictionary_textcontrol->Text() != dictionary_file_default)
+			/*if (dictionary_textcontrol->Text() != dictionary_file_default)
 			{
 				save_settings_msg->AddString("dictionaryfile",dictionary_textcontrol->Text());
 			}
+			*/
 			
 			if (minwordlength_spinner->Value() != minimum_word_length_default)
 			{
@@ -84,22 +100,7 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 		}
 	
 	
-		case SW_BUTTON_CHOOSEDICTIONARY_CLICKED:
-		{
-			
-			
-			BFilePanel *dictionary_filepanel = new BFilePanel(B_OPEN_PANEL);
-			dictionary_filepanel->SetTarget(this);
-			dictionary_filepanel->Show();	
-			break;
-		}	
-	
-		case B_REFS_RECEIVED:
-		{	
-			
-			std::cout << "File opened: " << std::endl;
-			break;
-		}
+		
 	
 		default:
 		{
@@ -110,3 +111,38 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 	}
 	
 }	
+
+
+//-----------------------------------------------------------------------------
+void SettingsWindow::load_language_choices()
+//-----------------------------------------------------------------------------
+{
+
+	std::string language_directory="/boot/home/config/settings/Boggle/languages";
+	boost::filesystem::path language_dir_path(language_directory);	
+
+	boost::filesystem::directory_iterator end_iter;
+
+	for (boost::filesystem::directory_iterator dir_iter(language_dir_path); dir_iter!=end_iter; ++dir_iter)
+	{
+
+		if (boost::filesystem::is_directory(dir_iter->path()))
+		{
+			
+			std::ifstream language_desc_file;
+			std::string language_code=dir_iter->path().filename().string();			
+
+			language_desc_file.open(dir_iter->path().string()+"/"+language_code+".desc");
+
+			std::string language_description;
+			getline(language_desc_file,language_description);
+			available_languages.emplace(language_code,language_description);
+									
+			language_desc_file.close();
+
+		}
+
+	}
+	
+}
+

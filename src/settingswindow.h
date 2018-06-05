@@ -10,9 +10,13 @@
 #include <Catalog.h>
 #include <Application.h>
 #include <Spinner.h>
-
+#include <PopUpMenu.h>
+#include <MenuField.h>
+#include <CheckBox.h>
 
 #include <string>
+#include <map>
+
 
 enum
 {
@@ -30,19 +34,24 @@ class SettingsWindow : public BWindow
 {
 	
 	public:
-		SettingsWindow(std::string DictionaryFile, std::string MinimumWordLength);
+		SettingsWindow();
 		void MessageReceived(BMessage *msg);
 	
 	private:
+		
+		void load_language_choices();
+		
+		
 		BButton *save_button;
 		BButton *cancel_button;
-		BTextControl *dictionary_textcontrol;
-		BButton *choose_dictionary_button;
+		BPopUpMenu	*language_selector_menu_popup; 
+		BMenuField 	*language_selector_menu_field;
+		BCheckBox	*sound_checkbox;
 		BSpinner *minwordlength_spinner;
 		
-		std::string dictionary_file_default;
+		std::string language_default;
 		int minimum_word_length_default;
-		
+		std::map<std::string, std::string> available_languages;
 
 };	
 
