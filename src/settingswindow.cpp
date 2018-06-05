@@ -33,7 +33,14 @@ SettingsWindow::SettingsWindow()
 	//populate languages dropdown menu
 	for (language_iter=available_languages.begin(); language_iter!=available_languages.end(); ++language_iter)
 	{
-		language_selector_menu_popup->AddItem(new BMenuItem(language_iter->second.c_str(), new BMessage()));	
+		
+		BMenuItem *new_menuitem = new BMenuItem(language_iter->second.c_str(), new BMessage());
+		language_selector_menu_popup->AddItem(new_menuitem);	
+		if (language_iter->first == language_default)
+		{
+			new_menuitem->SetMarked(true);	
+		}	
+	
 	} 
 	//language_selector_menu_popup->ItemAt(0)->SetMarked(true);
 	language_selector_menu_field = new BMenuField(B_TRANSLATE("Language"), language_selector_menu_popup);
