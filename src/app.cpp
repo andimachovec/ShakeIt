@@ -1,11 +1,15 @@
 #include "app.h"
 
+#include <iostream>
 
 //----------------------------------------------------------------------------
-App::App(void)
+App::App()
 		: BApplication(APP_SIGNATURE)
 //----------------------------------------------------------------------------
 {
+
+	resource_dir="/boot/home/config/settings/Boggle"; 
+
 }	
 
 
@@ -33,7 +37,7 @@ void App::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow(config_parser->GetParam("dictionary_file"),config_parser->GetParam("minimum_word_length"));		
+			SettingsWindow *settings_window = new SettingsWindow(ConfigParser::Config().GetParameter("dictionary_file"), ConfigParser::Config().GetParameter("minimum_word_length"));		
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;
@@ -55,21 +59,21 @@ void App::MessageReceived(BMessage *msg)
 			
 			if (dictionary_file != NULL)
 			{
-				config_parser->SetParam("dictionary_file",std::string(dictionary_file));
+				ConfigParser::Config().SetParameter("dictionary_file",std::string(dictionary_file));
 				game_controller->SetDictionaryFile(std::string(dictionary_file));
 				must_save=true;
 			}		
 			
 			if (minimum_word_length != 0)
 			{
-				config_parser->SetParam("minimum_word_length",std::to_string(minimum_word_length));
+				ConfigParser::Config().SetParameter("minimum_word_length",std::to_string(minimum_word_length));
 				game_controller->SetMinimumWordLength(minimum_word_length);
 				must_save=true;
 			}
 				
 			if (must_save)
 			{
-				config_parser->WriteConfig();	
+				ConfigParser::Config().WriteConfigToFile(resource_dir+"/boggle.xml");	
 			}		
 				
 			break;	
@@ -135,13 +139,18 @@ void App::ReadyToRun()
 	try
 	{
 		
-		//initialize config parser and game controller
-		config_parser=new ConfigParser(CONFIG_FILE);
-	
-		int minimum_word_length = std::stoi(config_parser->GetParam("minimum_word_length"));
-		game_controller = new GameController("/boot/home/config/settings/Boggle/languages/german/german.dict",
-											 "/boot/home/config/settings/Boggle/languages/german/german.dice", minimum_word_length);
-	
+		//initialize config parser 
+		ConfigParser::Config().ReadConfigFromFile("/boot/home/config/settings/Boggle/boggle.xml");
+		
+		
+		//create game controller
+		int minimum_word_length=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
+		std::string language=(ConfigParser::Config().GetParameter("game_language"));
+		std::string dictionary_file=resource_dir+"/languages/"+language+"/"+language+".dict";
+		std::string dice_file=resource_dir+"/languages/"+language+"/"+language+".dice";
+		
+		game_controller = new GameController(dictionary_file,dice_file,minimum_word_length);
+		
 	
 		//set app pulse to 1 second	(for the timer)
 		SetPulseRate(1000000);	
@@ -162,8 +171,8 @@ void App::ReadyToRun()
 
 	catch(const std::runtime_error &e)
 	{
-		BAlert *time_over_alert = new BAlert("Boggle",e.what(),"OK");
-		time_over_alert->Go();
+		BAlert *error_alert = new BAlert("Boggle",e.what(),"OK");
+		error_alert->Go();
 		this->PostMessage(new BMessage(B_QUIT_REQUESTED));
 	}	
 

@@ -40,7 +40,7 @@ class App : public BApplication
 {
 
 	public:
-		App(void);
+		App();
 		void MessageReceived(BMessage *msg);
 		void AboutRequested();
 		bool QuitRequested();
@@ -55,8 +55,8 @@ class App : public BApplication
 
 		//other properties
 		GameController 	*game_controller;
-		ConfigParser	*config_parser;
-		
+		std::string 	resource_dir;
+				
 		//methods
 		void start_game();
 		void end_game(int reason);
