@@ -1,11 +1,10 @@
 #ifndef CONFIGPARSER_H
 #define CONFIGPARSER_H
 
+
 #include <map>
 #include <string>
-#include <exception>
-
-#include "tinyxml.h"
+#include <tinyxml.h>
 
 
 
@@ -14,20 +13,24 @@ class ConfigParser
 
 	public:
 	
-		ConfigParser(const char *xmlfilename);
-		std::string GetParam(std::string parametername);	
-		bool SetParam(std::string parametername, std::string value);
-		bool ReadConfig();
-		bool WriteConfig();
 		
+		std::string GetParameter(std::string parametername);	
+		void SetParameter(std::string parametername, std::string value);
+		void ReadConfigFromFile(std::string FileName);
+		void WriteConfigToFile(std::string FileName);
+		void SetConfigFileName(std::string ConfigFileName);
 		
+		static ConfigParser &Config();		
+
+
 	private:
 
-		TiXmlDocument XMLFile;
-		std::map<std::string,std::string> Parameters;
+		ConfigParser();
+		~ConfigParser();		
+		TiXmlDocument xml_file;
+		std::map<std::string,std::string> parameters;
 		
 
 };
 
 #endif
-
