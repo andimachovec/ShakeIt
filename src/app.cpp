@@ -52,15 +52,16 @@ void App::MessageReceived(BMessage *msg)
 		case SW_SETTINGS_SAVE:
 		{
 			
-			const char *dictionary_file = msg->FindString("dictionaryfile");
+			std::string game_language(msg->FindString("gamelanguage"));
 			int minimum_word_length = msg->FindInt8("minimumwordlength");
 			
 			bool must_save=false;
 			
-			if (dictionary_file != NULL)
+			if (game_language.length() != 0)
 			{
-				ConfigParser::Config().SetParameter("dictionary_file",std::string(dictionary_file));
-				game_controller->SetDictionaryFile(std::string(dictionary_file));
+				ConfigParser::Config().SetParameter("game_language",std::string(game_language));
+				game_controller->SetDictionaryFile(resource_dir+"/languages/"+game_language+"/"+game_language+".dict");
+				game_controller->SetDiceFile(resource_dir+"/languages/"+game_language+"/"+game_language+".dice");
 				must_save=true;
 			}		
 			
