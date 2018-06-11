@@ -4,8 +4,12 @@
 
 #include <map>
 #include <string>
-#include <tinyxml.h>
 
+#ifdef __HAIKU__
+	#include "tinyxml.h"
+#else
+	#include <tinyxml.h>
+#endif
 
 
 class ConfigParser
