@@ -13,7 +13,7 @@
 
 //-----------------------------------------------------------------------------
 SettingsWindow::SettingsWindow()
-		: BWindow(BRect(100,100,400,200),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+		: BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 //-----------------------------------------------------------------------------
 {
 	
@@ -51,7 +51,7 @@ SettingsWindow::SettingsWindow()
 	
 	 
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
-		.SetInsets(0)
+		.SetInsets(5)
 		.AddGroup(B_HORIZONTAL)
 			.Add(language_selector_menu_field)
 		.End()	
