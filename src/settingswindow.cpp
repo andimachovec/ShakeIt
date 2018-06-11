@@ -17,13 +17,24 @@ SettingsWindow::SettingsWindow()
 //-----------------------------------------------------------------------------
 {
 	
-	language_default=(ConfigParser::Config().GetParameter("game_language"));
-	int minimum_word_length_default=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
+	language_default=ConfigParser::Config().GetParameter("game_language");
+	minimum_word_length_default=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
+	
+	if (ConfigParser::Config().GetParameter("sound") == "on")
+	{
+		sound_default=B_CONTROL_ON;		
+	}	
+	else
+	{
+		sound_default=B_CONTROL_OFF;	
+	}	
+	
 	
 	save_button = new BButton(B_TRANSLATE("Save"), new BMessage(SW_BUTTON_SAVE_CLICKED));
 	cancel_button = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_BUTTON_CANCEL_CLICKED));
 	
 	sound_checkbox = new BCheckBox("soundcheckbox", B_TRANSLATE("Sound"), new BMessage());
+	sound_checkbox->SetValue(sound_default);	
 	
 	
 	language_selector_menu_popup = new BPopUpMenu("languageselectormenu");
@@ -90,6 +101,20 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 			{
 				save_settings_msg->AddInt8("minimumwordlength",minwordlength_spinner->Value());
 			}		
+			
+			
+			if (sound_checkbox->Value() != sound_default)
+			{
+				if (sound_checkbox->Value() == B_CONTROL_ON)
+				{
+					save_settings_msg->AddBool("sound", true);
+				}
+				else 
+				{
+					save_settings_msg->AddBool("sound", false);
+				}
+				
+			}
 			
 			be_app->PostMessage(save_settings_msg);
 			

@@ -6,7 +6,7 @@
 
 //App Settings
 #define APPTITLE		 "Boggle" 
-#define APPVERSION		 "0.7.2" 
+#define APPVERSION		 "0.7.3" 
 #define APPAUTHOR		 "Andi Machovec"	
 #define APPCOPYRIGHTNAME "Andi Machovec"
 #define APPCOPYRIGHTYEAR 2018

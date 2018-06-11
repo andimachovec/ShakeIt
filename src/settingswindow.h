@@ -51,6 +51,7 @@ class SettingsWindow : public BWindow
 		
 		std::string language_default;
 		int minimum_word_length_default;
+		int32 sound_default;
 		std::map<std::string, std::string> available_languages;
 
 };	

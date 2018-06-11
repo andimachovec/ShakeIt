@@ -52,25 +52,43 @@ void App::MessageReceived(BMessage *msg)
 		case SW_SETTINGS_SAVE:
 		{
 			
-			std::string game_language(msg->FindString("gamelanguage"));
-			int minimum_word_length = msg->FindInt8("minimumwordlength");
+			const char **game_language;
+			int minimum_word_length; 
+			bool sound;
 			
 			bool must_save=false;
 			
-			if (game_language.length() != 0)
+			if (msg->FindString("gamelanguage", game_language) == B_OK)
 			{
-				ConfigParser::Config().SetParameter("game_language",std::string(game_language));
-				game_controller->SetDictionaryFile(resource_dir+"/languages/"+game_language+"/"+game_language+".dict");
-				game_controller->SetDiceFile(resource_dir+"/languages/"+game_language+"/"+game_language+".dice");
+				std::string game_language_str(*game_language);
+				ConfigParser::Config().SetParameter("game_language",game_language_str);
+				game_controller->SetDictionaryFile(resource_dir+"/languages/"+game_language_str+"/"+game_language_str+".dict");
+				game_controller->SetDiceFile(resource_dir+"/languages/"+game_language_str+"/"+game_language_str+".dice");
 				must_save=true;
 			}		
 			
-			if (minimum_word_length != 0)
+			if (msg->FindInt8("minimumwordlength", minimum_word_length) == B_OK)
 			{
 				ConfigParser::Config().SetParameter("minimum_word_length",std::to_string(minimum_word_length));
 				game_controller->SetMinimumWordLength(minimum_word_length);
 				must_save=true;
 			}
+				
+				
+			if (msg->FindBool("sound", sound) == B_OK)	
+			{
+				if (sound) 
+				{
+					ConfigParser::Config().SetParameter("sound","on");
+				}
+				else
+				{
+					ConfigParser::Config().SetParameter("sound","off");
+				}		
+				
+				must_save=true;	
+			}	
+				
 				
 			if (must_save)
 			{
