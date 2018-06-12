@@ -175,6 +175,10 @@ void App::ReadyToRun()
 		
 		game_controller = new GameController(dictionary_file,dice_file,minimum_word_length);
 		
+		
+		//create sound player
+		sound_player = new SoundPlayer(resource_dir+"/boggle.wav");
+		
 	
 		//set app pulse to 1 second	(for the timer)
 		SetPulseRate(1000000);	
@@ -234,6 +238,12 @@ void App::start_game()
 	input_window->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
 	input_window->PostMessage(new BMessage(IW_TEXT_CLEAR));
 	
+	
+	//play sound if activated
+	if (ConfigParser::Config().GetParameter("sound") == "on")
+	{ 
+		sound_player->Play();
+	}
 	
 	//activate the input window
 	input_window->PostMessage(new BMessage(IW_ACTIVATE));

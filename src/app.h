@@ -23,6 +23,7 @@
 #include "settingswindow.h"
 #include "gamecontroller.h"
 #include "configparser.h"
+#include "soundplayer.h"
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -55,7 +56,9 @@ class App : public BApplication
 
 		//other properties
 		GameController 	*game_controller;
+		SoundPlayer		*sound_player;
 		std::string 	resource_dir;
+	
 				
 		//methods
 		void start_game();
