@@ -53,8 +53,11 @@ void App::MessageReceived(BMessage *msg)
 		{
 			
 			const char **game_language;
-			int minimum_word_length; 
+			int8 minimum_word_length; 
+			int8 *p_mwl = &minimum_word_length;
+			
 			bool sound;
+			bool *p_sound=&sound;
 			
 			bool must_save=false;
 			
@@ -67,7 +70,7 @@ void App::MessageReceived(BMessage *msg)
 				must_save=true;
 			}		
 			
-			if (msg->FindInt8("minimumwordlength", minimum_word_length) == B_OK)
+			if (msg->FindInt8("minimumwordlength", p_mwl) == B_OK)
 			{
 				ConfigParser::Config().SetParameter("minimum_word_length",std::to_string(minimum_word_length));
 				game_controller->SetMinimumWordLength(minimum_word_length);
@@ -75,8 +78,9 @@ void App::MessageReceived(BMessage *msg)
 			}
 				
 				
-			if (msg->FindBool("sound", sound) == B_OK)	
+			if (msg->FindBool("sound", p_sound) == B_OK)	
 			{
+						
 				if (sound) 
 				{
 					ConfigParser::Config().SetParameter("sound","on");
