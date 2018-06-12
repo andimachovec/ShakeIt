@@ -52,7 +52,8 @@ void App::MessageReceived(BMessage *msg)
 		case SW_SETTINGS_SAVE:
 		{
 			
-			const char **game_language;
+			const char *game_language;
+			const char **p_gl = &game_language;
 			int8 minimum_word_length; 
 			int8 *p_mwl = &minimum_word_length;
 			
@@ -61,9 +62,9 @@ void App::MessageReceived(BMessage *msg)
 			
 			bool must_save=false;
 			
-			if (msg->FindString("gamelanguage", game_language) == B_OK)
+			if (msg->FindString("gamelanguage", p_gl) == B_OK)
 			{
-				std::string game_language_str(*game_language);
+				std::string game_language_str(game_language);
 				ConfigParser::Config().SetParameter("game_language",game_language_str);
 				game_controller->SetDictionaryFile(resource_dir+"/languages/"+game_language_str+"/"+game_language_str+".dict");
 				game_controller->SetDiceFile(resource_dir+"/languages/"+game_language_str+"/"+game_language_str+".dice");

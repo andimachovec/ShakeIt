@@ -5,7 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
-
+#include <cstring>
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
@@ -39,7 +39,7 @@ SettingsWindow::SettingsWindow()
 	
 	language_selector_menu_popup = new BPopUpMenu("languageselectormenu");
 	load_language_choices();
-	std::map<std::string,std::string>::iterator language_iter; 
+	std::vector<std::pair<std::string,std::string>>::iterator language_iter; 
 	
 	//populate languages dropdown menu
 	for (language_iter=available_languages.begin(); language_iter!=available_languages.end(); ++language_iter)
@@ -50,6 +50,7 @@ SettingsWindow::SettingsWindow()
 		if (language_iter->first == language_default)
 		{
 			new_menuitem->SetMarked(true);	
+			language_default_description=language_iter->second.c_str();
 		}	
 	
 	} 
@@ -89,13 +90,16 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 		case SW_BUTTON_SAVE_CLICKED:
 		{
 			
-			BMessage *save_settings_msg = new BMessage(SW_SETTINGS_SAVE);
+			BMessage *save_settings_msg = new BMessage(SW_SETTINGS_SAVE);		
 			
-			/*if (dictionary_textcontrol->Text() != dictionary_file_default)
+			if (strcmp(language_selector_menu_popup->FindMarked()->Label(), language_default_description))
 			{
-				save_settings_msg->AddString("dictionaryfile",dictionary_textcontrol->Text());
+				
+				int selected_language_index=language_selector_menu_popup->FindMarkedIndex();
+				save_settings_msg->AddString("gamelanguage",available_languages[selected_language_index].first.c_str());
+		
 			}
-			*/
+			
 			
 			if (minwordlength_spinner->Value() != minimum_word_length_default)
 			{
@@ -168,7 +172,7 @@ void SettingsWindow::load_language_choices()
 
 			std::string language_description;
 			getline(language_desc_file,language_description);
-			available_languages.emplace(language_code,language_description);
+			available_languages.push_back(std::make_pair(language_code,language_description));
 									
 			language_desc_file.close();
 

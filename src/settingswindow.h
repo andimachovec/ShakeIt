@@ -15,8 +15,8 @@
 #include <CheckBox.h>
 
 #include <string>
-#include <map>
-
+#include <utility>
+#include <vector>
 
 enum
 {
@@ -50,9 +50,10 @@ class SettingsWindow : public BWindow
 		BSpinner *minwordlength_spinner;
 		
 		std::string language_default;
+		const char *language_default_description;
 		int minimum_word_length_default;
 		int32 sound_default;
-		std::map<std::string, std::string> available_languages;
+		std::vector<std::pair<std::string, std::string>> available_languages;
 
 };	
 
