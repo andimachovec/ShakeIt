@@ -1,5 +1,10 @@
 #include "app.h"
 
+#include <SupportDefs.h>
+#include <AboutWindow.h>
+#include <Catalog.h>
+#include <Alert.h>
+
 #include <iostream>
 
 //----------------------------------------------------------------------------

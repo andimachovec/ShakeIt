@@ -66,6 +66,8 @@ class MainWindow : public BWindow
 		BButton		*giveup_button;
 		TimerView	*timer_view;
 		
+		bool game_running;
+		
 };
 
 

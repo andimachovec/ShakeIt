@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include <Alert.h>
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "MainWindow"
@@ -44,7 +45,8 @@ MainWindow::MainWindow(std::string title, BRect frame)
 		.End()
 	.Layout();	
 		
-		
+	
+	game_running=false;	
 }
 
 
@@ -96,12 +98,14 @@ void MainWindow::MessageReceived(BMessage *msg)
 		case MW_GO_BUTTON_ENABLE:
 		{
 			go_button->SetEnabled(true);
+			game_running=false;
 			break;
 		}			
 		
 		case MW_GO_BUTTON_DISABLE:
 		{
 			go_button->SetEnabled(false);
+			game_running=true;
 			break;
 		}	
 		
@@ -181,9 +185,27 @@ void MainWindow::MessageReceived(BMessage *msg)
 bool MainWindow::QuitRequested()
 //----------------------------------------------------------------------------
 {
+	bool do_quit=true;
 	
-	be_app->PostMessage(B_QUIT_REQUESTED);	
-	return true;
+	if (game_running)
+	{
+		
+		BAlert *quit_alert = new BAlert("Boggle",
+										B_TRANSLATE("Game still in progress. Do you really want to quit?"),
+										B_TRANSLATE("Yes"),
+										B_TRANSLATE("No"));
+		if (quit_alert->Go() == 1)								
+		{	
+			do_quit=false;
+		}		
+	}	 
+	
+	if (do_quit)
+	{
+		be_app->PostMessage(B_QUIT_REQUESTED);	
+	}
+	
+	return do_quit;
 }	
 
 

@@ -4,10 +4,6 @@
 
 //Haiku API includes
 #include <Application.h>
-#include <SupportDefs.h>
-#include <AboutWindow.h>
-#include <Catalog.h>
-#include <Alert.h>
 
 //other system includes
 #include <iostream>
