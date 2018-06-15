@@ -6,7 +6,7 @@ LetterView::LetterView()
 		: BView("letterview", B_SUPPORTS_LAYOUT|B_WILL_DRAW)
 //-----------------------------------------------------------------------------
 {
-		
+	
 	for (int i=0; i<16; ++i)
 	{
 	
@@ -24,6 +24,9 @@ LetterView::LetterView()
 void LetterView::Draw(BRect update_rect)
 //-----------------------------------------------------------------------------
 {
+	
+	SetHighColor(242,188,44);
+	FillRect(update_rect);
 	
 	draw_bitmaps();
 	
@@ -75,14 +78,24 @@ void LetterView::draw_bitmaps()
 {
 
 	SetDrawingMode(B_OP_ALPHA);
-	//SetHighColor(255,255,255);
-	//FillRect(Bounds());
 	
 	
-	int x_start=80;
-	int y_start=20;
+	int view_width=static_cast<int>(Frame().Width());
+	int view_height=static_cast<int>(Frame().Height());
+	int bitmap_width=static_cast<int>(board_letters[0]->Bounds().Width());
+	int bitmap_height=static_cast<int>(board_letters[0]->Bounds().Height());
+
+
 	int x_delta=80;
-	int y_delta=80;
+	int y_delta=80;	
+	int x_start=(view_width - (x_delta * 3) - bitmap_width) / 2;
+	int y_start=(view_height - (y_delta * 3) - bitmap_height) / 2;
+		
+	//std::cout << "x_delta: " << x_delta << std::endl;
+	
+	
+	
+	
 	
 	int letter_index=0;
 	int draw_coord_x=x_start;
