@@ -13,6 +13,8 @@ InputWindow::InputWindow(std::string title, BRect frame)
 	
 	
 	words_textview = new BTextView("wordinput");
+	words_textview->SetInsets(8,8,8,8);
+	words_textview->SetViewColor(237,227,208);
 	words_textview_scrollbar = new BScrollBar("wordscroll",words_textview,1,100,B_VERTICAL);
 	
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)

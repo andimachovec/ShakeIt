@@ -86,8 +86,8 @@ void LetterView::draw_bitmaps()
 	int bitmap_height=static_cast<int>(board_letters[0]->Bounds().Height());
 
 
-	int x_delta=80;
-	int y_delta=80;	
+	int x_delta=70;
+	int y_delta=70;	
 	int x_start=(view_width - (x_delta * 3) - bitmap_width) / 2;
 	int y_start=(view_height - (y_delta * 3) - bitmap_height) / 2;
 		

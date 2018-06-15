@@ -190,7 +190,7 @@ void App::ReadyToRun()
 	
 	
 		//create and show the main and the input window
-		main_window = new MainWindow("Boggle - Game Board", BRect(100,100,620,500));
+		main_window = new MainWindow("Boggle - Game Board", BRect(100,100,540,500));
 	
 		BRect main_window_rect = main_window->Frame();
 		
