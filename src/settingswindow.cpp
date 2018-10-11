@@ -1,7 +1,14 @@
 #include "settingswindow.h"
 #include "configparser.h"
 
+#include <LayoutBuilder.h>
+#include <Layout.h>
+#include <LayoutItem.h>
+#include <Catalog.h>
 #include <FilePanel.h>
+#include <Application.h>
+#include <Catalog.h>
+
 #include <fstream>
 #include <iostream>
 #include <boost/filesystem.hpp>
@@ -11,67 +18,66 @@
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
 
 
-//-----------------------------------------------------------------------------
 SettingsWindow::SettingsWindow()
-		: BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
-//-----------------------------------------------------------------------------
+		: 
+		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
 	
-	language_default=ConfigParser::Config().GetParameter("game_language");
-	minimum_word_length_default=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
+	fLanguageDefault=ConfigParser::Config().GetParameter("game_language");
+	fMinWordLengthDefault=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
 	
 	if (ConfigParser::Config().GetParameter("sound") == "on")
 	{
-		sound_default=B_CONTROL_ON;		
+		fSoundDefault=B_CONTROL_ON;		
 	}	
 	else
 	{
-		sound_default=B_CONTROL_OFF;	
+		fSoundDefault=B_CONTROL_OFF;	
 	}	
 	
 	
-	save_button = new BButton(B_TRANSLATE("Save"), new BMessage(SW_BUTTON_SAVE_CLICKED));
-	cancel_button = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_BUTTON_CANCEL_CLICKED));
+	fSaveButton = new BButton(B_TRANSLATE("Save"), new BMessage(SW_BUTTON_SAVE_CLICKED));
+	fCancelButton = new BButton(B_TRANSLATE("Cancel"), new BMessage(SW_BUTTON_CANCEL_CLICKED));
 	
-	sound_checkbox = new BCheckBox("soundcheckbox", B_TRANSLATE("Sound"), new BMessage());
-	sound_checkbox->SetValue(sound_default);	
+	fSoundCheckbox = new BCheckBox("soundcheckbox", B_TRANSLATE("Sound"), new BMessage());
+	fSoundCheckbox->SetValue(fSoundDefault);	
 	
 	
-	language_selector_menu_popup = new BPopUpMenu("languageselectormenu");
+	fLanguageSelectorMenuPopup = new BPopUpMenu("languageselectormenu");
 	load_language_choices();
 	std::vector<std::pair<std::string,std::string>>::iterator language_iter; 
 	
 	//populate languages dropdown menu
-	for (language_iter=available_languages.begin(); language_iter!=available_languages.end(); ++language_iter)
+	for (language_iter=fAvailableLanguages.begin(); language_iter!=fAvailableLanguages.end(); ++language_iter)
 	{
 		
 		BMenuItem *new_menuitem = new BMenuItem(language_iter->second.c_str(), new BMessage());
-		language_selector_menu_popup->AddItem(new_menuitem);	
-		if (language_iter->first == language_default)
+		fLanguageSelectorMenuPopup->AddItem(new_menuitem);	
+		if (language_iter->first == fLanguageDefault)
 		{
 			new_menuitem->SetMarked(true);	
-			language_default_description=language_iter->second.c_str();
+			fLanguageDefaultDescription=language_iter->second.c_str();
 		}	
 	
 	} 
-	//language_selector_menu_popup->ItemAt(0)->SetMarked(true);
-	language_selector_menu_field = new BMenuField(B_TRANSLATE("Language"), language_selector_menu_popup);
+	//fLanguageSelectorMenuPopup->ItemAt(0)->SetMarked(true);
+	fLanguageSelectorMenuField = new BMenuField(B_TRANSLATE("Language"), fLanguageSelectorMenuPopup);
 	
-	minwordlength_spinner = new BSpinner("minwordlengthspinner", B_TRANSLATE("Minimum word length"), new BMessage());
-	minwordlength_spinner->SetRange(3,7);
-	minwordlength_spinner->SetValue(minimum_word_length_default);
+	fMinWordLengthSpinner = new BSpinner("minwordlengthspinner", B_TRANSLATE("Minimum word length"), new BMessage());
+	fMinWordLengthSpinner->SetRange(3,7);
+	fMinWordLengthSpinner->SetValue(fMinWordLengthDefault);
 	
 	 
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(5)
 		.AddGroup(B_HORIZONTAL)
-			.Add(language_selector_menu_field)
+			.Add(fLanguageSelectorMenuField)
 		.End()	
-		.Add(minwordlength_spinner)
-		.Add(sound_checkbox)
+		.Add(fMinWordLengthSpinner)
+		.Add(fSoundCheckbox)
 		.AddGroup(B_HORIZONTAL)
-			.Add(cancel_button)
-			.Add(save_button)
+			.Add(fCancelButton)
+			.Add(fSaveButton)
 		.End()	
 	.Layout();	
 	
@@ -79,9 +85,8 @@ SettingsWindow::SettingsWindow()
 }	
 
 
-//-----------------------------------------------------------------------------
-void SettingsWindow::MessageReceived(BMessage *msg)
-//-----------------------------------------------------------------------------
+void
+SettingsWindow::MessageReceived(BMessage *msg)
 {
 	switch (msg->what)
 	{	
@@ -92,24 +97,24 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 			
 			BMessage *save_settings_msg = new BMessage(SW_SETTINGS_SAVE);		
 			
-			if (strcmp(language_selector_menu_popup->FindMarked()->Label(), language_default_description))
+			if (strcmp(fLanguageSelectorMenuPopup->FindMarked()->Label(), fLanguageDefaultDescription))
 			{
 				
-				int selected_language_index=language_selector_menu_popup->FindMarkedIndex();
-				save_settings_msg->AddString("gamelanguage",available_languages[selected_language_index].first.c_str());
+				int selected_language_index=fLanguageSelectorMenuPopup->FindMarkedIndex();
+				save_settings_msg->AddString("gamelanguage",fAvailableLanguages[selected_language_index].first.c_str());
 		
 			}
 			
 			
-			if (minwordlength_spinner->Value() != minimum_word_length_default)
+			if (fMinWordLengthSpinner->Value() != fMinWordLengthDefault)
 			{
-				save_settings_msg->AddInt8("minimumwordlength",minwordlength_spinner->Value());
+				save_settings_msg->AddInt8("minimumwordlength",fMinWordLengthSpinner->Value());
 			}		
 			
 			
-			if (sound_checkbox->Value() != sound_default)
+			if (fSoundCheckbox->Value() != fSoundDefault)
 			{
-				if (sound_checkbox->Value() == B_CONTROL_ON)
+				if (fSoundCheckbox->Value() == B_CONTROL_ON)
 				{
 					save_settings_msg->AddBool("sound", true);
 				}
@@ -149,9 +154,8 @@ void SettingsWindow::MessageReceived(BMessage *msg)
 }	
 
 
-//-----------------------------------------------------------------------------
-void SettingsWindow::load_language_choices()
-//-----------------------------------------------------------------------------
+void
+SettingsWindow::load_language_choices()
 {
 
 	std::string language_directory="/boot/home/config/settings/Boggle/languages";
@@ -172,7 +176,7 @@ void SettingsWindow::load_language_choices()
 
 			std::string language_description;
 			getline(language_desc_file,language_description);
-			available_languages.push_back(std::make_pair(language_code,language_description));
+			fAvailableLanguages.push_back(std::make_pair(language_code,language_description));
 									
 			language_desc_file.close();
 
