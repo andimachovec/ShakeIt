@@ -1,26 +1,37 @@
 #include "mainwindow.h"
+
+#include <Application.h>
 #include <Alert.h>
+#include <StatusBar.h>
+#include <TextControl.h>
+#include <LayoutBuilder.h>
+#include <Layout.h>
+#include <LayoutItem.h>
+#include <Catalog.h>
+#include <Menu.h>
+#include <MenuItem.h>
+
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "MainWindow"
 
-//----------------------------------------------------------------------------
+
 MainWindow::MainWindow(std::string title, BRect frame)
-	:BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
-//----------------------------------------------------------------------------
+	:
+	BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
 	
 	//initialize GUI Objects
-	top_menu_bar = new BMenuBar("topmenubar");
-	letter_view = new LetterView();
-	go_button = new BButton(B_TRANSLATE("Go"), new BMessage(MW_GO_BUTTON_CLICKED));
-	giveup_button = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
-	giveup_button->SetEnabled(false);
-	timer_view = new TimerView();
+	fTopMenubar = new BMenuBar("topmenubar");
+	fLetterView = new LetterView();
+	fGoButton = new BButton(B_TRANSLATE("Go"), new BMessage(MW_GO_BUTTON_CLICKED));
+	fGiveupButton = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
+	fGiveupButton->SetEnabled(false);
+	fTimerView = new TimerView();
 	
 	
 	//build the menu layout
-	BLayoutBuilder::Menu<>(top_menu_bar)
+	BLayoutBuilder::Menu<>(fTopMenubar)
 		.AddMenu(B_TRANSLATE("File"))
 			.AddItem(B_TRANSLATE("Settings"), MW_MENU_SETTINGS_CLICKED, 'S')
 			.AddItem(B_TRANSLATE("Quit"), B_QUIT_REQUESTED, 'Q')
@@ -34,25 +45,24 @@ MainWindow::MainWindow(std::string title, BRect frame)
 	//build the main layout
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
-		.Add(top_menu_bar)
+		.Add(fTopMenubar)
 		.AddGroup(B_VERTICAL)
-			.Add(letter_view,20)
+			.Add(fLetterView,20)
 			.AddGroup(B_HORIZONTAL,3)
-				.Add(go_button)
-				.Add(giveup_button)
+				.Add(fGoButton)
+				.Add(fGiveupButton)
 			.End()	
-			.Add(timer_view,1)	
+			.Add(fTimerView,1)	
 		.End()
 	.Layout();	
 		
 	
-	game_running=false;	
+	fGameRunning=false;	
 }
 
 
-//----------------------------------------------------------------------------
-void MainWindow::MessageReceived(BMessage *msg)
-//----------------------------------------------------------------------------
+void 
+MainWindow::MessageReceived(BMessage *msg)
 {
 	
 	switch (msg->what)	
@@ -81,7 +91,7 @@ void MainWindow::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_ENABLE:
 		{
-			BMenuItem *settings_menu=top_menu_bar->FindItem(MW_MENU_SETTINGS_CLICKED);
+			BMenuItem *settings_menu=fTopMenubar->FindItem(MW_MENU_SETTINGS_CLICKED);
 			settings_menu->SetEnabled(true);
 			break;
 		}	
@@ -89,7 +99,7 @@ void MainWindow::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_DISABLE:
 		{
-			BMenuItem *settings_menu=top_menu_bar->FindItem(MW_MENU_SETTINGS_CLICKED);
+			BMenuItem *settings_menu=fTopMenubar->FindItem(MW_MENU_SETTINGS_CLICKED);
 			settings_menu->SetEnabled(false);
 			break;
 		}
@@ -97,15 +107,15 @@ void MainWindow::MessageReceived(BMessage *msg)
 		
 		case MW_GO_BUTTON_ENABLE:
 		{
-			go_button->SetEnabled(true);
-			game_running=false;
+			fGoButton->SetEnabled(true);
+			fGameRunning=false;
 			break;
 		}			
 		
 		case MW_GO_BUTTON_DISABLE:
 		{
-			go_button->SetEnabled(false);
-			game_running=true;
+			fGoButton->SetEnabled(false);
+			fGameRunning=true;
 			break;
 		}	
 		
@@ -117,32 +127,32 @@ void MainWindow::MessageReceived(BMessage *msg)
 		
 		case MW_GIVEUP_BUTTON_ENABLE:
 		{
-			giveup_button->SetEnabled(true);	
+			fGiveupButton->SetEnabled(true);	
 			break;
 		}	
 		
 		case MW_GIVEUP_BUTTON_DISABLE:
 		{
-			giveup_button->SetEnabled(false);	
+			fGiveupButton->SetEnabled(false);	
 			break;
 		}	
 		
 		case MW_TIMER_UPDATE:
 		{
-			timer_view->UpdateTimer();
+			fTimerView->UpdateTimer();
 			break;	
 		}	
 		
 		case MW_TIMER_START:
 		{
-			timer_view->StartTimer();
+			fTimerView->StartTimer();
 			break;	
 		}	
 		
 		
 		case MW_TIMER_STOP:
 		{
-			timer_view->StopTimer();
+			fTimerView->StopTimer();
 			break;
 		}
 		
@@ -162,7 +172,7 @@ void MainWindow::MessageReceived(BMessage *msg)
 			}	
 			
 			//pass the board data to the letter view
-			letter_view->SetLetters(board_letters,board_letter_orientation);
+			fLetterView->SetLetters(board_letters,board_letter_orientation);
 			
 			break;	
 		}	
@@ -180,14 +190,12 @@ void MainWindow::MessageReceived(BMessage *msg)
 }	
 
 
-
-//----------------------------------------------------------------------------
-bool MainWindow::QuitRequested()
-//----------------------------------------------------------------------------
+bool 
+MainWindow::QuitRequested()
 {
 	bool do_quit=true;
 	
-	if (game_running)
+	if (fGameRunning)
 	{
 		
 		BAlert *quit_alert = new BAlert("Boggle",
@@ -207,7 +215,4 @@ bool MainWindow::QuitRequested()
 	
 	return do_quit;
 }	
-
-
-
 

@@ -2,29 +2,14 @@
 #define MAINWINDOW_H
 
 
-//Haiku API
-#include <Application.h>
 #include <Window.h>
 #include <MenuBar.h>
-#include <Menu.h>
-#include <MenuItem.h>
 #include <PopUpMenu.h>
 #include <Button.h>
-#include <StatusBar.h>
-#include <TextControl.h>
-#include <LayoutBuilder.h>
-#include <Layout.h>
-#include <LayoutItem.h>
-#include <Catalog.h>
-#include <Alert.h>
 
-
-//other system includes
 #include <string>
 #include <iostream>
 
-
-//local includes
 #include "defs.h"
 #include "letterview.h"
 #include "timerview.h"
@@ -49,24 +34,22 @@ enum
 };	
 
 
-class MainWindow : public BWindow
-{
+class MainWindow : public BWindow {
+public:
 	
-	public:
-		MainWindow(std::string title, BRect frame);
-		void MessageReceived(BMessage *msg);
-		bool QuitRequested();
+	MainWindow(std::string title, BRect frame);
+	void MessageReceived(BMessage *msg);
+	bool QuitRequested();
 		
-	private:
+private:
 		
-		//GUI elements
-		BMenuBar	*top_menu_bar;
-		LetterView	*letter_view;
-		BButton		*go_button;
-		BButton		*giveup_button;
-		TimerView	*timer_view;
+	BMenuBar	*fTopMenubar;
+	LetterView	*fLetterView;
+	BButton		*fGoButton;
+	BButton		*fGiveupButton;
+	TimerView	*fTimerView;
 		
-		bool game_running;
+	bool fGameRunning;
 		
 };
 
