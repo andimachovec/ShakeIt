@@ -2,17 +2,14 @@
 #define APP_H
 
 
-//Haiku API includes
 #include <Application.h>
 
-//other system includes
 #include <iostream>
 #include <vector>
 #include <string>
 #include <sstream>
 #include <array>
 
-//local includes
 #include "defs.h"
 #include "mainwindow.h"
 #include "inputwindow.h"
@@ -33,33 +30,27 @@ enum
 };	
 
 
-class App : public BApplication
-{
-
-	public:
-		App();
-		void MessageReceived(BMessage *msg);
-		void AboutRequested();
-		bool QuitRequested();
-		void ReadyToRun();
-		void Pulse();
+class App : public BApplication {
+public:
+	App();
+	void MessageReceived(BMessage *msg);
+	void AboutRequested();
+	bool QuitRequested();
+	void ReadyToRun();
+	void Pulse();
 		
-	private:
-		
-		//windows
-		MainWindow	*main_window;
-		InputWindow	*input_window;
-
-		//other properties
-		GameController 	*game_controller;
-		SoundPlayer		*sound_player;
-		std::string 	resource_dir;
+private:
 	
-				
-		//methods
-		void start_game();
-		void end_game(int reason);
+	void start_game();
+	void end_game(int reason);
+	
+	MainWindow	*fMainWindow;
+	InputWindow	*fInputWindow;
 
+	GameController 	*fGameController;
+	SoundPlayer		*fSoundPlayer;
+	std::string 	fResourceDir;
+		
 };
 
 

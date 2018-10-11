@@ -7,21 +7,19 @@
 
 #include <iostream>
 
-//----------------------------------------------------------------------------
+
 App::App()
-		: BApplication(APP_SIGNATURE)
-//----------------------------------------------------------------------------
+	: 
+	BApplication(APP_SIGNATURE)
 {
 
-	resource_dir="/boot/home/config/settings/Boggle"; 
+	fResourceDir="/boot/home/config/settings/Boggle"; 
 
 }	
 
 
-
-//----------------------------------------------------------------------------
-void App::MessageReceived(BMessage *msg)
-//----------------------------------------------------------------------------
+void 
+App::MessageReceived(BMessage *msg)
 {
 	
 	switch(msg->what)
@@ -71,15 +69,15 @@ void App::MessageReceived(BMessage *msg)
 			{
 				std::string game_language_str(game_language);
 				ConfigParser::Config().SetParameter("game_language",game_language_str);
-				game_controller->SetDictionaryFile(resource_dir+"/languages/"+game_language_str+"/"+game_language_str+".dict");
-				game_controller->SetDiceFile(resource_dir+"/languages/"+game_language_str+"/"+game_language_str+".dice");
+				fGameController->SetDictionaryFile(fResourceDir+"/languages/"+game_language_str+"/"+game_language_str+".dict");
+				fGameController->SetDiceFile(fResourceDir+"/languages/"+game_language_str+"/"+game_language_str+".dice");
 				must_save=true;
 			}		
 			
 			if (msg->FindInt8("minimumwordlength", p_mwl) == B_OK)
 			{
 				ConfigParser::Config().SetParameter("minimum_word_length",std::to_string(minimum_word_length));
-				game_controller->SetMinimumWordLength(minimum_word_length);
+				fGameController->SetMinimumWordLength(minimum_word_length);
 				must_save=true;
 			}
 				
@@ -102,7 +100,7 @@ void App::MessageReceived(BMessage *msg)
 				
 			if (must_save)
 			{
-				ConfigParser::Config().WriteConfigToFile(resource_dir+"/boggle.xml");	
+				ConfigParser::Config().WriteConfigToFile(fResourceDir+"/boggle.xml");	
 			}		
 				
 			break;	
@@ -120,10 +118,8 @@ void App::MessageReceived(BMessage *msg)
 }
 
 
-
-//----------------------------------------------------------------------------
-void App::AboutRequested()
-//----------------------------------------------------------------------------
+void 
+App::AboutRequested()
 {
 	
 	BAboutWindow *aboutwindow = new BAboutWindow(APPTITLE, APP_SIGNATURE);
@@ -146,10 +142,8 @@ void App::AboutRequested()
 }
 
 
-
-//----------------------------------------------------------------------------
-bool App::QuitRequested()
-//----------------------------------------------------------------------------
+bool 
+App::QuitRequested()
 {
 	
 	return true; 
@@ -157,13 +151,9 @@ bool App::QuitRequested()
 }
 
 
-
-//----------------------------------------------------------------------------
-void App::ReadyToRun()
-//----------------------------------------------------------------------------
+void 
+App::ReadyToRun()
 {
-
-	
 	
 	try
 	{
@@ -175,14 +165,14 @@ void App::ReadyToRun()
 		//create game controller
 		int minimum_word_length=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
 		std::string language=(ConfigParser::Config().GetParameter("game_language"));
-		std::string dictionary_file=resource_dir+"/languages/"+language+"/"+language+".dict";
-		std::string dice_file=resource_dir+"/languages/"+language+"/"+language+".dice";
+		std::string dictionary_file=fResourceDir+"/languages/"+language+"/"+language+".dict";
+		std::string dice_file=fResourceDir+"/languages/"+language+"/"+language+".dice";
 		
-		game_controller = new GameController(dictionary_file,dice_file,minimum_word_length);
+		fGameController = new GameController(dictionary_file,dice_file,minimum_word_length);
 		
 		
 		//create sound player
-		sound_player = new SoundPlayer(resource_dir+"/boggle.wav");
+		fSoundPlayer = new SoundPlayer(fResourceDir+"/boggle.wav");
 		
 	
 		//set app pulse to 1 second	(for the timer)
@@ -190,15 +180,15 @@ void App::ReadyToRun()
 	
 	
 		//create and show the main and the input window
-		main_window = new MainWindow("Boggle - Game Board", BRect(100,100,540,500));
+		fMainWindow = new MainWindow("Boggle - Game Board", BRect(100,100,540,500));
 	
-		BRect main_window_rect = main_window->Frame();
+		BRect main_window_rect = fMainWindow->Frame();
 		
-		input_window = new InputWindow("Boggle - Input Window" ,BRect(main_window_rect.right+20,100,main_window_rect.right+420,500));
-		main_window->Show();
-		input_window->Show();
-		input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
-		main_window->Activate(true);
+		fInputWindow = new InputWindow("Boggle - Input Window" ,BRect(main_window_rect.right+20,100,main_window_rect.right+420,500));
+		fMainWindow->Show();
+		fInputWindow->Show();
+		fInputWindow->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+		fMainWindow->Activate(true);
 	}
 
 
@@ -212,55 +202,53 @@ void App::ReadyToRun()
 }	
 
 
-
-//----------------------------------------------------------------------------
-void App::Pulse() //sends a message every second to update the timer
-//----------------------------------------------------------------------------
+void 
+App::Pulse() //sends a message every second to update the timer
 {
 
-	if (game_controller->IsRoundRunning())
+	if (fGameController->IsRoundRunning())
 	{
-		main_window->PostMessage(new BMessage(MW_TIMER_UPDATE));
+		fMainWindow->PostMessage(new BMessage(MW_TIMER_UPDATE));
 	}
 }
 
 
 
-//----------------------------------------------------------------------------
-void App::start_game()
-//----------------------------------------------------------------------------
+
+void 
+App::start_game()
 {
 	
 	//disable the settings menu
-	main_window->PostMessage(new BMessage(MW_MENU_SETTINGS_DISABLE));
+	fMainWindow->PostMessage(new BMessage(MW_MENU_SETTINGS_DISABLE));
 	
 	//disable the go button and enable the givup button
-	main_window->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
-	main_window->PostMessage(new BMessage(MW_GIVEUP_BUTTON_ENABLE));
+	fMainWindow->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
+	fMainWindow->PostMessage(new BMessage(MW_GIVEUP_BUTTON_ENABLE));
 	
 	
 	//clear the input window and enable text input
-	input_window->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
-	input_window->PostMessage(new BMessage(IW_TEXT_CLEAR));
+	fInputWindow->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
+	fInputWindow->PostMessage(new BMessage(IW_TEXT_CLEAR));
 	
 	
 	//play sound if activated
 	if (ConfigParser::Config().GetParameter("sound") == "on")
 	{ 
-		sound_player->Play();
+		fSoundPlayer->Play();
 	}
 	
 	//activate the input window
-	input_window->PostMessage(new BMessage(IW_ACTIVATE));
+	fInputWindow->PostMessage(new BMessage(IW_ACTIVATE));
 	
 	
 	//tell the game controller to start the round
-	game_controller->StartRound();
+	fGameController->StartRound();
 	
 	
 	//get the board data from the game controller, pack it into a message, and send it to the main window
-	std::vector<std::string> board_letters=game_controller->GetBoardLetters();
-	std::vector<int> board_letter_orientation=game_controller->GetBoardLetterOrientation();
+	std::vector<std::string> board_letters=fGameController->GetBoardLetters();
+	std::vector<int> board_letter_orientation=fGameController->GetBoardLetterOrientation();
 	 
 	BMessage *board_setup_msg = new BMessage(MW_BOARD_SETUP); 
 	 
@@ -270,26 +258,26 @@ void App::start_game()
 			board_setup_msg->AddInt32("orientation", board_letter_orientation[i]);
 	}	
 	
-	main_window->PostMessage(board_setup_msg);
+	fMainWindow->PostMessage(board_setup_msg);
 	
 	
 	//start the timer
-	main_window->PostMessage(new BMessage(MW_TIMER_START));
+	fMainWindow->PostMessage(new BMessage(MW_TIMER_START));
 	
 }	
 
 
 
-//----------------------------------------------------------------------------
-void App::end_game(int reason)
-//----------------------------------------------------------------------------
+
+void 
+App::end_game(int reason)
 {
 	//stop the timer
-	main_window->PostMessage(new BMessage(MW_TIMER_STOP));
+	fMainWindow->PostMessage(new BMessage(MW_TIMER_STOP));
 
 	
 	//disable text editing on the input window
-	input_window->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
+	fInputWindow->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
 
 	
 	//inform the user that the time is over
@@ -301,19 +289,19 @@ void App::end_game(int reason)
 	
 	//get the word list from InputWindow object
 	std::vector<std::string>::iterator iter;
-	std::vector<std::string> word_list = input_window->GetWordList();
+	std::vector<std::string> word_list = fInputWindow->GetWordList();
 
 	
 	//give the word list to the gamecontroller for evaluation
-	game_controller->SetWordList(word_list);
+	fGameController->SetWordList(word_list);
 
 	
 	//Let the GameController evaluate the words and get back the results
-	round_results results=game_controller->RoundFinished();
+	round_results results=fGameController->RoundFinished();
 
 	
 	//get the missing words from the gamecontroller
-	std::vector<std::string> missing_words = game_controller->GetMissingWords();
+	std::vector<std::string> missing_words = fGameController->GetMissingWords();
 	
 	//assign status messages for the word evaluation
 	std::array<std::string,5> result_text;
@@ -349,7 +337,7 @@ void App::end_game(int reason)
 	}
 	
 	//total points in this round
-	result_stream << "\n" << B_TRANSLATE("Points in this round") << ": " << game_controller->GetCurrentRoundPoints() << "\n";
+	result_stream << "\n" << B_TRANSLATE("Points in this round") << ": " << fGameController->GetCurrentRoundPoints() << "\n";
 	
 	
 	//missing words
@@ -370,25 +358,23 @@ void App::end_game(int reason)
 	
 	BMessage *result_display_message=new BMessage(IW_TEXT_SHOW);
 	result_display_message->AddString("text",result_stream.str().c_str());
-	input_window->PostMessage(result_display_message);
+	fInputWindow->PostMessage(result_display_message);
 	
 	
 	//enable the go button and disable the giveup button
-	main_window->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
-	main_window->PostMessage(new BMessage(MW_GIVEUP_BUTTON_DISABLE));
+	fMainWindow->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
+	fMainWindow->PostMessage(new BMessage(MW_GIVEUP_BUTTON_DISABLE));
 	
 	
 	//enable the settings menu again
 	//disable the settings menu
-	main_window->PostMessage(new BMessage(MW_MENU_SETTINGS_ENABLE));
+	fMainWindow->PostMessage(new BMessage(MW_MENU_SETTINGS_ENABLE));
 	
 }	
 
 
-
-//----------------------------------------------------------------------------
-int main(int argc, char **argv)
-//----------------------------------------------------------------------------
+int 
+main(int argc, char **argv)
 {
 	
 	App *haiku_app = new App();
