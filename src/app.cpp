@@ -8,6 +8,10 @@
 #include <iostream>
 
 
+#undef B_TRANSLATION_CONTEXT
+#define B_TRANSLATION_CONTEXT "App"
+
+
 App::App()
 	: 
 	BApplication(APP_SIGNATURE)
