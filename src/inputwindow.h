@@ -3,18 +3,11 @@
 
 #include <Window.h>
 #include <TextView.h>
-#include <LayoutBuilder.h>
-#include <Layout.h>
-#include <LayoutItem.h>
 #include <ScrollBar.h>
-#include <Catalog.h>
-
 
 #include <string>
 #include <vector>
 #include <sstream>
-#include <boost/algorithm/string/trim.hpp>
-#include <iostream>
 
 
 enum
@@ -28,20 +21,20 @@ enum
 
 
 
-class InputWindow : public BWindow
-{
+class InputWindow : public BWindow {
+public:	
 	
-	public:
-		InputWindow(std::string title, BRect frame);
-		void MessageReceived(BMessage *msg);
-		std::vector<std::string> GetWordList();
-		void WindowActivated(bool active);
+	InputWindow(std::string title, BRect frame);
+	void MessageReceived(BMessage *msg);
+	std::vector<std::string> GetWordList();
+	void WindowActivated(bool active);
 	
-	private:
-		BTextView *words_textview;
-		BScrollBar *words_textview_scrollbar;
+private:
+	
+	BTextView *fWordsTextview;
+	BScrollBar *fWordsTextviewScrollbar;
 		
-		std::vector<std::string> word_list;
+	std::vector<std::string> fWordList;
 		
 };	
 

@@ -1,26 +1,35 @@
 #include "inputwindow.h"
 
+#include <LayoutBuilder.h>
+#include <Layout.h>
+#include <LayoutItem.h>
+#include <Catalog.h>
+
+#include <boost/algorithm/string/trim.hpp>
+#include <iostream>
+
+
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "InputWindow"
 
 
-//-----------------------------------------------------------------------------
+
 InputWindow::InputWindow(std::string title, BRect frame)
-		: BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
-//-----------------------------------------------------------------------------
+		: 
+		BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
 {
 	
 	
-	words_textview = new BTextView("wordinput");
-	words_textview->SetInsets(8,8,8,8);
-	words_textview->SetViewColor(237,227,208);
-	words_textview_scrollbar = new BScrollBar("wordscroll",words_textview,1,100,B_VERTICAL);
+	fWordsTextview = new BTextView("wordinput");
+	fWordsTextview->SetInsets(8,8,8,8);
+	fWordsTextview->SetViewColor(237,227,208);
+	fWordsTextviewScrollbar = new BScrollBar("wordscroll",fWordsTextview,1,100,B_VERTICAL);
 	
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
 		.AddGroup(B_HORIZONTAL)
-			.Add(words_textview)
+			.Add(fWordsTextview)
 		.End()	
 	.Layout();	
 	
@@ -28,10 +37,8 @@ InputWindow::InputWindow(std::string title, BRect frame)
 }	
 
 
-
-//----------------------------------------------------------------------------
-void InputWindow::MessageReceived(BMessage *msg)
-//----------------------------------------------------------------------------
+void 
+InputWindow::MessageReceived(BMessage *msg)
 {
 	
 	switch (msg->what)	
@@ -40,26 +47,26 @@ void InputWindow::MessageReceived(BMessage *msg)
 		
 		case IW_TEXT_ENABLE_EDIT:
 		{
-			words_textview->MakeEditable(true);
+			fWordsTextview->MakeEditable(true);
 			break;
 		}
 		
 		case IW_TEXT_DISABLE_EDIT:
 		{
-			words_textview->MakeEditable(false);
+			fWordsTextview->MakeEditable(false);
 			break;
 		}
 		
 		case IW_TEXT_CLEAR:
 		{
-			words_textview->SelectAll();
-			words_textview->Clear();
+			fWordsTextview->SelectAll();
+			fWordsTextview->Clear();
 			break;
 		}
 		
 		case IW_TEXT_SHOW:
 		{ 
-			words_textview->SetText(msg->GetString("text"),strlen(msg->GetString("text")));
+			fWordsTextview->SetText(msg->GetString("text"),strlen(msg->GetString("text")));
 			break;
 		}
 		
@@ -79,17 +86,15 @@ void InputWindow::MessageReceived(BMessage *msg)
 }	
 
 
-
-//-----------------------------------------------------------------------------
-std::vector<std::string> InputWindow::GetWordList()
-//-----------------------------------------------------------------------------
+std::vector<std::string>
+InputWindow::GetWordList()
 {
 	
 	//empty the word list vector
-	word_list.clear();
+	fWordList.clear();
 	
 	//get the words from the textview
-	std::string words_text = std::string(words_textview->Text());
+	std::string words_text = std::string(fWordsTextview->Text());
 	
 	//put the text into a stream and parse it into a vector line by line
 	std::istringstream wordlist_stream(words_text);
@@ -102,27 +107,25 @@ std::vector<std::string> InputWindow::GetWordList()
 	
 		if (!line.empty())
 		{
-			word_list.push_back(line);
+			fWordList.push_back(line);
 			//std::cout << line << std::endl;
 		}
 		
 	}
 
 	
-	return word_list;
+	return fWordList;
 }	
 
 
-
-//-----------------------------------------------------------------------------
-void InputWindow::WindowActivated(bool active)
-//-----------------------------------------------------------------------------
+void
+InputWindow::WindowActivated(bool active)
 {
 
 	if (active)
 	{
 	
-		words_textview->MakeFocus(true);
+		fWordsTextview->MakeFocus(true);
 
 	}
 	
