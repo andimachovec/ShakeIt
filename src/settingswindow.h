@@ -4,11 +4,6 @@
 #include <Window.h>
 #include <TextControl.h>
 #include <Button.h>
-#include <LayoutBuilder.h>
-#include <Layout.h>
-#include <LayoutItem.h>
-#include <Catalog.h>
-#include <Application.h>
 #include <Spinner.h>
 #include <PopUpMenu.h>
 #include <MenuField.h>
@@ -29,34 +24,30 @@ enum
 };	
 
 
-
-class SettingsWindow : public BWindow
-{
+class SettingsWindow : public BWindow {
+public:
 	
-	public:
-		SettingsWindow();
-		void MessageReceived(BMessage *msg);
+	SettingsWindow();
+	void MessageReceived(BMessage *msg);
 	
-	private:
+private:
 		
-		void load_language_choices();
+	void load_language_choices();	
 		
+	BButton *fSaveButton;
+	BButton *fCancelButton;
+	BPopUpMenu	*fLanguageSelectorMenuPopup; 
+	BMenuField 	*fLanguageSelectorMenuField;
+	BCheckBox	*fSoundCheckbox;
+	BSpinner *fMinWordLengthSpinner;
 		
-		BButton *save_button;
-		BButton *cancel_button;
-		BPopUpMenu	*language_selector_menu_popup; 
-		BMenuField 	*language_selector_menu_field;
-		BCheckBox	*sound_checkbox;
-		BSpinner *minwordlength_spinner;
-		
-		std::string language_default;
-		const char *language_default_description;
-		int minimum_word_length_default;
-		int32 sound_default;
-		std::vector<std::pair<std::string, std::string>> available_languages;
+	std::string fLanguageDefault;
+	const char *fLanguageDefaultDescription;
+	int fMinWordLengthDefault;
+	int32 fSoundDefault;
+	std::vector<std::pair<std::string, std::string>> fAvailableLanguages;
 
 };	
-
 
 
 #endif
