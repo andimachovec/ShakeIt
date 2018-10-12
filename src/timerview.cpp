@@ -1,11 +1,14 @@
 #include "timerview.h"
 
-//-----------------------------------------------------------------------------
+#include <Application.h>
+#include <iostream>
+
+
 TimerView::TimerView()
-		: BTextView("timerview")
-//-----------------------------------------------------------------------------
+		:
+		BTextView("timerview")
 {
-	is_running=false;
+	fIsRunning=false;
 
 	MakeEditable(false);
 	MakeSelectable(false);
@@ -17,38 +20,32 @@ TimerView::TimerView()
 }
 
 
-
-//-----------------------------------------------------------------------------
-void TimerView::StartTimer()
-//-----------------------------------------------------------------------------
+void
+TimerView::StartTimer()
 {
-	is_running=true;
-	start_time=system_time();
+	fIsRunning=true;
+	fStartTime=system_time();
 }
 
 
-
-//-----------------------------------------------------------------------------
-void TimerView::StopTimer()
-//-----------------------------------------------------------------------------
+void
+TimerView::StopTimer()
 {
-	is_running=false;
+	fIsRunning=false;
 	
 }
 
 
-
-//-----------------------------------------------------------------------------
-void TimerView::UpdateTimer()
-//-----------------------------------------------------------------------------
+void
+TimerView::UpdateTimer()
 {
 
-	if(is_running)
+	if(fIsRunning)
 	{	
 	
-		elapsed_time_seconds=(system_time()-start_time)/1000/1000;
+		fElapsedTimeSeconds=(system_time()-fStartTime)/1000/1000;
 		
-		if (elapsed_time_seconds < 180)
+		if (fElapsedTimeSeconds < 180)
 		{
 			update_display();	
 		}
@@ -62,14 +59,12 @@ void TimerView::UpdateTimer()
 }	
 
 
-
-//-----------------------------------------------------------------------------
-void TimerView::time_over()
-//-----------------------------------------------------------------------------
+void
+TimerView::time_over()
 {
-	is_running=false;
+	fIsRunning=false;
 	
-	elapsed_time_seconds=180;
+	fElapsedTimeSeconds=180;
 	update_display();
 	
 	BMessage *time_over_message = new BMessage(TV_TIME_OVER);
@@ -79,21 +74,18 @@ void TimerView::time_over()
 }
 
 
-
-//-----------------------------------------------------------------------------
-void TimerView::update_display()
-//-----------------------------------------------------------------------------
+void
+TimerView::update_display()
 {
 	
-	int minutes_to_go=(180-elapsed_time_seconds) / 60;
-	int seconds_to_go=(180-elapsed_time_seconds) % 60; 
+	int fMinutesToGo=(180-fElapsedTimeSeconds) / 60;
+	int fSecondsToGo=(180-fElapsedTimeSeconds) % 60; 
 	
 	BString output_string;
-	output_string.SetToFormat("%02d:%02d",minutes_to_go,seconds_to_go);
+	output_string.SetToFormat("%02d:%02d",fMinutesToGo,fSecondsToGo);
 	
 	Delete(0,TextLength());
 	Insert(output_string);
 	
 }
-
 

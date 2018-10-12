@@ -1,9 +1,9 @@
 #ifndef TIMERVIEW_H
 #define TIMERVIEW_H
 
+
 #include <TextView.h>
 #include <String.h>
-#include <Application.h>
 
 
 enum
@@ -12,31 +12,28 @@ enum
 
 };
 
-#include <iostream>
 
-
-class TimerView : public BTextView
-{
-
-	public:
-		TimerView();
-		void StartTimer();
-		void StopTimer();
-		void UpdateTimer();
+class TimerView : public BTextView {
+public:
 	
-	private:
+	TimerView();
+	void StartTimer();
+	void StopTimer();
+	void UpdateTimer();
+	
+private:
 		
-		void time_over();
-		void update_display();
+	void time_over();
+	void update_display();
+	
+	bool fIsRunning;
+	bigtime_t fStartTime;
+	bigtime_t fElapsedTimeSeconds;
 		
-		bool is_running;
-		bigtime_t start_time;
-		bigtime_t elapsed_time_seconds;
-		bigtime_t elapsed_time_seconds_before;
-		
-		int minutes_to_go;
-		int seconds_to_go;
+	int fMinutesToGo;
+	int fSecondsToGo;
 
 };
+
 
 #endif
