@@ -24,7 +24,7 @@ MainWindow::MainWindow(std::string title, BRect frame)
 	//initialize GUI Objects
 	fTopMenubar = new BMenuBar("topmenubar");
 	fLetterView = new LetterView();
-	fGoButton = new BButton(B_TRANSLATE("Go"), new BMessage(MW_GO_BUTTON_CLICKED));
+	fGoButton = new BButton(B_TRANSLATE("Shake it, baby!"), new BMessage(MW_GO_BUTTON_CLICKED));
 	fGiveupButton = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
 	fGiveupButton->SetEnabled(false);
 	fTimerView = new TimerView();

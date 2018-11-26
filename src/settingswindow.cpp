@@ -1,5 +1,6 @@
 #include "settingswindow.h"
 #include "configparser.h"
+#include "defs.h"
 
 #include <LayoutBuilder.h>
 #include <Layout.h>
@@ -158,7 +159,7 @@ void
 SettingsWindow::load_language_choices()
 {
 
-	std::string language_directory="/boot/home/config/settings/Boggle/languages";
+	std::string language_directory(APPDATADIRECTORY"/languages");
 	boost::filesystem::path language_dir_path(language_directory);	
 
 	boost::filesystem::directory_iterator end_iter;

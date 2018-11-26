@@ -47,7 +47,7 @@ private:
 
 	GameController 	*fGameController;
 	SoundPlayer		*fSoundPlayer;
-	std::string 	fResourceDir;
+	std::string 	fDataDirectory;
 		
 };
 

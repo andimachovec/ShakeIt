@@ -14,10 +14,10 @@
 
 App::App()
 	: 
-	BApplication(APP_SIGNATURE)
+	BApplication(APPSIGNATURE)
 {
 
-	fResourceDir="/boot/home/config/settings/Boggle"; 
+	fDataDirectory=std::string(APPDATADIRECTORY); 
 
 }	
 
@@ -73,8 +73,8 @@ App::MessageReceived(BMessage *msg)
 			{
 				std::string game_language_str(game_language);
 				ConfigParser::Config().SetParameter("game_language",game_language_str);
-				fGameController->SetDictionaryFile(fResourceDir+"/languages/"+game_language_str+"/"+game_language_str+".dict");
-				fGameController->SetDiceFile(fResourceDir+"/languages/"+game_language_str+"/"+game_language_str+".dice");
+				fGameController->SetDictionaryFile(fDataDirectory+"/languages/"+game_language_str+"/"+game_language_str+".dict");
+				fGameController->SetDiceFile(fDataDirectory+"/languages/"+game_language_str+"/"+game_language_str+".dice");
 				must_save=true;
 			}		
 			
@@ -104,7 +104,7 @@ App::MessageReceived(BMessage *msg)
 				
 			if (must_save)
 			{
-				ConfigParser::Config().WriteConfigToFile(fResourceDir+"/boggle.xml");	
+				ConfigParser::Config().WriteConfigToFile(fDataDirectory+"/shakeit.xml");	
 			}		
 				
 			break;	
@@ -126,7 +126,7 @@ void
 App::AboutRequested()
 {
 	
-	BAboutWindow *aboutwindow = new BAboutWindow(APPTITLE, APP_SIGNATURE);
+	BAboutWindow *aboutwindow = new BAboutWindow(APPTITLE, APPSIGNATURE);
 	
 	const char *authors[] =
 	{
@@ -163,20 +163,20 @@ App::ReadyToRun()
 	{
 		
 		//initialize config parser 
-		ConfigParser::Config().ReadConfigFromFile("/boot/home/config/settings/Boggle/boggle.xml");
+		ConfigParser::Config().ReadConfigFromFile(fDataDirectory+"/shakeit.xml");
 		
 		
 		//create game controller
 		int minimum_word_length=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
 		std::string language=(ConfigParser::Config().GetParameter("game_language"));
-		std::string dictionary_file=fResourceDir+"/languages/"+language+"/"+language+".dict";
-		std::string dice_file=fResourceDir+"/languages/"+language+"/"+language+".dice";
+		std::string dictionary_file=fDataDirectory+"/languages/"+language+"/"+language+".dict";
+		std::string dice_file=fDataDirectory+"/languages/"+language+"/"+language+".dice";
 		
 		fGameController = new GameController(dictionary_file,dice_file,minimum_word_length);
 		
 		
 		//create sound player
-		fSoundPlayer = new SoundPlayer(fResourceDir+"/boggle.wav");
+		fSoundPlayer = new SoundPlayer(fDataDirectory+"/shakeit.wav");
 		
 	
 		//set app pulse to 1 second	(for the timer)
@@ -184,11 +184,19 @@ App::ReadyToRun()
 	
 	
 		//create and show the main and the input window
-		fMainWindow = new MainWindow("Boggle - Game Board", BRect(100,100,540,500));
+		std::string mainwindow_title(APPTITLE);
+		mainwindow_title.append(" - ");
+		mainwindow_title.append(B_TRANSLATE("Game Board"));
+		
+		std::string inputwindow_title(APPTITLE);
+		inputwindow_title.append(" - ");
+		inputwindow_title.append(B_TRANSLATE("Notepad"));
+		
+		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(100,100,540,500));
 	
 		BRect main_window_rect = fMainWindow->Frame();
 		
-		fInputWindow = new InputWindow("Boggle - Input Window" ,BRect(main_window_rect.right+20,100,main_window_rect.right+420,500));
+		fInputWindow = new InputWindow(inputwindow_title.c_str() ,BRect(main_window_rect.right+20,100,main_window_rect.right+420,500));
 		fMainWindow->Show();
 		fInputWindow->Show();
 		fInputWindow->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
@@ -198,7 +206,7 @@ App::ReadyToRun()
 
 	catch(const std::runtime_error &e)
 	{
-		BAlert *error_alert = new BAlert("Boggle",e.what(),"OK");
+		BAlert *error_alert = new BAlert(APPTITLE,e.what(),"OK");
 		error_alert->Go();
 		this->PostMessage(new BMessage(B_QUIT_REQUESTED));
 	}	
@@ -287,7 +295,7 @@ App::end_game(int reason)
 	//inform the user that the time is over
 	if (reason == ENDGAME_REASON_TIMEOVER)
 	{
-		BAlert *time_over_alert = new BAlert("Boggle",B_TRANSLATE("Time over"),"OK");
+		BAlert *time_over_alert = new BAlert(APPTITLE,B_TRANSLATE("Time over"),"OK");
 		time_over_alert->Go();
 	}
 	

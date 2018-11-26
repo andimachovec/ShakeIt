@@ -1,3 +1,6 @@
+resource app_flags B_SINGLE_LAUNCH;
+resource app_signature "application/x-vnd.BlueSky-ShakeIt";
+
 
 resource(1, "A-0.png") #'PNG ' array {
 	$"89504E470D0A1A0A0000000D494844520000003000000030100200000088F0B2"
