@@ -1,24 +1,28 @@
-1	English	application/x-vnd.dw-Boggle	2176717266
+1	English	application/x-vnd.BlueSky-ShakeIt	3096580394
 OK	App		OK
 Give Up	MainWindow		Give Up
+Game Board	App		Game Board
+Yes	MainWindow		Yes
+Language	SettingsWindow		Language
 a word searching game	App		a word searching game
 too short	App		too short
+No	MainWindow		No
 File	MainWindow		File
 duplicate	App		duplicate
+Game still in progress. Do you really want to quit?	MainWindow		Game still in progress. Do you really want to quit?
 	App		
+Shake it, baby!	MainWindow		Shake it, baby!
+Sound	SettingsWindow		Sound
 Time over	App		Time over
 Quit	MainWindow		Quit
-Dictionary file	SettingsWindow		Dictionary file
 Cancel	SettingsWindow		Cancel
 Minimum word length	SettingsWindow		Minimum word length
 not possible	App		not possible
-Go	MainWindow		Go
+Notepad	App		Notepad
 Help	MainWindow		Help
 Missing words	App		Missing words
 Settings	SettingsWindow		Settings
-Word Input	InputWindow		Word Input
 Save	SettingsWindow		Save
-Choose	SettingsWindow		Choose
 About	MainWindow		About
 not in dictionary	App		not in dictionary
 Settings	MainWindow		Settings
