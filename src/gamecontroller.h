@@ -57,7 +57,7 @@ class GameController
 		void setup_letter_matrix();							//get the current letters from the GameDie objects and put them into a 4x4 matrix (used for validation)	
 		void initialize_already_used_matrix(); 				//initialize the already used matrix for check_possible()
 		std::vector<coordinates> find_starting_points(std::string word);	//used by check_possible to find the starting points for word_search()
-		bool word_search(std::string word,int start_row, int start_col,int position_in_word,bool_matrix already_used); //recursive method used by check_possible to follow the paths and check if the word is really possible
+		bool word_search(std::string word,int start_row, int start_col,unsigned int position_in_word,bool_matrix already_used); //recursive method used by check_possible to follow the paths and check if the word is really possible
 
 		int	give_points(std::string word);						//give points for a word according to game rules
 		void find_missing_words();      //finds the words in the dictionary that are possible but that the player didn´t find
@@ -78,8 +78,8 @@ class GameController
 		
 		int points_total;						
 		int points_current_round;				
-		int minimum_word_length;				
 		std::string dictionary_filename;		
+		unsigned int minimum_word_length;						
 		std::vector<std::string> missing_words; 
 
 		bool game_running;

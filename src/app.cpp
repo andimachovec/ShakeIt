@@ -328,7 +328,7 @@ App::end_game(int reason)
 	//Display the results on the input window
 	std::stringstream result_stream;
 	
-	for (int i=0; i < word_list.size(); ++i)
+	for (unsigned int i=0; i < word_list.size(); ++i)
 	{
 	
 		int result_code = results[i].first;

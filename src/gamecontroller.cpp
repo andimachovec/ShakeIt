@@ -347,7 +347,7 @@ int GameController::validate_word(std::string word)
 	
 	int returncode;
 		
-	int word_length=word.length();
+	size_t word_length=word.length();
 	
 	
 	//convert word to uppercase
@@ -722,7 +722,7 @@ std::vector<coordinates> GameController::find_starting_points(std::string word)
 
 
 //-----------------------------------------------------------------------------
-bool GameController::word_search(std::string word,int start_row, int start_col,int position_in_word,bool_matrix already_used)
+bool GameController::word_search(std::string word,int start_row, int start_col,unsigned int position_in_word,bool_matrix already_used)
 //-----------------------------------------------------------------------------
 {
 
