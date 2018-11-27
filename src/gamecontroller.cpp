@@ -524,7 +524,7 @@ void GameController::find_missing_words()
 
 	
 	//prepare the sql query for the dictionary
-	std::string sql_text = "select name from words;";	
+	std::string sql_text = "select name from words order by name;";	
 
 	sqlite3_stmt *statement;
 	int result=sqlite3_prepare_v2(dictionary_db,sql_text.c_str(), -1, &statement, NULL);
