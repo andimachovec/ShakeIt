@@ -13,6 +13,7 @@
 #include "defs.h"
 #include "mainwindow.h"
 #include "inputwindow.h"
+#include "timerwindow.h"
 #include "settingswindow.h"
 #include "gamecontroller.h"
 #include "configparser.h"
@@ -44,7 +45,8 @@ private:
 	
 	MainWindow	*fMainWindow;
 	InputWindow	*fInputWindow;
-
+	TimerWindow	*fTimerWindow;
+	
 	GameController 	*fGameController;
 	SoundPlayer		*fSoundPlayer;
 	std::string 	fDataDirectory;

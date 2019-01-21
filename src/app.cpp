@@ -183,7 +183,7 @@ App::ReadyToRun()
 		SetPulseRate(1000000);	
 	
 	
-		//create and show the main and the input window
+		//create and show the main, input and timer window
 		std::string mainwindow_title(APPTITLE);
 		mainwindow_title.append(" - ");
 		mainwindow_title.append(B_TRANSLATE("Game Board"));
@@ -192,13 +192,21 @@ App::ReadyToRun()
 		inputwindow_title.append(" - ");
 		inputwindow_title.append(B_TRANSLATE("Notepad"));
 		
+		std::string timerwindow_title(APPTITLE);
+		timerwindow_title.append(" - ");
+		timerwindow_title.append(B_TRANSLATE("Timer"));
+		
 		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(100,100,540,500));
 	
 		BRect main_window_rect = fMainWindow->Frame();
 		
 		fInputWindow = new InputWindow(inputwindow_title.c_str() ,BRect(main_window_rect.right+20,100,main_window_rect.right+420,500));
+		fTimerWindow = new TimerWindow(timerwindow_title.c_str(), BRect(300,300,450,400));
+		
+		
 		fMainWindow->Show();
 		fInputWindow->Show();
+		fTimerWindow->Show();
 		fInputWindow->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
 		fMainWindow->Activate(true);
 	}
