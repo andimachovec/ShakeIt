@@ -5,6 +5,8 @@
 #include <Window.h>
 #include <string>
 
+#include "timerview.h"
+
 
 enum
 {
@@ -24,6 +26,12 @@ public:
 	
 	
 private:
+
+
+	TimerView *fTimerView;
+
+
+
 
 };
 

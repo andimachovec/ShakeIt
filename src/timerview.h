@@ -3,8 +3,6 @@
 
 
 #include <View.h>
-#include <String.h>
-
 
 enum
 {

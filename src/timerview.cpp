@@ -1,21 +1,18 @@
 #include "timerview.h"
 
 #include <Application.h>
-#include <iostream>
-
+#include <String.h>
 
 TimerView::TimerView()
 		:
 		BView("timerview", B_SUPPORTS_LAYOUT|B_WILL_DRAW)
 {
+
 	fIsRunning=false;
-
-	//MakeEditable(false);
-	//MakeSelectable(false);
-
-	//SetAlignment(B_ALIGN_RIGHT);
-
-
+	
+	BFont clock_font(be_plain_font);
+	clock_font.SetSize(28.0);
+	SetFont(&clock_font);
 
 }
 
@@ -24,8 +21,10 @@ void
 TimerView::Draw(BRect update_rect)
 {
 
-
-
+	if (fIsRunning)
+	{
+		update_display();
+	}
 
 }
 
@@ -94,8 +93,8 @@ TimerView::update_display()
 	BString output_string;
 	output_string.SetToFormat("%02d:%02d",fMinutesToGo,fSecondsToGo);
 	
-	//Delete(0,TextLength());
-	//Insert(output_string);
-	
+	FillRect(Bounds(),B_SOLID_LOW);
+	DrawString(output_string.String(), BPoint(80,60));
+
 }
 
