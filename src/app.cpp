@@ -202,10 +202,18 @@ App::ReadyToRun()
 		
 		BSize mainwindow_size(440,400);
 		BSize inputwindow_size(400,400);
-		BSize timerwindow_size(300,100);
-		BPoint mainwindow_anchor(100,100);
-		BPoint inputwindow_anchor(560,100);
-		BPoint timerwindow_anchor(400,540);
+		BSize timerwindow_size(300,80);
+
+		
+		const float horiz_dist_windows = 20;
+		const float vert_dist_windows = 50;
+
+		BPoint mainwindow_anchor((main_screen_frame.Width()-
+					(mainwindow_size.Width()+horiz_dist_windows+inputwindow_size.Width())) / 2,150);
+		BPoint inputwindow_anchor(main_screen_frame.Width()-
+					mainwindow_anchor.x-inputwindow_size.Width(),150);
+		BPoint timerwindow_anchor((main_screen_frame.Width()-timerwindow_size.Width()) / 2,
+					mainwindow_anchor.y+mainwindow_size.Height()+vert_dist_windows);
 		
 		
 		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(mainwindow_anchor,mainwindow_size));		
