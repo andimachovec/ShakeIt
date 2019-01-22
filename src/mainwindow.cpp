@@ -52,7 +52,7 @@ MainWindow::MainWindow(std::string title, BRect frame)
 				.Add(fGoButton)
 				.Add(fGiveupButton)
 			.End()	
-			.Add(fTimerView,1)	
+			//.Add(fTimerView,1)	
 		.End()
 	.Layout();	
 		
