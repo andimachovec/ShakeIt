@@ -27,8 +27,7 @@ MainWindow::MainWindow(std::string title, BRect frame)
 	fGoButton = new BButton(B_TRANSLATE("Shake it, baby!"), new BMessage(MW_GO_BUTTON_CLICKED));
 	fGiveupButton = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
 	fGiveupButton->SetEnabled(false);
-	fTimerView = new TimerView();
-	
+		
 	
 	//build the menu layout
 	BLayoutBuilder::Menu<>(fTopMenubar)
@@ -137,26 +136,7 @@ MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}	
 		
-		case MW_TIMER_UPDATE:
-		{
-			fTimerView->UpdateTimer();
-			break;	
-		}	
-		
-		case MW_TIMER_START:
-		{
-			fTimerView->StartTimer();
-			break;	
-		}	
-		
-		
-		case MW_TIMER_STOP:
-		{
-			fTimerView->StopTimer();
-			break;
-		}
-		
-		
+				
 		case MW_BOARD_SETUP:
 		{
 			

@@ -18,7 +18,7 @@
 #include "gamecontroller.h"
 #include "configparser.h"
 #include "soundplayer.h"
-
+#include "timerview.h"
 
 
 

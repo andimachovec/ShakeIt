@@ -6,14 +6,24 @@
 
 TimerView::TimerView()
 		:
-		BTextView("timerview")
+		BView("timerview", B_SUPPORTS_LAYOUT|B_WILL_DRAW)
 {
 	fIsRunning=false;
 
-	MakeEditable(false);
-	MakeSelectable(false);
+	//MakeEditable(false);
+	//MakeSelectable(false);
 
-	SetAlignment(B_ALIGN_RIGHT);
+	//SetAlignment(B_ALIGN_RIGHT);
+
+
+
+}
+
+
+void
+TimerView::Draw(BRect update_rect)
+{
+
 
 
 
@@ -84,8 +94,8 @@ TimerView::update_display()
 	BString output_string;
 	output_string.SetToFormat("%02d:%02d",fMinutesToGo,fSecondsToGo);
 	
-	Delete(0,TextLength());
-	Insert(output_string);
+	//Delete(0,TextLength());
+	//Insert(output_string);
 	
 }
 

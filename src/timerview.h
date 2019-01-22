@@ -2,21 +2,21 @@
 #define TIMERVIEW_H
 
 
-#include <TextView.h>
+#include <View.h>
 #include <String.h>
 
 
 enum
 {
-	TV_TIME_OVER='tv00',
-
+	TV_TIME_OVER='tv00'
 };
 
 
-class TimerView : public BTextView {
+class TimerView : public BView {
 public:
 	
 	TimerView();
+	void Draw(BRect update_rect);
 	void StartTimer();
 	void StopTimer();
 	void UpdateTimer();

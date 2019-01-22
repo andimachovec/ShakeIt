@@ -8,11 +8,10 @@
 #include <Button.h>
 
 #include <string>
-#include <iostream>
 
 #include "defs.h"
 #include "letterview.h"
-#include "timerview.h"
+
 
 
 enum  
@@ -27,9 +26,6 @@ enum
 	MW_GIVEUP_BUTTON_CLICKED,
 	MW_GIVEUP_BUTTON_ENABLE,
 	MW_GIVEUP_BUTTON_DISABLE,
-	MW_TIMER_UPDATE,
-	MW_TIMER_START,
-	MW_TIMER_STOP,
 	MW_BOARD_SETUP,
 };	
 
@@ -47,8 +43,7 @@ private:
 	LetterView	*fLetterView;
 	BButton		*fGoButton;
 	BButton		*fGiveupButton;
-	TimerView	*fTimerView;
-		
+			
 	bool fGameRunning;
 		
 };

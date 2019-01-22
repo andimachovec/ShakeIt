@@ -245,7 +245,7 @@ App::Pulse() //sends a message every second to update the timer
 
 	if (fGameController->IsRoundRunning())
 	{
-		fMainWindow->PostMessage(new BMessage(MW_TIMER_UPDATE));
+		fMainWindow->PostMessage(new BMessage(TW_TIMER_UPDATE));
 	}
 }
 
@@ -299,7 +299,7 @@ App::start_game()
 	
 	
 	//start the timer
-	fMainWindow->PostMessage(new BMessage(MW_TIMER_START));
+	fMainWindow->PostMessage(new BMessage(TW_TIMER_START));
 	
 }	
 
@@ -310,7 +310,7 @@ void
 App::end_game(int reason)
 {
 	//stop the timer
-	fMainWindow->PostMessage(new BMessage(MW_TIMER_STOP));
+	fMainWindow->PostMessage(new BMessage(TW_TIMER_STOP));
 
 	
 	//disable text editing on the input window
