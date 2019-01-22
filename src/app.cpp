@@ -4,8 +4,7 @@
 #include <AboutWindow.h>
 #include <Catalog.h>
 #include <Alert.h>
-
-#include <iostream>
+#include <Screen.h>
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -196,12 +195,22 @@ App::ReadyToRun()
 		timerwindow_title.append(" - ");
 		timerwindow_title.append(B_TRANSLATE("Timer"));
 		
-		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(100,100,540,500));
-	
-		BRect main_window_rect = fMainWindow->Frame();
+		BScreen *main_screen = new BScreen(B_MAIN_SCREEN_ID);
+		BRect main_screen_frame = main_screen->Frame();
+		delete main_screen;
 		
-		fInputWindow = new InputWindow(inputwindow_title.c_str() ,BRect(main_window_rect.right+20,100,main_window_rect.right+420,500));
-		fTimerWindow = new TimerWindow(timerwindow_title.c_str(), BRect(300,300,450,400));
+		
+		BSize mainwindow_size(440,400);
+		BSize inputwindow_size(400,400);
+		BSize timerwindow_size(300,100);
+		BPoint mainwindow_anchor(100,100);
+		BPoint inputwindow_anchor(560,100);
+		BPoint timerwindow_anchor(400,540);
+		
+		
+		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(mainwindow_anchor,mainwindow_size));		
+		fInputWindow = new InputWindow(inputwindow_title.c_str() ,BRect(inputwindow_anchor,inputwindow_size));
+		fTimerWindow = new TimerWindow(timerwindow_title.c_str(), BRect(timerwindow_anchor,timerwindow_size));
 		
 		
 		fMainWindow->Show();
