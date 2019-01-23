@@ -6,8 +6,16 @@
 TimerWindow::TimerWindow(std::string title, BRect frame)
 	:
 	BWindow(frame, title.c_str(), B_TITLED_WINDOW, 
-		B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
+		B_ASYNCHRONOUS_CONTROLS|
+		B_NOT_CLOSABLE|
+		B_NOT_H_RESIZABLE|
+		B_NOT_V_RESIZABLE|
+		B_AVOID_FOCUS)
 {
+
+
+	
+
 
 	fTimerView = new TimerView();
 

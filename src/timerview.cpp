@@ -3,6 +3,7 @@
 #include <Application.h>
 #include <String.h>
 
+
 TimerView::TimerView()
 		:
 		BView("timerview", B_SUPPORTS_LAYOUT|B_WILL_DRAW)
@@ -15,6 +16,11 @@ TimerView::TimerView()
 	BFont clock_font(be_fixed_font);
 	clock_font.SetSize(28.0);
 	SetFont(&clock_font);
+
+	struct font_height clock_font_height;
+	clock_font.GetHeight(&clock_font_height);
+	fTextHeight=clock_font_height.ascent;
+	fTextWidth=clock_font.StringWidth("00:00");
 
 	SetHighColor(255,0,0);
 	SetLowColor(0,0,0);
@@ -92,15 +98,18 @@ TimerView::time_over()
 void
 TimerView::update_display()
 {
-	
+
 	int fMinutesToGo=(180-fElapsedTimeSeconds) / 60;
 	int fSecondsToGo=(180-fElapsedTimeSeconds) % 60; 
 	
 	BString output_string;
 	output_string.SetToFormat("%02d:%02d",fMinutesToGo,fSecondsToGo);
 	
+	BPoint TextAnchor;
+	TextAnchor.x = (Bounds().Width()-fTextWidth) / 2;
+	TextAnchor.y = ((Bounds().Height()-fTextHeight) / 2) + fTextHeight;
 	FillRect(Bounds(),B_SOLID_LOW);
-	DrawString(output_string.String(), BPoint(80,60));
+	DrawString(output_string.String(), TextAnchor);
 
 }
 

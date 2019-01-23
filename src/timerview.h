@@ -31,6 +31,8 @@ private:
 	int fMinutesToGo;
 	int fSecondsToGo;
 
+	float fTextHeight;
+	float fTextWidth;
 };
 
 
