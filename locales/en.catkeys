@@ -1,4 +1,4 @@
-1	English	application/x-vnd.BlueSky-ShakeIt	3096580394
+1	English	application/x-vnd.BlueSky-ShakeIt	4174281575
 OK	App		OK
 Give Up	MainWindow		Give Up
 Game Board	App		Game Board
@@ -26,4 +26,5 @@ Save	SettingsWindow		Save
 About	MainWindow		About
 not in dictionary	App		not in dictionary
 Settings	MainWindow		Settings
+Timer	App		Timer
 Points in this round	App		Points in this round
