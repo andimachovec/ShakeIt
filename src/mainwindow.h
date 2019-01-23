@@ -11,7 +11,7 @@
 
 #include "defs.h"
 #include "letterview.h"
-
+#include "statusview.h"
 
 
 enum  
@@ -43,8 +43,8 @@ private:
 	LetterView	*fLetterView;
 	BButton		*fGoButton;
 	BButton		*fGiveupButton;
-			
-	bool fGameRunning;
+	StatusView	*fStatusView;		
+	bool 		fGameRunning;
 		
 };
 
