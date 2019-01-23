@@ -10,9 +10,15 @@ TimerView::TimerView()
 
 	fIsRunning=false;
 	
-	BFont clock_font(be_plain_font);
+	SetDrawingMode(B_OP_COPY);
+	
+	BFont clock_font(be_fixed_font);
 	clock_font.SetSize(28.0);
 	SetFont(&clock_font);
+
+	SetHighColor(255,0,0);
+	SetLowColor(0,0,0);
+	SetViewColor(0,0,0);
 
 }
 

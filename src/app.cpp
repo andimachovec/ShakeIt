@@ -202,7 +202,7 @@ App::ReadyToRun()
 		
 		BSize mainwindow_size(440,400);
 		BSize inputwindow_size(400,400);
-		BSize timerwindow_size(300,80);
+		BSize timerwindow_size(200,80);
 
 		
 		const float horiz_dist_windows = 20;
