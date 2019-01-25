@@ -3,14 +3,11 @@
 
 #include <TextView.h>
 
-class StatusView : public BTextView {
 
+class StatusView : public BTextView {
 public:
 	StatusView();
-
-private:
-
-
+	void UpdateStatus();
 
 };
 

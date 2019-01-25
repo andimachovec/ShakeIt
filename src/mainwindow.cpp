@@ -157,6 +157,10 @@ MainWindow::MessageReceived(BMessage *msg)
 			break;	
 		}	
 		
+		case MW_STATUSVIEW_UPDATE:
+			fStatusView->UpdateStatus();
+			break;
+		
 						
 		default:
 		{
