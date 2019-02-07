@@ -10,6 +10,7 @@
 #include <Catalog.h>
 #include <Menu.h>
 #include <MenuItem.h>
+#include <SeparatorView.h>
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -51,6 +52,7 @@ MainWindow::MainWindow(std::string title, BRect frame)
 				.Add(fGoButton)
 				.Add(fGiveupButton)
 			.End()	
+			.Add(new BSeparatorView(B_HORIZONTAL, B_PLAIN_BORDER),0)
 			.Add(fStatusView,1)	
 		.End()
 	.Layout();	
