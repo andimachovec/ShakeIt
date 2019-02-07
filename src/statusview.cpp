@@ -1,9 +1,10 @@
 #include "statusview.h"
 #include "configparser.h"
-#include "defs.h"
 
 #include <Catalog.h>
-#include <string>
+#include <Resources.h>
+#include <Application.h>
+
 #include <sstream>
 #include <fstream>
 
@@ -17,6 +18,12 @@ StatusView::StatusView()
 	BStringView("statusview","")
 
 {
+	
+	BResources *res = be_app->AppResources();
+	size_t size;
+	
+	fDataDirectory=std::string((const char*) res->LoadResource(B_STRING_TYPE,"DataDirectory", &size));
+	
 	
 	UpdateStatus();
 
@@ -34,7 +41,7 @@ StatusView::UpdateStatus()
 		
 		//fetch language description from config dir
 		std::ifstream language_desc_file;
-		language_desc_file.open(APPDATADIRECTORY"/languages/"+game_language+"/"+game_language+".desc");
+		language_desc_file.open(fDataDirectory+"/languages/"+game_language+"/"+game_language+".desc");
 		
 		std::string language_description;
 		getline(language_desc_file,language_description);

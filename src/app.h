@@ -11,7 +11,6 @@
 #include <sstream>
 #include <array>
 
-#include "defs.h"
 #include "mainwindow.h"
 #include "inputwindow.h"
 #include "timerwindow.h"

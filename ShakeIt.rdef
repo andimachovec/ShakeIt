@@ -2,6 +2,20 @@ resource app_flags B_SINGLE_LAUNCH;
 resource app_signature "application/x-vnd.BlueSky-ShakeIt";
 
 
+resource app_version {
+	major  = 0,
+	middle = 12,
+	minor  = 3,
+
+	variety = B_APPV_DEVELOPMENT,
+	internal = 0,
+
+	short_info = "ShakeIt",
+	long_info = "a word searching game"
+};
+
+
+
 resource vector_icon {
 	$"6E6369661103E6C52B03E3DDC405000500050005000500050005000500050005"
 	$"00050005000500050003FF0000130A042424245C5C5C5C240A04303030505050"
@@ -4283,3 +4297,5 @@ resource(105, "Z-3.png") #'PNG ' array {
 	$"7900323031362D30322D32325431373A31343A34322B30313A3030DD8DEE8400"
 	$"00000049454E44AE426082"
 };
+
+resource(106, "DataDirectory") #'CSTR' "/boot/home/config/settings/ShakeIt"; 

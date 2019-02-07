@@ -5,6 +5,7 @@
 #include <Catalog.h>
 #include <Alert.h>
 #include <Screen.h>
+#include <Resources.h>
 
 #include <chrono>
 #include <thread>
@@ -16,10 +17,13 @@
 
 App::App()
 	: 
-	BApplication(APPSIGNATURE)
+	BApplication("application/x-vnd.BlueSky-ShakeIt")
 {
 
-	fDataDirectory=std::string(APPDATADIRECTORY); 
+	BResources *res = BApplication::AppResources();
+	size_t size;
+	
+	fDataDirectory=std::string((const char*) res->LoadResource(B_STRING_TYPE,"DataDirectory", &size)); 
 
 }	
 
@@ -141,17 +145,15 @@ App::AboutRequested()
 	
 	const char *authors[] =
 	{
-		APPAUTHOR,
+		"Andi Machovec",
 		NULL
 	};
 	
-	
-	aboutwindow->AddCopyright(APPCOPYRIGHTYEAR, APPCOPYRIGHTNAME);
+	aboutwindow->AddCopyright(2018, "Andi Machovec");
 	aboutwindow->AddAuthors(authors);
-	aboutwindow->SetVersion(APPVERSION);
-	aboutwindow->AddDescription(B_TRANSLATE(APPDESCRIPTION));
-	aboutwindow->AddExtraInfo(B_TRANSLATE(APPEXTRAINFO));
-	//aboutwindow->AddSpecialThanks("APPSPECIALTHANKS");
+	aboutwindow->SetVersion("0.12.3");
+	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
+	aboutwindow->AddExtraInfo("");
 	aboutwindow->Show();
 	
 }

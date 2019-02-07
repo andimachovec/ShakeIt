@@ -1,6 +1,5 @@
 #include "settingswindow.h"
 #include "configparser.h"
-#include "defs.h"
 
 #include <LayoutBuilder.h>
 #include <Layout.h>
@@ -9,6 +8,7 @@
 #include <FilePanel.h>
 #include <Application.h>
 #include <Catalog.h>
+#include <Resources.h>
 
 #include <fstream>
 #include <iostream>
@@ -23,6 +23,11 @@ SettingsWindow::SettingsWindow()
 		: 
 		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
+	
+	//load data directory path from app resource
+	BResources *res = be_app->AppResources();
+	size_t size;
+	fDataDirectory=std::string((const char*) res->LoadResource(B_STRING_TYPE,"DataDirectory", &size));
 	
 	fLanguageDefault=ConfigParser::Config().GetParameter("game_language");
 	fMinWordLengthDefault=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
@@ -159,9 +164,7 @@ void
 SettingsWindow::load_language_choices()
 {
 
-	std::string language_directory(APPDATADIRECTORY"/languages");
-	boost::filesystem::path language_dir_path(language_directory);	
-
+	boost::filesystem::path language_dir_path(fDataDirectory+"/languages");	
 	boost::filesystem::directory_iterator end_iter;
 
 	for (boost::filesystem::directory_iterator dir_iter(language_dir_path); dir_iter!=end_iter; ++dir_iter)

@@ -46,6 +46,7 @@ private:
 	int fMinWordLengthDefault;
 	int32 fSoundDefault;
 	std::vector<std::pair<std::string, std::string>> fAvailableLanguages;
+	std::string fDataDirectory;
 
 };	
 
