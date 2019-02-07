@@ -12,12 +12,10 @@
 
 StatusView::StatusView()
 	:
-	BTextView("statusview")
+	BStringView("statusview","")
 
 {
 
-	SetInsets(2,2,2,2);
-	MakeEditable(false);
 	UpdateStatus();
 
 }
@@ -30,8 +28,6 @@ StatusView::UpdateStatus()
 		std::string game_language = ConfigParser::Config().GetParameter("game_language");
 		std::string minimum_word_length = ConfigParser::Config().GetParameter("minimum_word_length");
 
-		SelectAll();
-		Clear();
 		
 		std::stringstream status_message; 		
 		status_message << 

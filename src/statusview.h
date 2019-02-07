@@ -1,10 +1,10 @@
 #ifndef STATUSVIEW_H
 #define STATUSVIEW_H
 
-#include <TextView.h>
+#include <StringView.h>
 
 
-class StatusView : public BTextView {
+class StatusView : public BStringView {
 public:
 	StatusView();
 	void UpdateStatus();
