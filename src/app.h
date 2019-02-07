@@ -32,6 +32,7 @@ enum
 class App : public BApplication {
 public:
 	App();
+	~App();
 	void MessageReceived(BMessage *msg);
 	void AboutRequested();
 	bool QuitRequested();

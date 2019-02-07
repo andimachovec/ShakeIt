@@ -6,6 +6,8 @@
 #include <Alert.h>
 #include <Screen.h>
 
+#include <chrono>
+#include <thread>
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -20,6 +22,14 @@ App::App()
 	fDataDirectory=std::string(APPDATADIRECTORY); 
 
 }	
+
+
+App::~App()
+{
+
+	delete fGameSound;
+
+}
 
 
 void 
@@ -275,7 +285,11 @@ App::start_game()
 	//play sound if activated
 	if (ConfigParser::Config().GetParameter("sound") == "on")
 	{ 
+		//play sound
 		fGameSound->StartPlaying();
+	
+		//sleep while the sound is playing (because it is played asynchronously)
+		std::this_thread::sleep_for(std::chrono::seconds(2));
 	}
 	
 	//activate the input window
