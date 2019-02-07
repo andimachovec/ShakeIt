@@ -28,7 +28,7 @@ App::~App()
 {
 
 	delete fGameSound;
-
+	delete fGameController;
 }
 
 
