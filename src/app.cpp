@@ -104,6 +104,7 @@ App::MessageReceived(BMessage *msg)
 			if (must_save)
 			{
 				ConfigParser::Config().WriteConfigToFile(fDataDirectory+"/shakeit.xml");	
+				fMainWindow->PostMessage(MW_STATUSVIEW_UPDATE);
 			}		
 				
 			break;	

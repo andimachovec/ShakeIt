@@ -10,6 +10,7 @@
 #include <Catalog.h>
 #include <Menu.h>
 #include <MenuItem.h>
+#include <SeparatorView.h>
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -27,7 +28,7 @@ MainWindow::MainWindow(std::string title, BRect frame)
 	fGoButton = new BButton(B_TRANSLATE("Shake it, baby!"), new BMessage(MW_GO_BUTTON_CLICKED));
 	fGiveupButton = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
 	fGiveupButton->SetEnabled(false);
-		
+	fStatusView = new StatusView();	
 	
 	//build the menu layout
 	BLayoutBuilder::Menu<>(fTopMenubar)
@@ -51,7 +52,8 @@ MainWindow::MainWindow(std::string title, BRect frame)
 				.Add(fGoButton)
 				.Add(fGiveupButton)
 			.End()	
-			//.Add(fTimerView,1)	
+			.Add(new BSeparatorView(B_HORIZONTAL, B_PLAIN_BORDER),0)
+			.Add(fStatusView,1)	
 		.End()
 	.Layout();	
 		
@@ -156,6 +158,10 @@ MainWindow::MessageReceived(BMessage *msg)
 			
 			break;	
 		}	
+		
+		case MW_STATUSVIEW_UPDATE:
+			fStatusView->UpdateStatus();
+			break;
 		
 						
 		default:

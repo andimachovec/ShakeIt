@@ -11,7 +11,7 @@
 
 #include "defs.h"
 #include "letterview.h"
-
+#include "statusview.h"
 
 
 enum  
@@ -27,6 +27,7 @@ enum
 	MW_GIVEUP_BUTTON_ENABLE,
 	MW_GIVEUP_BUTTON_DISABLE,
 	MW_BOARD_SETUP,
+	MW_STATUSVIEW_UPDATE
 };	
 
 
@@ -43,8 +44,8 @@ private:
 	LetterView	*fLetterView;
 	BButton		*fGoButton;
 	BButton		*fGiveupButton;
-			
-	bool fGameRunning;
+	StatusView	*fStatusView;		
+	bool 		fGameRunning;
 		
 };
 
