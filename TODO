@@ -1,3 +1,2 @@
 -- solve "Q-problem"
--- show game language and minimum word length in the status bar
 -- get rid of defs.h and move the info to the rdef file
