@@ -7,6 +7,7 @@
 #include <Screen.h>
 
 
+
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "App"
 
@@ -176,8 +177,9 @@ App::ReadyToRun()
 		
 		
 		//create sound player
-		fSoundPlayer = new SoundPlayer(fDataDirectory+"/shakeit.wav");
-		
+		std::string sound_file = fDataDirectory+"/shakeit.wav";
+		fGameSound = new BSimpleGameSound(sound_file.c_str());
+		fGameSound->SetIsLooping(false);
 	
 		//set app pulse to 1 second	(for the timer)
 		SetPulseRate(1000000);	
@@ -273,7 +275,7 @@ App::start_game()
 	//play sound if activated
 	if (ConfigParser::Config().GetParameter("sound") == "on")
 	{ 
-		fSoundPlayer->Play();
+		fGameSound->StartPlaying();
 	}
 	
 	//activate the input window

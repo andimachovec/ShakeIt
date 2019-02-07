@@ -3,6 +3,7 @@
 
 
 #include <Application.h>
+#include <SimpleGameSound.h>
 
 #include <iostream>
 #include <vector>
@@ -17,7 +18,6 @@
 #include "settingswindow.h"
 #include "gamecontroller.h"
 #include "configparser.h"
-#include "soundplayer.h"
 #include "timerview.h"
 
 
@@ -47,9 +47,9 @@ private:
 	InputWindow	*fInputWindow;
 	TimerWindow	*fTimerWindow;
 	
-	GameController 	*fGameController;
-	SoundPlayer		*fSoundPlayer;
-	std::string 	fDataDirectory;
+	GameController 		*fGameController;
+	BSimpleGameSound	*fGameSound;
+	std::string 		fDataDirectory;
 		
 };
 
