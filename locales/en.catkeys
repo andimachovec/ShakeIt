@@ -1,4 +1,4 @@
-1	English	application/x-vnd.BlueSky-ShakeIt	2264395307
+1	English	application/x-vnd.BlueSky-ShakeIt	417501146
 OK	App		OK
 Give Up	MainWindow		Give Up
 Game Board	App		Game Board
@@ -19,13 +19,16 @@ Cancel	SettingsWindow		Cancel
 Minimum word length	SettingsWindow		Minimum word length
 not possible	App		not possible
 Notepad	App		Notepad
-game language	StatusView		game language
+off	StatusView		off
+Game language	StatusView		Game language
 Help	MainWindow		Help
 Missing words	App		Missing words
 Settings	SettingsWindow		Settings
+Sound	StatusView		Sound
+on	StatusView		on
 Save	SettingsWindow		Save
+Minimum word length	StatusView		Minimum word length
 About	MainWindow		About
-minimum word length	StatusView		minimum word length
 not in dictionary	App		not in dictionary
 Settings	MainWindow		Settings
 Timer	App		Timer
