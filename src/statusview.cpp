@@ -43,7 +43,7 @@ StatusView::UpdateStatus()
 		
 		//build status message and display it
 		std::stringstream status_message; 		
-		status_message << 
+		status_message << "  " <<
 				B_TRANSLATE("game language") << ": " << language_description << "     " <<
 				B_TRANSLATE("minimum word length") <<": " << minimum_word_length;
 		
