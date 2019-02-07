@@ -31,8 +31,8 @@ StatusView::UpdateStatus()
 		
 		std::stringstream status_message; 		
 		status_message << 
-				B_TRANSLATE("game language: ") << game_language << "     " <<
-				B_TRANSLATE("minimum word length: ") << minimum_word_length;
+				B_TRANSLATE("game language") << ": " << game_language << "     " <<
+				B_TRANSLATE("minimum word length") <<": " << minimum_word_length;
 		
 		SetText(status_message.str().c_str());
 		
