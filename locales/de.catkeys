@@ -1,4 +1,4 @@
-1	English	application/x-vnd.BlueSky-ShakeIt	3096580394
+1	English	application/x-vnd.BlueSky-ShakeIt	1972953023
 OK	App		OK
 Give Up	MainWindow		Aufgeben
 Game Board	App		Spielbrett
@@ -8,6 +8,7 @@ a word searching game	App		ein Wort-Ratespiel
 too short	App		zu kurz
 No	MainWindow		Nein
 File	MainWindow		Datei
+minimum word length: 	StatusView		minimale Wortlänge:
 duplicate	App		Duplikat
 Game still in progress. Do you really want to quit?	MainWindow		Ein Spiel ist noch im Gang. Wollen Sie wirklich beenden?
 	App		
@@ -15,6 +16,7 @@ Shake it, baby!	MainWindow		Schüttel mich, Baby!
 Sound	SettingsWindow		Klänge
 Time over	App		die Zeit ist um
 Quit	MainWindow		Beenden
+game language: 	StatusView		Sprache: 
 Cancel	SettingsWindow		Abbrechen
 Minimum word length	SettingsWindow		Minimale Wortlänge
 not possible	App		nicht möglich
@@ -26,4 +28,6 @@ Save	SettingsWindow		Speichern
 About	MainWindow		Über
 not in dictionary	App		nicht im Wörterbuch
 Settings	MainWindow		Einstellungen
+Timer	App		Stoppuhr
 Points in this round	App		Punkte in dieser Runde
+nde

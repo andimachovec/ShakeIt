@@ -1,4 +1,4 @@
-1	English	application/x-vnd.BlueSky-ShakeIt	3096580394
+1	English	application/x-vnd.BlueSky-ShakeIt	1972953023
 OK	App		OK
 Give Up	MainWindow		Give Up
 Game Board	App		Game Board
@@ -8,6 +8,7 @@ a word searching game	App		a word searching game
 too short	App		too short
 No	MainWindow		No
 File	MainWindow		File
+minimum word length: 	StatusView		minimum word length: 
 duplicate	App		duplicate
 Game still in progress. Do you really want to quit?	MainWindow		Game still in progress. Do you really want to quit?
 	App		
@@ -15,6 +16,7 @@ Shake it, baby!	MainWindow		Shake it, baby!
 Sound	SettingsWindow		Sound
 Time over	App		Time over
 Quit	MainWindow		Quit
+game language: 	StatusView		game language: 
 Cancel	SettingsWindow		Cancel
 Minimum word length	SettingsWindow		Minimum word length
 not possible	App		not possible
@@ -26,4 +28,5 @@ Save	SettingsWindow		Save
 About	MainWindow		About
 not in dictionary	App		not in dictionary
 Settings	MainWindow		Settings
+Timer	App		Timer
 Points in this round	App		Points in this round
