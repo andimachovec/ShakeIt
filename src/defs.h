@@ -6,7 +6,7 @@
 
 //App Settings
 #define APPTITLE		 "ShakeIt" 
-#define APPVERSION		 "0.10.3" 
+#define APPVERSION		 "0.11.5" 
 #define APPAUTHOR		 "Andi Machovec"	
 #define APPCOPYRIGHTNAME "Andi Machovec"
 #define APPCOPYRIGHTYEAR 2018
