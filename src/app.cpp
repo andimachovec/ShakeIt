@@ -141,7 +141,7 @@ void
 App::AboutRequested()
 {
 	
-	BAboutWindow *aboutwindow = new BAboutWindow(APPTITLE, APPSIGNATURE);
+	BAboutWindow *aboutwindow = new BAboutWindow("ShakeIt", "application/x-vnd.BlueSky-ShakeIt");
 	
 	const char *authors[] =
 	{
@@ -198,15 +198,15 @@ App::ReadyToRun()
 	
 	
 		//create and show the main, input and timer window
-		std::string mainwindow_title(APPTITLE);
+		std::string mainwindow_title("ShakeIt");
 		mainwindow_title.append(" - ");
 		mainwindow_title.append(B_TRANSLATE("Game Board"));
 		
-		std::string inputwindow_title(APPTITLE);
+		std::string inputwindow_title("ShakeIt");
 		inputwindow_title.append(" - ");
 		inputwindow_title.append(B_TRANSLATE("Notepad"));
 		
-		std::string timerwindow_title(APPTITLE);
+		std::string timerwindow_title("ShakeIt");
 		timerwindow_title.append(" - ");
 		timerwindow_title.append(B_TRANSLATE("Timer"));
 		
@@ -246,7 +246,7 @@ App::ReadyToRun()
 
 	catch(const std::runtime_error &e)
 	{
-		BAlert *error_alert = new BAlert(APPTITLE,e.what(),"OK");
+		BAlert *error_alert = new BAlert("ShakeIt",e.what(),"OK");
 		error_alert->Go();
 		this->PostMessage(new BMessage(B_QUIT_REQUESTED));
 	}	
@@ -339,7 +339,7 @@ App::end_game(int reason)
 	//inform the user that the time is over
 	if (reason == ENDGAME_REASON_TIMEOVER)
 	{
-		BAlert *time_over_alert = new BAlert(APPTITLE,B_TRANSLATE("Time over"),"OK");
+		BAlert *time_over_alert = new BAlert("ShakeIt",B_TRANSLATE("Time over"),"OK");
 		time_over_alert->Go();
 	}
 	

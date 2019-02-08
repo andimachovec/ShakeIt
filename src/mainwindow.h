@@ -9,7 +9,6 @@
 
 #include <string>
 
-#include "defs.h"
 #include "letterview.h"
 #include "statusview.h"
 
