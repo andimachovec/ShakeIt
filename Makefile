@@ -42,10 +42,6 @@ SRCS = \
 	 src/statusview.cpp  \
 	 src/timerview.cpp  \
 	 src/timerwindow.cpp  \
-	 src/tinyxml/tinystr.cpp  \
-	 src/tinyxml/tinyxml.cpp  \
-	 src/tinyxml/tinyxmlerror.cpp  \
-	 src/tinyxml/tinyxmlparser.cpp  \
 
 
 #	Specify the resource definition files to use. Full or relative paths can be
@@ -113,6 +109,8 @@ RSRCS = \
 
 #%}
 
+#%}
+
 #	Specify libraries to link against.
 #	There are two acceptable forms of library specifications:
 #	-	if your library follows the naming pattern of libXXX.so or libXXX.a,
@@ -125,7 +123,7 @@ RSRCS = \
 #	- 	if your library does not follow the standard library naming scheme,
 #		you need to specify the path to the library and it's name.
 #		(e.g. for mylib.a, specify "mylib.a" or "path/mylib.a")
-LIBS = $(STDCPPLIBS) be tracker root translation localestub game sqlite3 boost_system boost_filesystem
+LIBS = $(STDCPPLIBS) be tracker root translation localestub game sqlite3 boost_system boost_filesystem tinyxml
 
 #	Specify additional paths to directories following the standard libXXX.so
 #	or libXXX.a naming scheme. You can specify full paths or paths relative
@@ -160,7 +158,7 @@ LOCALES = en de
 #	use. For example, setting DEFINES to "DEBUG=1" will cause the compiler
 #	option "-DDEBUG=1" to be used. Setting DEFINES to "DEBUG" would pass
 #	"-DDEBUG" on the compiler's command line.
-DEFINES = TIXML_USE_STL 
+DEFINES = 
 
 #	Specify the warning level. Either NONE (suppress all warnings),
 #	ALL (enable all warnings), or leave blank (enable default warnings).

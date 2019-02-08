@@ -26,7 +26,7 @@ void ConfigParser::ReadConfigFromFile(std::string FileName)
 {
 	
 	//Load Content from XML file
-	bool load_ok = xml_file.LoadFile(FileName);
+	bool load_ok = xml_file.LoadFile(FileName.c_str());
 	
 	if (!load_ok)
 	{
@@ -56,7 +56,7 @@ void ConfigParser::WriteConfigToFile(std::string FileName)
 //-----------------------------------------------------------------------------
 {
 	
-	bool result_ok=xml_file.SaveFile(FileName);
+	bool result_ok=xml_file.SaveFile(FileName.c_str());
 
 
 	if (!result_ok)
@@ -94,8 +94,8 @@ void ConfigParser::SetParameter(std::string parametername, std::string value)
 		//change the value also in the XMLDocument Object in Memory
 		
 		TiXmlElement *RootNode = xml_file.RootElement();
-		TiXmlElement *ParamElement = RootNode->FirstChildElement(parametername);
-		ParamElement->FirstChild()->SetValue(value);
+		TiXmlElement *ParamElement = RootNode->FirstChildElement(parametername.c_str());
+		ParamElement->FirstChild()->SetValue(value.c_str());
 		
 				
 		//change the value in the parameter map	
