@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="yes" ?>
+<config>
+    <game_language>german</game_language>
+    <minimum_word_length>4</minimum_word_length>
+    <sound>on</sound>
+    <dictionary_update_url>raspi.machovec.lan/boggledict</dictionary_update_url>
+</config>
