@@ -1,1 +1,3 @@
 -- solve "Q-problem"
+-- better error handling when files are missing
+
