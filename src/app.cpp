@@ -289,6 +289,10 @@ App::start_game()
 	}
 	
 	
+	//tell the game controller to start the round
+	fGameController->StartRound();
+	
+
 	//get the board data from the game controller, pack it into a message, and send it to the main window
 	std::vector<std::string> board_letters=fGameController->GetBoardLetters();
 	std::vector<int> board_letter_orientation=fGameController->GetBoardLetterOrientation();
@@ -303,8 +307,7 @@ App::start_game()
 	
 	fMainWindow->PostMessage(board_setup_msg);
 
-	//tell the game controller to start the round
-	fGameController->StartRound();
+	
 
 	//start the timer
 	fTimerWindow->PostMessage(new BMessage(TW_TIMER_START));
