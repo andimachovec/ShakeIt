@@ -151,7 +151,7 @@ App::AboutRequested()
 	
 	aboutwindow->AddCopyright(2018, "Andi Machovec");
 	aboutwindow->AddAuthors(authors);
-	aboutwindow->SetVersion("0.13.1");
+	aboutwindow->SetVersion("0.13.2");
 	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
 	aboutwindow->AddExtraInfo("");
 	aboutwindow->Show();
@@ -274,16 +274,10 @@ App::start_game()
 	//disable the settings menu
 	fMainWindow->PostMessage(new BMessage(MW_MENU_SETTINGS_DISABLE));
 	
-	//disable the go button and enable the givup button
+	//disable the go button 
 	fMainWindow->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
-	fMainWindow->PostMessage(new BMessage(MW_GIVEUP_BUTTON_ENABLE));
 	
-	
-	//clear the input window and enable text input
-	fInputWindow->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
-	fInputWindow->PostMessage(new BMessage(IW_TEXT_CLEAR));
-	
-	
+
 	//play sound if activated
 	if (ConfigParser::Config().GetParameter("sound") == "on")
 	{ 
@@ -293,13 +287,6 @@ App::start_game()
 		//sleep while the sound is playing (because it is played asynchronously)
 		std::this_thread::sleep_for(std::chrono::seconds(2));
 	}
-	
-	//activate the input window
-	fInputWindow->PostMessage(new BMessage(IW_ACTIVATE));
-	
-	
-	//tell the game controller to start the round
-	fGameController->StartRound();
 	
 	
 	//get the board data from the game controller, pack it into a message, and send it to the main window
@@ -315,10 +302,25 @@ App::start_game()
 	}	
 	
 	fMainWindow->PostMessage(board_setup_msg);
-	
-	
+
+	//tell the game controller to start the round
+	fGameController->StartRound();
+
 	//start the timer
 	fTimerWindow->PostMessage(new BMessage(TW_TIMER_START));
+	
+	
+	//clear the input window and enable text input
+	fInputWindow->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
+	fInputWindow->PostMessage(new BMessage(IW_TEXT_CLEAR));
+	
+	//activate the input window
+	fInputWindow->PostMessage(new BMessage(IW_ACTIVATE));
+	
+	
+	//enable the giveup button
+	fMainWindow->PostMessage(new BMessage(MW_GIVEUP_BUTTON_ENABLE));
+	
 	
 }	
 
