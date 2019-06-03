@@ -155,7 +155,7 @@ App::AboutRequested()
 		NULL
 	};
 	
-	aboutwindow->AddCopyright(2018, "Andi Machovec");
+	aboutwindow->AddCopyright(2017, "Andi Machovec (BlueSky)");
 	aboutwindow->AddAuthors(authors);
 	aboutwindow->SetVersion("0.13.2");
 	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
