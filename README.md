@@ -3,6 +3,8 @@
 A word searching game for Haiku inspired by Boggle(tm).
 
 
+![Screenshot](./images/screenshot.png)
+
 ## Prerequisites
 ShakeIt should compile and run under any version of Haiku that is not too ancient. 
 A C++11 capable compiler is required, so remember to do a *setarch x86* on 32bit Haiku. 
