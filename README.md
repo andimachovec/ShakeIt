@@ -9,7 +9,7 @@ A word searching game for Haiku inspired by Boggle(tm).
 ShakeIt should compile and run under any version of Haiku that is not too ancient. 
 A C++11 capable compiler is required, so remember to do a *setarch x86* on 32bit Haiku. 
 
-The development packages of the following software is required to compile ShakeIt:
+The development packages of the following software are required to compile ShakeIt:
 - boost
 - sqlite3
 - tinyxml
