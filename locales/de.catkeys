@@ -4,7 +4,7 @@ Give Up	MainWindow		Aufgeben
 Game Board	App		Spielbrett
 Yes	MainWindow		Ja
 Language	SettingsWindow		Sprache
-a word searching game	App		ein Wort-Ratespiel
+a word searching game	App		ein Wörtersuchspiel
 too short	App		zu kurz
 No	MainWindow		Nein
 File	MainWindow		Datei
@@ -33,4 +33,3 @@ not in dictionary	App		nicht im Wörterbuch
 Settings	MainWindow		Einstellungen
 Timer	App		Stoppuhr
 Points in this round	App		Punkte in dieser Runde
-nde
