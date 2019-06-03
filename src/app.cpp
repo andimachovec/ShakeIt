@@ -151,11 +151,11 @@ App::AboutRequested()
 	
 	const char *authors[] =
 	{
-		"Andi Machovec",
+		"Andi Machovec (BlueSky)",
 		NULL
 	};
 	
-	aboutwindow->AddCopyright(2017, "Andi Machovec (BlueSky)");
+	aboutwindow->AddCopyright(2017, "Andi Machovec");
 	aboutwindow->AddAuthors(authors);
 	aboutwindow->SetVersion("0.13.2");
 	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
