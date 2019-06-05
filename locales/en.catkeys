@@ -1,35 +1,35 @@
-1	English	application/x-vnd.BlueSky-ShakeIt	417501146
-OK	App		OK
-Give Up	MainWindow		Give Up
-Game Board	App		Game Board
-Yes	MainWindow		Yes
-Language	SettingsWindow		Language
-a word searching game	App		a word searching game
-too short	App		too short
-No	MainWindow		No
-File	MainWindow		File
-duplicate	App		duplicate
+1	English	application/x-vnd.BlueSky-ShakeIt	3208263654
 Game still in progress. Do you really want to quit?	MainWindow		Game still in progress. Do you really want to quit?
-	App		
-Shake it, baby!	MainWindow		Shake it, baby!
-Sound	SettingsWindow		Sound
-Time over	App		Time over
-Quit	MainWindow		Quit
 Cancel	SettingsWindow		Cancel
-Minimum word length	SettingsWindow		Minimum word length
-not possible	App		not possible
-Notepad	App		Notepad
-off	StatusView		off
-Game language	StatusView		Game language
-Help	MainWindow		Help
-Missing words	App		Missing words
-Settings	SettingsWindow		Settings
-Sound	StatusView		Sound
-on	StatusView		on
-Save	SettingsWindow		Save
-Minimum word length	StatusView		Minimum word length
-About	MainWindow		About
+Game Board	App		Game Board
 not in dictionary	App		not in dictionary
-Settings	MainWindow		Settings
-Timer	App		Timer
+About	MainWindow		About
+Language	SettingsWindow		Language
+Give Up	MainWindow		Give Up
+too short	App		too short
+on	StatusView		on
+Game language	StatusView		Game language
+Minimum word length	SettingsWindow		Minimum word length
+Sound	StatusView		Sound
+a word searching game	App		a word searching game
+Missing words	App		Missing words
+OK	App		OK
+Quit	MainWindow		Quit
+off	StatusView		off
+No	MainWindow		No
+Enter your words here, one by line. Case is ignored.	InputWindow		Enter your words here, one by line. Case is ignored.
+Yes	MainWindow		Yes
+Settings	SettingsWindow		Settings
+Help	MainWindow		Help
+Shake it, baby!	MainWindow		Shake it, baby!
+File	MainWindow		File
+not possible	App		not possible
+Time over	App		Time over
+Save	SettingsWindow		Save
 Points in this round	App		Points in this round
+Sound	SettingsWindow		Sound
+Settings	MainWindow		Settings
+duplicate	App		duplicate
+Minimum word length	StatusView		Minimum word length
+Notepad	App		Notepad
+Timer	App		Timer

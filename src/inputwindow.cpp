@@ -32,6 +32,10 @@ InputWindow::InputWindow(std::string title, BRect frame)
 	fWordsTextview->SetViewColor(237,227,208);
 	fWordsTextviewScrollbar = new BScrollBar("wordscroll",fWordsTextview,1,100,B_VERTICAL);
 	
+	
+	fWordsTextview->SetText(B_TRANSLATE("Enter your words here, one by line. Case is ignored."));
+	
+	
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
 		.AddGroup(B_HORIZONTAL)

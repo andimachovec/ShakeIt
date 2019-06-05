@@ -1,35 +1,35 @@
-1	English	application/x-vnd.BlueSky-ShakeIt	417501146
-OK	App		OK
-Give Up	MainWindow		Aufgeben
-Game Board	App		Spielbrett
-Yes	MainWindow		Ja
-Language	SettingsWindow		Sprache
-a word searching game	App		ein Wörtersuchspiel
-too short	App		zu kurz
-No	MainWindow		Nein
-File	MainWindow		Datei
-duplicate	App		Duplikat
+1	English	application/x-vnd.BlueSky-ShakeIt	3208263654
 Game still in progress. Do you really want to quit?	MainWindow		Ein Spiel ist noch im Gang. Wollen Sie wirklich beenden?
-	App		
-Shake it, baby!	MainWindow		Schüttel mich, Baby!
-Sound	SettingsWindow		Klänge
-Time over	App		die Zeit ist um
-Quit	MainWindow		Beenden
 Cancel	SettingsWindow		Abbrechen
-Minimum word length	SettingsWindow		Minimale Wortlänge
-not possible	App		nicht möglich
-Notepad	App		Notizblock
-off	StatusView		aus
-Game language	StatusView		Sprache
-Help	MainWindow		Hilfe
-Missing words	App		Fehlende Wörter
-Settings	SettingsWindow		Einstellungen
-Sound	StatusView		Klänge
-on	StatusView		an
-Save	SettingsWindow		Speichern
-Minimum word length	StatusView		minimale Wortlänge
-About	MainWindow		Über
+Game Board	App		Spielbrett
 not in dictionary	App		nicht im Wörterbuch
-Settings	MainWindow		Einstellungen
-Timer	App		Stoppuhr
+About	MainWindow		Über
+Language	SettingsWindow		Sprache
+Give Up	MainWindow		Aufgeben
+too short	App		zu kurz
+on	StatusView		an
+Game language	StatusView		Sprache
+Minimum word length	SettingsWindow		Minimale Wortlänge
+Sound	StatusView		Klänge
+a word searching game	App		ein Wörtersuchspiel
+Missing words	App		Fehlende Wörter
+OK	App		OK
+Quit	MainWindow		Beenden
+off	StatusView		aus
+No	MainWindow		Nein
+Enter your words here, one by line. Case is ignored.	InputWindow		Trage deine Wörter hier ein. Gross/Kleinschreibung wird nicht beachtet.
+Yes	MainWindow		Ja
+Settings	SettingsWindow		Einstellungen
+Help	MainWindow		Hilfe
+Shake it, baby!	MainWindow		Schüttel mich, Baby!
+File	MainWindow		Datei
+not possible	App		nicht möglich
+Time over	App		die Zeit ist um
+Save	SettingsWindow		Speichern
 Points in this round	App		Punkte in dieser Runde
+Sound	SettingsWindow		Klänge
+Settings	MainWindow		Einstellungen
+duplicate	App		Duplikat
+Minimum word length	StatusView		minimale Wortlänge
+Notepad	App		Notizblock
+Timer	App		Stoppuhr
