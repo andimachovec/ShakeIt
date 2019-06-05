@@ -157,7 +157,7 @@ App::AboutRequested()
 	
 	aboutwindow->AddCopyright(2017, "Andi Machovec");
 	aboutwindow->AddAuthors(authors);
-	aboutwindow->SetVersion("0.13.2");
+	aboutwindow->SetVersion("0.14.1");
 	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
 	aboutwindow->AddExtraInfo("");
 	aboutwindow->Show();
