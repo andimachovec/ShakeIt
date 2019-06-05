@@ -28,6 +28,16 @@ LetterView::LetterView()
 		
 	}	
 	
+	
+	//Intro Letters
+	fLetterFilenames[4]="S-1.png";
+	fLetterFilenames[5]="H-1.png";
+	fLetterFilenames[6]="A-1.png";
+	fLetterFilenames[7]="K-1.png";
+	fLetterFilenames[8]="E-1.png";
+	fLetterFilenames[10]="I-1.png";
+	fLetterFilenames[11]="T-1.png";
+	
 	load_bitmaps();
 	draw_bitmaps();
 }	
