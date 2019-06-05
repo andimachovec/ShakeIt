@@ -17,7 +17,7 @@ OK	App		OK
 Quit	MainWindow		Beenden
 off	StatusView		aus
 No	MainWindow		Nein
-Enter your words here, one by line. Case is ignored.	InputWindow		Trage deine Wörter hier ein. Gross/Kleinschreibung wird nicht beachtet.
+Enter your words here, one by line. Case is ignored.	InputWindow		Trage deine Wörter hier ein, eines per Zeile. Gross/Kleinschreibung wird nicht beachtet.
 Yes	MainWindow		Ja
 Settings	SettingsWindow		Einstellungen
 Help	MainWindow		Hilfe
