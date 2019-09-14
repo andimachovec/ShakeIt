@@ -4297,4 +4297,3 @@ resource(105, "Z-3.png") #'PNG ' array {
 	$"00000049454E44AE426082"
 };
 
-resource(106, "DataDirectory") #'CSTR' "/boot/home/config/settings/ShakeIt"; 
