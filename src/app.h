@@ -43,8 +43,8 @@ private:
 	
 	void start_game();
 	void end_game(int reason);
-	bool get_data_dir(BPath &data_path);
-	bool get_settings_dir(BPath &config_path);
+	void get_data_dir(BPath &data_path);
+	void get_settings_dir(BPath &config_path);
 	
 	MainWindow	*fMainWindow;
 	InputWindow	*fInputWindow;

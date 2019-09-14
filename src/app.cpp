@@ -33,10 +33,14 @@ App::App()
 {
 	
 	BPath temp_path;
-	get_data_dir(&temp_path);
+	get_data_dir(temp_path);
 	fDataDirectory=temp_path.Path();
-	get_settings_dir(&temp_path);
+	get_settings_dir(temp_path);
 	fSettingsDirectory=temp_path.Path();
+
+	std::cout << "data directory: " << fDataDirectory << std::endl;
+	std::cout << "settings directory: " << fSettingsDirectory << std::endl;
+
 
 }	
 
@@ -446,22 +450,24 @@ App::end_game(int reason)
 	
 }	
 
-bool
+
+void
 App::get_data_dir(BPath &data_path)
 {
+
+	find_directory(B_SYSTEM_NONPACKAGED_DATA_DIRECTORY, &data_path);
+	find_directory(B_SYSTEM_DATA_DIRECTORY, &data_path);
 	
 
-	return true;
 }
 
 
-bool
+void
 App::get_settings_dir(BPath &settings_path)
 {
 	
-
-
-	return true;
+	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
+	
 }
 
 
