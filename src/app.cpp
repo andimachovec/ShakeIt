@@ -193,7 +193,7 @@ App::ReadyToRun()
 	{
 		
 		//initialize config parser 
-		ConfigParser::Config().ReadConfigFromFile(fDataDirectory+"/shakeit.xml");
+		ConfigParser::Config().ReadConfigFromFile(fSettingsDirectory+"/shakeit.xml");
 		
 		
 		//create game controller
