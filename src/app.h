@@ -10,20 +10,15 @@
 
 #include <Application.h>
 #include <SimpleGameSound.h>
-
-#include <iostream>
-#include <vector>
+#include <Path.h>
 #include <string>
-#include <sstream>
-#include <array>
 
 #include "mainwindow.h"
 #include "inputwindow.h"
 #include "timerwindow.h"
 #include "settingswindow.h"
 #include "gamecontroller.h"
-#include "configparser.h"
-#include "timerview.h"
+
 
 
 
@@ -48,6 +43,8 @@ private:
 	
 	void start_game();
 	void end_game(int reason);
+	bool get_data_dir(BPath &data_path);
+	bool get_settings_dir(BPath &config_path);
 	
 	MainWindow	*fMainWindow;
 	InputWindow	*fInputWindow;
@@ -56,6 +53,7 @@ private:
 	GameController 		*fGameController;
 	BSimpleGameSound	*fGameSound;
 	std::string 		fDataDirectory;
+	std::string 		fSettingsDirectory;
 		
 };
 

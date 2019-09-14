@@ -5,6 +5,7 @@
  */
  
 #include "app.h"
+#include "configparser.h"
 
 #include <SupportDefs.h>
 #include <AboutWindow.h>
@@ -12,10 +13,15 @@
 #include <Alert.h>
 #include <Screen.h>
 #include <Resources.h>
+#include <Directory.h>
+#include <FindDirectory.h>
 
 #include <chrono>
 #include <thread>
-
+#include <iostream>
+#include <vector>
+#include <sstream>
+#include <array>
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "App"
@@ -25,11 +31,12 @@ App::App()
 	: 
 	BApplication("application/x-vnd.BlueSky-ShakeIt")
 {
-
-	BResources *res = BApplication::AppResources();
-	size_t size;
 	
-	fDataDirectory=std::string((const char*) res->LoadResource(B_STRING_TYPE,"DataDirectory", &size)); 
+	BPath temp_path;
+	get_data_dir(&temp_path);
+	fDataDirectory=temp_path.Path();
+	get_settings_dir(&temp_path);
+	fSettingsDirectory=temp_path.Path();
 
 }	
 
@@ -438,6 +445,24 @@ App::end_game(int reason)
 	fMainWindow->PostMessage(new BMessage(MW_MENU_SETTINGS_ENABLE));
 	
 }	
+
+bool
+App::get_data_dir(BPath &data_path)
+{
+	
+
+	return true;
+}
+
+
+bool
+App::get_settings_dir(BPath &settings_path)
+{
+	
+
+
+	return true;
+}
 
 
 int 
