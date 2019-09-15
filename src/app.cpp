@@ -454,9 +454,14 @@ App::get_data_dir(BPath &data_path)
 {
 
 	find_directory(B_SYSTEM_NONPACKAGED_DATA_DIRECTORY, &data_path);
-	data_path.Append("ShakeIt");
-	//find_directory(B_SYSTEM_DATA_DIRECTORY, &data_path);
+	BDirectory data_directory(data_path.Path());
 	
+	if (!data_directory.Contains("ShakeIt", B_DIRECTORY_NODE))
+	{
+		find_directory(B_SYSTEM_DATA_DIRECTORY, &data_path);
+	}
+
+	data_path.Append("ShakeIt");
 
 }
 
@@ -467,6 +472,8 @@ App::get_settings_dir(BPath &settings_path)
 	
 	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
 	settings_path.Append("ShakeIt");
+	
+	//check if directory and config file exists. If not create the directory and a new config 
 	
 }
 
