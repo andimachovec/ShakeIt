@@ -23,7 +23,7 @@
 #define B_TRANSLATION_CONTEXT "MainWindow"
 
 
-MainWindow::MainWindow(std::string title, BRect frame)
+MainWindow::MainWindow(std::string title, BRect frame, std::string DataDirectory)
 	:
 	BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
@@ -34,7 +34,7 @@ MainWindow::MainWindow(std::string title, BRect frame)
 	fGoButton = new BButton(B_TRANSLATE("Shake it, baby!"), new BMessage(MW_GO_BUTTON_CLICKED));
 	fGiveupButton = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
 	fGiveupButton->SetEnabled(false);
-	fStatusView = new StatusView();	
+	fStatusView = new StatusView(DataDirectory);	
 	
 	//build the menu layout
 	BLayoutBuilder::Menu<>(fTopMenubar)

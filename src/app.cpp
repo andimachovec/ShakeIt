@@ -75,7 +75,7 @@ App::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow();		
+			SettingsWindow *settings_window = new SettingsWindow(fSettingsDirectory,fDataDirectory);		
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;
@@ -135,7 +135,7 @@ App::MessageReceived(BMessage *msg)
 				
 			if (must_save)
 			{
-				ConfigParser::Config().WriteConfigToFile(fDataDirectory+"/shakeit.xml");	
+				ConfigParser::Config().WriteConfigToFile(fSettingsDirectory+"/shakeit.xml");	
 				fMainWindow->PostMessage(MW_STATUSVIEW_UPDATE);
 			}		
 				
@@ -212,8 +212,7 @@ App::ReadyToRun()
 	
 		//set app pulse to 1 second	(for the timer)
 		SetPulseRate(1000000);	
-	
-	
+
 		//create and show the main, input and timer window
 		std::string mainwindow_title("ShakeIt");
 		mainwindow_title.append(" - ");
@@ -246,13 +245,12 @@ App::ReadyToRun()
 					mainwindow_anchor.x-inputwindow_size.Width(),150);
 		BPoint timerwindow_anchor((main_screen_frame.Width()-timerwindow_size.Width()) / 2,
 					mainwindow_anchor.y+mainwindow_size.Height()+vert_dist_windows);
-		
-		
-		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(mainwindow_anchor,mainwindow_size));		
+
+				
+		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(mainwindow_anchor,mainwindow_size), fDataDirectory);		
 		fInputWindow = new InputWindow(inputwindow_title.c_str() ,BRect(inputwindow_anchor,inputwindow_size));
 		fTimerWindow = new TimerWindow(timerwindow_title.c_str(), BRect(timerwindow_anchor,timerwindow_size));
-		
-		
+
 		fMainWindow->Show();
 		fInputWindow->Show();
 		fTimerWindow->Show();
@@ -456,7 +454,8 @@ App::get_data_dir(BPath &data_path)
 {
 
 	find_directory(B_SYSTEM_NONPACKAGED_DATA_DIRECTORY, &data_path);
-	find_directory(B_SYSTEM_DATA_DIRECTORY, &data_path);
+	data_path.Append("ShakeIt");
+	//find_directory(B_SYSTEM_DATA_DIRECTORY, &data_path);
 	
 
 }
@@ -467,6 +466,7 @@ App::get_settings_dir(BPath &settings_path)
 {
 	
 	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
+	settings_path.Append("ShakeIt");
 	
 }
 

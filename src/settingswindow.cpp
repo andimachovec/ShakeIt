@@ -25,16 +25,14 @@
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
 
 
-SettingsWindow::SettingsWindow()
+SettingsWindow::SettingsWindow(std::string SettingsDirectory, std::string DataDirectory)
 		: 
-		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS),
+		fSettingsDirectory(SettingsDirectory),
+		fDataDirectory(DataDirectory)
 {
 	
-	//load data directory path from app resource
-	BResources *res = be_app->AppResources();
-	size_t size;
-	fDataDirectory=std::string((const char*) res->LoadResource(B_STRING_TYPE,"DataDirectory", &size));
-	
+		
 	fLanguageDefault=ConfigParser::Config().GetParameter("game_language");
 	fMinWordLengthDefault=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
 	

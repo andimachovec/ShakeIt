@@ -39,7 +39,7 @@ enum
 class MainWindow : public BWindow {
 public:
 	
-	MainWindow(std::string title, BRect frame);
+	MainWindow(std::string title, BRect frame, std::string DataDirectory);
 	void MessageReceived(BMessage *msg);
 	bool QuitRequested();
 		

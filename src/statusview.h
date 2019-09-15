@@ -12,7 +12,7 @@
 
 class StatusView : public BStringView {
 public:
-	StatusView();
+	StatusView(std::string DataDirectory);
 	void UpdateStatus();
 
 private:

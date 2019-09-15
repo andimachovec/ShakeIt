@@ -19,20 +19,14 @@
 #define B_TRANSLATION_CONTEXT "StatusView"
 
 
-StatusView::StatusView()
+StatusView::StatusView(std::string DataDirectory)
 	:
-	BStringView("statusview","")
+	BStringView("statusview",""),
+	fDataDirectory(DataDirectory)
 
 {
 	
-	BResources *res = be_app->AppResources();
-	size_t size;
-	
-	fDataDirectory=std::string((const char*) res->LoadResource(B_STRING_TYPE,"DataDirectory", &size));
-	
-	
 	UpdateStatus();
-
 }
 
 
