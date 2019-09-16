@@ -13,7 +13,6 @@
 #include <Alert.h>
 #include <Screen.h>
 #include <Resources.h>
-#include <Directory.h>
 #include <FindDirectory.h>
 
 #include <chrono>
@@ -471,11 +470,82 @@ App::get_settings_dir(BPath &settings_path)
 {
 	
 	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
-	settings_path.Append("ShakeIt");
-	
-	//check if directory and config file exists. If not create the directory and a new config 
-	
+	BDirectory user_settings_directory(settings_path.Path());
+	settings_path.Append("ShakeIt");	
+	BDirectory shakeit_settings_directory(settings_path.Path());
+
+	//create ShakeIt directory and config file if not already there
+
+	if (user_settings_directory.Contains("ShakeIt",B_DIRECTORY_NODE))			
+	{
+		if (!shakeit_settings_directory.Contains("shakeit.xml", B_FILE_NODE))
+		{
+			create_config_file(shakeit_settings_directory);
+		}	
+	}
+	else
+	{
+		user_settings_directory.CreateDirectory("ShakeIt", NULL);
+		create_config_file(shakeit_settings_directory);
+	}
 }
+
+
+void 
+App::create_config_file(BDirectory &directory)
+{
+
+	BFile *new_config_file = new BFile();
+	status_t result = directory.CreateFile("shakeit.xml", new_config_file);
+	if (result == B_OK)
+	{
+		std::cout << "New config file created successfully." << std::endl;
+
+	}
+	else
+	{
+		std::cout << "Creating new config file failed." << std::endl;
+
+		switch (result)
+		{
+		
+			case B_ENTRY_NOT_FOUND:
+				std::cout << "ENTRY_NOT_FOUND" << std::endl;
+				break;
+
+			case B_BAD_VALUE:
+				std::cout << "BAD_VALUE" << std::endl;
+				break;
+				
+			case B_PERMISSION_DENIED:
+				std::cout << "PERMISSION_DENIED" << std::endl;
+				break;
+			
+			case B_NO_MEMORY:
+				std::cout << "NO_MEMORY" << std::endl;
+				break;
+			
+			case B_LINK_LIMIT:
+				std::cout << "LINK_LIMIT" << std::endl;
+				break;
+			
+			case B_BUSY:
+				std::cout << "BUSY" << std::endl;
+				break;
+		
+		
+			default: 
+				std::cout << "Unknown error" << std::endl;
+		
+		}
+
+	}
+
+
+
+	delete new_config_file;
+}
+
 
 
 int 

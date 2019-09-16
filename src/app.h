@@ -11,6 +11,7 @@
 #include <Application.h>
 #include <SimpleGameSound.h>
 #include <Path.h>
+#include <Directory.h>
 #include <string>
 
 #include "mainwindow.h"
@@ -45,6 +46,7 @@ private:
 	void end_game(int reason);
 	void get_data_dir(BPath &data_path);
 	void get_settings_dir(BPath &config_path);
+	void create_config_file(BDirectory &directory);
 	
 	MainWindow	*fMainWindow;
 	InputWindow	*fInputWindow;
