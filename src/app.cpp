@@ -497,52 +497,17 @@ App::create_config_file(BDirectory &directory)
 
 	BFile *new_config_file = new BFile();
 	status_t result = directory.CreateFile("shakeit.xml", new_config_file);
+	
 	if (result == B_OK)
 	{
-		std::cout << "New config file created successfully." << std::endl;
-
+		BResources *app_resource = BApplication::AppResources();
+		size_t resource_size;
+		
+		const void *resource_shakeitxml = app_resource->LoadResource(B_STRING_TYPE,"shakeit.xml", &resource_size);
+		new_config_file->Write(resource_shakeitxml,resource_size);
+		
 	}
-	else
-	{
-		std::cout << "Creating new config file failed." << std::endl;
-
-		switch (result)
-		{
-		
-			case B_ENTRY_NOT_FOUND:
-				std::cout << "ENTRY_NOT_FOUND" << std::endl;
-				break;
-
-			case B_BAD_VALUE:
-				std::cout << "BAD_VALUE" << std::endl;
-				break;
-				
-			case B_PERMISSION_DENIED:
-				std::cout << "PERMISSION_DENIED" << std::endl;
-				break;
-			
-			case B_NO_MEMORY:
-				std::cout << "NO_MEMORY" << std::endl;
-				break;
-			
-			case B_LINK_LIMIT:
-				std::cout << "LINK_LIMIT" << std::endl;
-				break;
-			
-			case B_BUSY:
-				std::cout << "BUSY" << std::endl;
-				break;
-		
-		
-			default: 
-				std::cout << "Unknown error" << std::endl;
-		
-		}
-
-	}
-
-
-
+	
 	delete new_config_file;
 }
 

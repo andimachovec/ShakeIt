@@ -4297,3 +4297,9 @@ resource(105, "Z-3.png") #'PNG ' array {
 	$"00000049454E44AE426082"
 };
 
+resource(106, "shakeit.xml") #'CSTR' array {
+	"<?xml version=\"1.0\" standalone=\"yes\" ?><config>    <game_lan"
+	"guage>german</game_language>    <minimum_word_length>4</minimum_"
+	"word_length>    <sound>on</sound></config>"
+};
+
