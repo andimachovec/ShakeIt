@@ -472,12 +472,14 @@ App::get_settings_dir(BPath &settings_path)
 	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
 	BDirectory user_settings_directory(settings_path.Path());
 	settings_path.Append("ShakeIt");	
-	BDirectory shakeit_settings_directory(settings_path.Path());
-
+	
 	//create ShakeIt directory and config file if not already there
 
 	if (user_settings_directory.Contains("ShakeIt",B_DIRECTORY_NODE))			
 	{
+		
+		BDirectory shakeit_settings_directory(settings_path.Path());
+	
 		if (!shakeit_settings_directory.Contains("shakeit.xml", B_FILE_NODE))
 		{
 			create_config_file(shakeit_settings_directory);
@@ -485,8 +487,14 @@ App::get_settings_dir(BPath &settings_path)
 	}
 	else
 	{
-		user_settings_directory.CreateDirectory("ShakeIt", NULL);
-		create_config_file(shakeit_settings_directory);
+		
+		BDirectory *shakeit_settings_directory = new BDirectory();
+		
+		status_t result = user_settings_directory.CreateDirectory("ShakeIt", shakeit_settings_directory);
+		create_config_file(*shakeit_settings_directory);
+		
+		delete shakeit_settings_directory;
+		
 	}
 }
 
@@ -497,6 +505,8 @@ App::create_config_file(BDirectory &directory)
 
 	BFile *new_config_file = new BFile();
 	status_t result = directory.CreateFile("shakeit.xml", new_config_file);
+	
+	
 	
 	if (result == B_OK)
 	{
