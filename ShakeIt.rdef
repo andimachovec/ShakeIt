@@ -4,8 +4,8 @@ resource app_signature "application/x-vnd.BlueSky-ShakeIt";
 
 resource app_version {
 	major  = 0,
-	middle = 12,
-	minor  = 3,
+	middle = 15,
+	minor  = 1,
 
 	variety = B_APPV_DEVELOPMENT,
 	internal = 0,
@@ -4299,7 +4299,7 @@ resource(105, "Z-3.png") #'PNG ' array {
 
 resource(106, "shakeit.xml") #'CSTR' array {
 	"<?xml version=\"1.0\" standalone=\"yes\" ?><config>    <game_lan"
-	"guage>german</game_language>    <minimum_word_length>4</minimum_"
+	"guage>english</game_language>    <minimum_word_length>3</minimum_"
 	"word_length>    <sound>on</sound></config>"
 };
 

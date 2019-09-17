@@ -37,8 +37,8 @@ App::App()
 	get_settings_dir(temp_path);
 	fSettingsDirectory=temp_path.Path();
 
-	std::cout << "data directory: " << fDataDirectory << std::endl;
-	std::cout << "settings directory: " << fSettingsDirectory << std::endl;
+	//std::cout << "data directory: " << fDataDirectory << std::endl;
+	//std::cout << "settings directory: " << fSettingsDirectory << std::endl;
 
 
 }	
@@ -167,7 +167,7 @@ App::AboutRequested()
 	
 	aboutwindow->AddCopyright(2017, "Andi Machovec");
 	aboutwindow->AddAuthors(authors);
-	aboutwindow->SetVersion("0.14.2");
+	aboutwindow->SetVersion("0.15.1");
 	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
 	aboutwindow->AddExtraInfo("");
 	aboutwindow->Show();
