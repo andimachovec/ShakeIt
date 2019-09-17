@@ -490,7 +490,7 @@ App::get_settings_dir(BPath &settings_path)
 		
 		BDirectory *shakeit_settings_directory = new BDirectory();
 		
-		status_t result = user_settings_directory.CreateDirectory("ShakeIt", shakeit_settings_directory);
+		user_settings_directory.CreateDirectory("ShakeIt", shakeit_settings_directory);
 		create_config_file(*shakeit_settings_directory);
 		
 		delete shakeit_settings_directory;
