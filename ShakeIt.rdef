@@ -4,7 +4,7 @@ resource app_signature "application/x-vnd.BlueSky-ShakeIt";
 
 resource app_version {
 	major  = 0,
-	middle = 15,
+	middle = 16,
 	minor  = 1,
 
 	variety = B_APPV_DEVELOPMENT,
