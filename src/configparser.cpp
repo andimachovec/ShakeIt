@@ -6,66 +6,53 @@
  
 #include "configparser.h"
 
+#include <File.h>
 #include <exception>
 #include <system_error>
 
-//-----------------------------------------------------------------------------
+
+const char *kConfigFilename = "/boot/home/config/settings/ShakeIt_settings";
+
+
 ConfigParser::ConfigParser()
-//-----------------------------------------------------------------------------
 {
 	
-	TiXmlBase::SetCondenseWhiteSpace(false);
+	
 }
 
-//-----------------------------------------------------------------------------
+
 ConfigParser::~ConfigParser()
-//-----------------------------------------------------------------------------
 {
 
 
 }
 
 
-//-----------------------------------------------------------------------------
-void ConfigParser::ReadConfigFromFile(std::string FileName) 
-//-----------------------------------------------------------------------------
-{
+void
+ConfigParser::ReadConfigFromFile() 
+{	
 	
-	//Load Content from XML file
-	bool load_ok = xml_file.LoadFile(FileName.c_str());
+	BFile *config_file = new BFile(kConfigFilename, B_READ_WRITE);
+	status_t read_status = fConfigMessage.Unflatten(config_file);
 	
-	if (!load_ok)
+	if (read_status != B_OK)
 	{
 		throw std::system_error(std::error_code(1, std::system_category()), "could not open config file");
 	}	
 	
-	
-	// make sure the parameter map is empty
-	parameters.clear();
-	
-	
-	//loop through the XML elements and put parameters + their values into map
-	
-	TiXmlElement *RootNode = xml_file.RootElement();
-	
-	for(TiXmlElement *XMLElement = RootNode->FirstChildElement(); XMLElement != NULL; XMLElement = XMLElement->NextSiblingElement())
-	{
-		parameters[XMLElement->Value()] = XMLElement->GetText();			
-	}
-	
-	
+	delete config_file;
+
 }
 
 
-//-----------------------------------------------------------------------------
-void ConfigParser::WriteConfigToFile(std::string FileName) 
-//-----------------------------------------------------------------------------
+void 
+ConfigParser::WriteConfigToFile() 
 {
 	
-	bool result_ok=xml_file.SaveFile(FileName.c_str());
-
-
-	if (!result_ok)
+	BFile *config_file = new BFile(kConfigFilename, B_READ_WRITE);	
+	status_t write_status = fConfigMessage.Flatten(config_file);
+	
+	if (write_status != B_OK)
 	{
 		throw std::system_error(std::error_code(2, std::system_category()), "could not write to config file");
 	}
@@ -73,47 +60,61 @@ void ConfigParser::WriteConfigToFile(std::string FileName)
 }
 
 
-//-----------------------------------------------------------------------------
-std::string ConfigParser::GetParameter(std::string parametername) 
-//-----------------------------------------------------------------------------
+BString 
+ConfigParser::GetGameLanguage()
 {
+	const char *game_language;
 	
-	return parameters[parametername];
+	fConfigMessage.FindString("game_language", 0, &game_language);
+	return BString(game_language);
+	
 }
 
 
-//-----------------------------------------------------------------------------
-void ConfigParser::SetParameter(std::string parametername, std::string value) 
-//-----------------------------------------------------------------------------
+uint8 
+ConfigParser::GetMinWordLength()
 {
+	uint8 min_word_length;
+	fConfigMessage.FindUInt8("minimum_word_length", 0, &min_word_length);
 
-
-	if (parameters.find(parametername) == parameters.end()) //parameter doesn't exist
-	{
-		
-		//add exception here
-	}
-	
-	else {
-		
-		
-		//change the value also in the XMLDocument Object in Memory
-		
-		TiXmlElement *RootNode = xml_file.RootElement();
-		TiXmlElement *ParamElement = RootNode->FirstChildElement(parametername.c_str());
-		ParamElement->FirstChild()->SetValue(value.c_str());
-		
-				
-		//change the value in the parameter map	
-		parameters[parametername] = value;
-	
-	}	
+	return min_word_length;
 }
 
 
-//-----------------------------------------------------------------------------
-ConfigParser &ConfigParser::Config()  
-//-----------------------------------------------------------------------------
+bool 
+ConfigParser::GetSound()
+{
+	bool sound;
+	fConfigMessage.FindBool("sound", 0, &sound);
+	
+	return sound;
+
+}
+
+
+void
+ConfigParser::SetGameLanguage(BString game_language)
+{
+	fConfigMessage.ReplaceString("game_language", 0, game_language.String());
+}
+
+
+void
+ConfigParser::SetMinWordLength(uint8 min_word_length)
+{
+	fConfigMessage.ReplaceUInt8("minimum_word_length", 0, min_word_length);
+}
+
+
+void
+ConfigParser::SetSound(bool sound)
+{
+	fConfigMessage.ReplaceBool("sound", 0, sound);
+} 
+
+
+ConfigParser 
+&ConfigParser::Config()  
 {
 
 		static ConfigParser *config = new ConfigParser();

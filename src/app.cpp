@@ -90,51 +90,39 @@ App::MessageReceived(BMessage *msg)
 		{
 			
 			const char *game_language;
-			const char **p_gl = &game_language;
 			int8 minimum_word_length; 
-			int8 *p_mwl = &minimum_word_length;
-			
 			bool sound;
-			bool *p_sound=&sound;
 			
 			bool must_save=false;
 			
-			if (msg->FindString("gamelanguage", p_gl) == B_OK)
+			if (msg->FindString("gamelanguage", &game_language) == B_OK)
 			{
+				ConfigParser::Config().SetGameLanguage(BString(game_language));
 				std::string game_language_str(game_language);
-				ConfigParser::Config().SetParameter("game_language",game_language_str);
 				fGameController->SetDictionaryFile(fDataDirectory+"/languages/"+game_language_str+"/"+game_language_str+".dict");
 				fGameController->SetDiceFile(fDataDirectory+"/languages/"+game_language_str+"/"+game_language_str+".dice");
 				must_save=true;
 			}		
 			
-			if (msg->FindInt8("minimumwordlength", p_mwl) == B_OK)
+			if (msg->FindInt8("minimumwordlength", &minimum_word_length) == B_OK)
 			{
-				ConfigParser::Config().SetParameter("minimum_word_length",std::to_string(minimum_word_length));
+				ConfigParser::Config().SetMinWordLength(minimum_word_length);
 				fGameController->SetMinimumWordLength(minimum_word_length);
 				must_save=true;
 			}
 				
 				
-			if (msg->FindBool("sound", p_sound) == B_OK)	
+			if (msg->FindBool("sound", &sound) == B_OK)	
 			{
 						
-				if (sound) 
-				{
-					ConfigParser::Config().SetParameter("sound","on");
-				}
-				else
-				{
-					ConfigParser::Config().SetParameter("sound","off");
-				}		
-				
+				ConfigParser::Config().SetSound(sound);
 				must_save=true;	
 			}	
 				
 				
 			if (must_save)
 			{
-				ConfigParser::Config().WriteConfigToFile(fSettingsDirectory+"/shakeit.xml");	
+				ConfigParser::Config().WriteConfigToFile();	
 				fMainWindow->PostMessage(MW_STATUSVIEW_UPDATE);
 			}		
 				
@@ -192,12 +180,12 @@ App::ReadyToRun()
 	{
 		
 		//initialize config parser 
-		ConfigParser::Config().ReadConfigFromFile(fSettingsDirectory+"/shakeit.xml");
+		ConfigParser::Config().ReadConfigFromFile();
 		
 		
 		//create game controller
-		int minimum_word_length=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
-		std::string language=(ConfigParser::Config().GetParameter("game_language"));
+		int minimum_word_length = ConfigParser::Config().GetMinWordLength();
+		std::string language(ConfigParser::Config().GetGameLanguage());
 		std::string dictionary_file=fDataDirectory+"/languages/"+language+"/"+language+".dict";
 		std::string dice_file=fDataDirectory+"/languages/"+language+"/"+language+".dice";
 		
@@ -293,7 +281,7 @@ App::start_game()
 	
 
 	//play sound if activated
-	if (ConfigParser::Config().GetParameter("sound") == "on")
+	if (ConfigParser::Config().GetSound() == true)
 	{ 
 		//play sound
 		fGameSound->StartPlaying();
@@ -473,7 +461,7 @@ App::get_settings_dir(BPath &settings_path)
 	BDirectory user_settings_directory(settings_path.Path());
 	settings_path.Append("ShakeIt");	
 	
-	//create ShakeIt directory and config file if not already there
+	/*//create ShakeIt directory and config file if not already there
 
 	if (user_settings_directory.Contains("ShakeIt",B_DIRECTORY_NODE))			
 	{
@@ -495,7 +483,7 @@ App::get_settings_dir(BPath &settings_path)
 		
 		delete shakeit_settings_directory;
 		
-	}
+	}*/
 }
 
 

@@ -7,35 +7,30 @@
 #ifndef CONFIGPARSER_H
 #define CONFIGPARSER_H
 
-
-#include <map>
-#include <string>
-#include <tinyxml.h>
+#include <String.h>
+#include <Message.h>
 
 
-class ConfigParser
-{
-
-	public:
+class ConfigParser {
+public:
+		
+	void ReadConfigFromFile();
+	void WriteConfigToFile();
+	BString GetGameLanguage();
+	uint8 GetMinWordLength();
+	bool GetSound();
+	void SetGameLanguage(BString game_language);
+	void SetMinWordLength(uint8 min_word_length);
+	void SetSound(bool sound); 
 	
+	static ConfigParser &Config();		
+
+
+private:
+	ConfigParser();
+	~ConfigParser();		
+	BMessage fConfigMessage;
 		
-		std::string GetParameter(std::string parametername);	
-		void SetParameter(std::string parametername, std::string value);
-		void ReadConfigFromFile(std::string FileName);
-		void WriteConfigToFile(std::string FileName);
-		void SetConfigFileName(std::string ConfigFileName);
-		
-		static ConfigParser &Config();		
-
-
-	private:
-
-		ConfigParser();
-		~ConfigParser();		
-		TiXmlDocument xml_file;
-		std::map<std::string,std::string> parameters;
-		
-
 };
 
 #endif

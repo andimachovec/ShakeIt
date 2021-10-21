@@ -35,9 +35,9 @@ StatusView::UpdateStatus()
 {
 
 		//get game settings from config parser
-		std::string game_language = ConfigParser::Config().GetParameter("game_language");
-		std::string minimum_word_length = ConfigParser::Config().GetParameter("minimum_word_length");
-		std::string sound = ConfigParser::Config().GetParameter("sound");
+		std::string game_language = std::string(ConfigParser::Config().GetGameLanguage());
+		uint8 minimum_word_length = ConfigParser::Config().GetMinWordLength();
+		bool sound = ConfigParser::Config().GetSound();
 		
 		//fetch language description from config dir
 		std::ifstream language_desc_file;
@@ -50,7 +50,7 @@ StatusView::UpdateStatus()
 
 		std::string sound_status;
 		//set sound status (for translation)
-		if (sound == "on")
+		if (sound == true)
 		{
 			sound_status = (B_TRANSLATE("on"));
 		}
@@ -63,7 +63,7 @@ StatusView::UpdateStatus()
 		std::stringstream status_message; 		
 		status_message << "  " <<
 				B_TRANSLATE("Game language") << ": " << language_description << "     " <<
-				B_TRANSLATE("Minimum word length") << ": " << minimum_word_length << "     " <<
+				B_TRANSLATE("Minimum word length") << ": " << std::to_string(minimum_word_length) << "     " <<
 				B_TRANSLATE("Sound") << ": " << sound_status;
 		
 		SetText(status_message.str().c_str());

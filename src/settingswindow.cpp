@@ -33,10 +33,10 @@ SettingsWindow::SettingsWindow(std::string SettingsDirectory, std::string DataDi
 {
 	
 		
-	fLanguageDefault=ConfigParser::Config().GetParameter("game_language");
-	fMinWordLengthDefault=std::stoi(ConfigParser::Config().GetParameter("minimum_word_length"));
+	fLanguageDefault=std::string(ConfigParser::Config().GetGameLanguage());
+	fMinWordLengthDefault=ConfigParser::Config().GetMinWordLength();
 	
-	if (ConfigParser::Config().GetParameter("sound") == "on")
+	if (ConfigParser::Config().GetSound() == true)
 	{
 		fSoundDefault=B_CONTROL_ON;		
 	}	
