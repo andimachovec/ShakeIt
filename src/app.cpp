@@ -14,6 +14,7 @@
 #include <Screen.h>
 #include <Resources.h>
 #include <FindDirectory.h>
+#include <AppFileInfo.h>
 
 #include <chrono>
 #include <thread>
@@ -160,9 +161,19 @@ App::AboutRequested()
 		NULL
 	};
 	
+	BResources *appresource = BApplication::AppResources();
+	size_t size;
+	version_info *appversion = (version_info *)appresource->LoadResource('APPV',1,&size);
+	BString version_string;
+	version_string<<appversion->major;
+	version_string+=".";
+	version_string<<appversion->middle;
+	version_string+=".";
+	version_string<<appversion->minor;	
+	
 	aboutwindow->AddCopyright(2017, "Andi Machovec");
 	aboutwindow->AddAuthors(authors);
-	aboutwindow->SetVersion("0.15.1");
+	aboutwindow->SetVersion(version_string.String());
 	aboutwindow->AddDescription(B_TRANSLATE("a word searching game"));
 	aboutwindow->AddExtraInfo("");
 	aboutwindow->Show();
