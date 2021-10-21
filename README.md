@@ -12,15 +12,13 @@ A C++11 capable compiler is required, so remember to do a *setarch x86* on 32bit
 The development packages of the following software are required to compile ShakeIt:
 - boost
 - sqlite3
-- tinyxml
-
 
 ## Compiling 
 Compiling is done using the makefile engine supplied with Haiku. A simple *make* compiles the code,
-and *make bindcatalogs* adds the translations. For now, only English and German are available. 
+and *make bindcatalogs* adds the translations. For now, English and German are available. 
 
-If you are using ShakeIt for the first time, you have to run *create_userdir.sh* from the **scripts** directory.
-It copies the required config and data files to **/boot/home/settings/ShakeIt**.
+If you are using ShakeIt for the first time, you have to run *install_data.sh* from the **scripts** directory.
+It copies the required config and data files to **/boot/non-packaged/data/ShakeIt**.
 
 After that, you can run *ShakeIt* from the generated *objects.xxxxx* directory. 
 
