@@ -33,7 +33,7 @@ enum
 class SettingsWindow : public BWindow {
 public:
 	
-	SettingsWindow(std::string SettingsDirectory, std::string DataDirectory);
+	SettingsWindow(std::string DataDirectory);
 	void MessageReceived(BMessage *msg);
 	
 private:
@@ -52,7 +52,6 @@ private:
 	int fMinWordLengthDefault;
 	int32 fSoundDefault;
 	std::vector<std::pair<std::string, std::string>> fAvailableLanguages;
-	std::string fSettingsDirectory;
 	std::string fDataDirectory;
 
 };	

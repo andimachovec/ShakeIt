@@ -9,11 +9,13 @@
 
 #include <String.h>
 #include <Message.h>
-
+#include <Directory.h>
 
 class ConfigParser {
 public:
-		
+
+	void SetConfigDirectory(BDirectory directory);
+	void CreateConfigFile();
 	void ReadConfigFromFile();
 	void WriteConfigToFile();
 	BString GetGameLanguage();
@@ -30,7 +32,7 @@ private:
 	ConfigParser();
 	~ConfigParser();		
 	BMessage fConfigMessage;
-		
+	BDirectory fConfigDirectory;	
 };
 
 #endif

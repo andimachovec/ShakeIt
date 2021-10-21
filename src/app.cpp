@@ -31,16 +31,23 @@ App::App()
 	BApplication("application/x-vnd.BlueSky-ShakeIt")
 {
 	
+	//get data directory path
 	BPath temp_path;
 	get_data_dir(temp_path);
 	fDataDirectory=temp_path.Path();
-	get_settings_dir(temp_path);
-	fSettingsDirectory=temp_path.Path();
-
-	//std::cout << "data directory: " << fDataDirectory << std::endl;
-	//std::cout << "settings directory: " << fSettingsDirectory << std::endl;
-
-
+	
+	//get settings directory path
+	BPath settings_path;
+	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
+	BDirectory settings_directory(settings_path.Path());
+	ConfigParser::Config().SetConfigDirectory(settings_directory);
+	
+	//create new settings file if it doesn`t exist
+	if (!settings_directory.Contains("ShakeIt_settings",B_FILE_NODE))			
+	{
+		ConfigParser::Config().CreateConfigFile();
+	}
+	
 }	
 
 
@@ -74,7 +81,7 @@ App::MessageReceived(BMessage *msg)
 		
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow(fSettingsDirectory,fDataDirectory);		
+			SettingsWindow *settings_window = new SettingsWindow(fDataDirectory);		
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;
@@ -451,64 +458,6 @@ App::get_data_dir(BPath &data_path)
 	data_path.Append("ShakeIt");
 
 }
-
-
-void
-App::get_settings_dir(BPath &settings_path)
-{
-	
-	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
-	BDirectory user_settings_directory(settings_path.Path());
-	settings_path.Append("ShakeIt");	
-	
-	/*//create ShakeIt directory and config file if not already there
-
-	if (user_settings_directory.Contains("ShakeIt",B_DIRECTORY_NODE))			
-	{
-		
-		BDirectory shakeit_settings_directory(settings_path.Path());
-	
-		if (!shakeit_settings_directory.Contains("shakeit.xml", B_FILE_NODE))
-		{
-			create_config_file(shakeit_settings_directory);
-		}	
-	}
-	else
-	{
-		
-		BDirectory *shakeit_settings_directory = new BDirectory();
-		
-		user_settings_directory.CreateDirectory("ShakeIt", shakeit_settings_directory);
-		create_config_file(*shakeit_settings_directory);
-		
-		delete shakeit_settings_directory;
-		
-	}*/
-}
-
-
-void 
-App::create_config_file(BDirectory &directory)
-{
-
-	BFile *new_config_file = new BFile();
-	status_t result = directory.CreateFile("shakeit.xml", new_config_file);
-	
-	
-	
-	if (result == B_OK)
-	{
-		BResources *app_resource = BApplication::AppResources();
-		size_t resource_size;
-		
-		const void *resource_shakeitxml = app_resource->LoadResource(B_STRING_TYPE,"shakeit.xml", &resource_size);
-		new_config_file->Write(resource_shakeitxml,resource_size);
-		
-	}
-	
-	delete new_config_file;
-}
-
 
 
 int 

@@ -45,8 +45,6 @@ private:
 	void start_game();
 	void end_game(int reason);
 	void get_data_dir(BPath &data_path);
-	void get_settings_dir(BPath &config_path);
-	void create_config_file(BDirectory &directory);
 	
 	MainWindow	*fMainWindow;
 	InputWindow	*fInputWindow;
@@ -55,7 +53,6 @@ private:
 	GameController 		*fGameController;
 	BSimpleGameSound	*fGameSound;
 	std::string 		fDataDirectory;
-	std::string 		fSettingsDirectory;
 		
 };
 

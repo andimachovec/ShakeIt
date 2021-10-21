@@ -25,10 +25,9 @@
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
 
 
-SettingsWindow::SettingsWindow(std::string SettingsDirectory, std::string DataDirectory)
+SettingsWindow::SettingsWindow(std::string DataDirectory)
 		: 
 		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS),
-		fSettingsDirectory(SettingsDirectory),
 		fDataDirectory(DataDirectory)
 {
 	

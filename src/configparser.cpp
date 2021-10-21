@@ -11,9 +11,6 @@
 #include <system_error>
 
 
-const char *kConfigFilename = "/boot/home/config/settings/ShakeIt_settings";
-
-
 ConfigParser::ConfigParser()
 {
 	
@@ -28,11 +25,31 @@ ConfigParser::~ConfigParser()
 }
 
 
+void 
+ConfigParser::SetConfigDirectory(BDirectory directory)
+{
+	fConfigDirectory = directory;
+}
+
+
+void 
+ConfigParser::CreateConfigFile()
+{
+	BFile *config_file = new BFile(&fConfigDirectory, "ShakeIt_settings", B_WRITE_ONLY|B_CREATE_FILE);
+	
+	fConfigMessage.AddString("game_language","english");
+	fConfigMessage.AddUInt8("minimum_word_length", 3);
+	fConfigMessage.AddBool("sound", true);
+	fConfigMessage.Flatten(config_file);
+	
+	delete config_file;
+}
+
 void
 ConfigParser::ReadConfigFromFile() 
 {	
 	
-	BFile *config_file = new BFile(kConfigFilename, B_READ_WRITE);
+	BFile *config_file = new BFile(&fConfigDirectory, "ShakeIt_settings", B_READ_ONLY);
 	status_t read_status = fConfigMessage.Unflatten(config_file);
 	
 	if (read_status != B_OK)
@@ -49,7 +66,7 @@ void
 ConfigParser::WriteConfigToFile() 
 {
 	
-	BFile *config_file = new BFile(kConfigFilename, B_READ_WRITE);	
+	BFile *config_file = new BFile(&fConfigDirectory, "ShakeIt_settings", B_WRITE_ONLY);	
 	status_t write_status = fConfigMessage.Flatten(config_file);
 	
 	if (write_status != B_OK)
