@@ -15,10 +15,11 @@
 #include <Application.h>
 #include <Catalog.h>
 #include <Resources.h>
+#include <Directory.h>
+#include <Path.h>
 
 #include <fstream>
 #include <iostream>
-#include <boost/filesystem.hpp>
 #include <cstring>
 
 #undef B_TRANSLATION_CONTEXT
@@ -167,9 +168,45 @@ void
 SettingsWindow::load_language_choices()
 {
 
-	boost::filesystem::path language_dir_path(fDataDirectory+"/languages");	
-	boost::filesystem::directory_iterator end_iter;
+	BPath languages_dir_path(fDataDirectory.c_str());
+	languages_dir_path.Append("languages");
+	BDirectory languages_directory(languages_dir_path.Path());
+	BEntry language_dir_entry;
 
+	while (languages_directory.GetNextEntry(&language_dir_entry) != B_ENTRY_NOT_FOUND)
+	{	
+	
+		if (language_dir_entry.IsDirectory())
+		{
+
+			// get name of language description file
+			BPath language_dir_path(&language_dir_entry);
+			BString language_code(language_dir_path.Leaf());
+			BString language_file_name(language_dir_path.Path());
+			language_file_name+="/";
+			language_file_name+=language_code;
+			language_file_name+=".desc";
+			
+			std::cout << language_file_name.String() << std::endl;
+							
+			std::ifstream language_desc_file;
+			language_desc_file.open(language_file_name.String());
+			if (language_desc_file.good())
+			{
+				std::string language_description;
+				getline(language_desc_file,language_description);
+				fAvailableLanguages.push_back(std::make_pair(std::string(language_code.String()),language_description));
+									
+				language_desc_file.close();
+			}
+					
+		}
+	
+	
+	
+	}
+	
+	/*
 	for (boost::filesystem::directory_iterator dir_iter(language_dir_path); dir_iter!=end_iter; ++dir_iter)
 	{
 
@@ -189,7 +226,7 @@ SettingsWindow::load_language_choices()
 
 		}
 
-	}
+	} */
 	
 }
 
