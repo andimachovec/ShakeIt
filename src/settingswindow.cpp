@@ -175,11 +175,8 @@ SettingsWindow::load_language_choices()
 
 	while (languages_directory.GetNextEntry(&language_dir_entry) != B_ENTRY_NOT_FOUND)
 	{	
-	
 		if (language_dir_entry.IsDirectory())
 		{
-
-			// get name of language description file
 			BPath language_dir_path(&language_dir_entry);
 			BString language_code(language_dir_path.Leaf());
 			BString language_file_name(language_dir_path.Path());
@@ -198,35 +195,8 @@ SettingsWindow::load_language_choices()
 				fAvailableLanguages.push_back(std::make_pair(std::string(language_code.String()),language_description));
 									
 				language_desc_file.close();
-			}
-					
+			}			
 		}
-	
-	
-	
 	}
-	
-	/*
-	for (boost::filesystem::directory_iterator dir_iter(language_dir_path); dir_iter!=end_iter; ++dir_iter)
-	{
-
-		if (boost::filesystem::is_directory(dir_iter->path()))
-		{
-			
-			std::ifstream language_desc_file;
-			std::string language_code=dir_iter->path().filename().string();			
-
-			language_desc_file.open(dir_iter->path().string()+"/"+language_code+".desc");
-
-			std::string language_description;
-			getline(language_desc_file,language_description);
-			fAvailableLanguages.push_back(std::make_pair(language_code,language_description));
-									
-			language_desc_file.close();
-
-		}
-
-	} */
-	
 }
 
