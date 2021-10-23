@@ -184,7 +184,6 @@ SettingsWindow::load_language_choices()
 			language_file_name+=language_code;
 			language_file_name+=".desc";
 			
-			std::cout << language_file_name.String() << std::endl;
 							
 			std::ifstream language_desc_file;
 			language_desc_file.open(language_file_name.String());
