@@ -10,11 +10,10 @@
 #include <Window.h>
 #include <TextView.h>
 #include <ScrollBar.h>
+#include <String.h>
 
 #include <string>
 #include <vector>
-#include <sstream>
-
 
 enum
 {
@@ -26,24 +25,18 @@ enum
 };	
 
 
-
 class InputWindow : public BWindow {
 public:	
-	
-	InputWindow(std::string title, BRect frame);
+	InputWindow(BString title, BRect frame);
 	void MessageReceived(BMessage *msg);
 	std::vector<std::string> GetWordList();
 	void WindowActivated(bool active);
 	
 private:
-	
-	BTextView *fWordsTextview;
-	BScrollBar *fWordsTextviewScrollbar;
+	BTextView 	*fWordsTextview;
+	BScrollBar 	*fWordsTextviewScrollbar;
 		
-	std::vector<std::string> fWordList;
-		
+	std::vector<std::string> fWordList;  //we use std::string here because of compatibility with the cross platform GameController class
 };	
-
-
 
 #endif

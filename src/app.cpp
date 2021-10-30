@@ -15,6 +15,7 @@
 #include <Resources.h>
 #include <FindDirectory.h>
 #include <AppFileInfo.h>
+#include <String.h>
 
 #include <chrono>
 #include <thread>
@@ -219,17 +220,17 @@ App::ReadyToRun()
 		SetPulseRate(1000000);	
 
 		//create and show the main, input and timer window
-		std::string mainwindow_title("ShakeIt");
-		mainwindow_title.append(" - ");
-		mainwindow_title.append(B_TRANSLATE("Game Board"));
+		BString mainwindow_title("ShakeIt");
+		mainwindow_title.Append(" - ");
+		mainwindow_title.Append(B_TRANSLATE("Game Board"));
 		
-		std::string inputwindow_title("ShakeIt");
-		inputwindow_title.append(" - ");
-		inputwindow_title.append(B_TRANSLATE("Notepad"));
+		BString inputwindow_title("ShakeIt");
+		inputwindow_title.Append(" - ");
+		inputwindow_title.Append(B_TRANSLATE("Notepad"));
 		
-		std::string timerwindow_title("ShakeIt");
-		timerwindow_title.append(" - ");
-		timerwindow_title.append(B_TRANSLATE("Timer"));
+		BString timerwindow_title("ShakeIt");
+		timerwindow_title.Append(" - ");
+		timerwindow_title.Append(B_TRANSLATE("Timer"));
 		
 		BScreen *main_screen = new BScreen(B_MAIN_SCREEN_ID);
 		BRect main_screen_frame = main_screen->Frame();
@@ -252,9 +253,9 @@ App::ReadyToRun()
 					mainwindow_anchor.y+mainwindow_size.Height()+vert_dist_windows);
 
 				
-		fMainWindow = new MainWindow(mainwindow_title.c_str(), BRect(mainwindow_anchor,mainwindow_size), fDataDirectory);		
-		fInputWindow = new InputWindow(inputwindow_title.c_str() ,BRect(inputwindow_anchor,inputwindow_size));
-		fTimerWindow = new TimerWindow(timerwindow_title.c_str(), BRect(timerwindow_anchor,timerwindow_size));
+		fMainWindow = new MainWindow(mainwindow_title, BRect(mainwindow_anchor,mainwindow_size), fDataDirectory);		
+		fInputWindow = new InputWindow(inputwindow_title, BRect(inputwindow_anchor,inputwindow_size));
+		fTimerWindow = new TimerWindow(timerwindow_title, BRect(timerwindow_anchor,timerwindow_size));
 
 		fMainWindow->Show();
 		fInputWindow->Show();

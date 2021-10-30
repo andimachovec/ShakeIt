@@ -9,9 +9,9 @@
 #include <LayoutBuilder.h>
 #include <iostream>
 
-TimerWindow::TimerWindow(std::string title, BRect frame)
+TimerWindow::TimerWindow(BString title, BRect frame)
 	:
-	BWindow(frame, title.c_str(), B_TITLED_WINDOW, 
+	BWindow(frame, title.String(), B_TITLED_WINDOW, 
 		B_ASYNCHRONOUS_CONTROLS|
 		B_NOT_CLOSABLE|
 		B_NOT_H_RESIZABLE|

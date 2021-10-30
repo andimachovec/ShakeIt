@@ -10,20 +10,18 @@
 #include <Layout.h>
 #include <LayoutItem.h>
 #include <Catalog.h>
+#include <StringList.h>
 
-#include <boost/algorithm/string/trim.hpp>
 #include <iostream>
-
 
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "InputWindow"
 
 
-
-InputWindow::InputWindow(std::string title, BRect frame)
+InputWindow::InputWindow(BString title, BRect frame)
 		: 
-		BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
+		BWindow(frame, title.String(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
 {
 	
 	
@@ -103,26 +101,15 @@ InputWindow::GetWordList()
 	//empty the word list vector
 	fWordList.clear();
 	
-	//get the words from the textview
-	std::string words_text = std::string(fWordsTextview->Text());
+	//parse words into vector line by line
+	BString words_text(fWordsTextview->Text());
+	BStringList words_list;
+	words_text.Split("\n", true, words_list);
 	
-	//put the text into a stream and parse it into a vector line by line
-	std::istringstream wordlist_stream(words_text);
-	std::string line;
-	
-	while (std::getline(wordlist_stream,line))
+	for(int32 index = 0; index < words_list.CountStrings(); ++index)
 	{
-		//strip leading and trailing whitespace
-		boost::algorithm::trim(line);
-	
-		if (!line.empty())
-		{
-			fWordList.push_back(line);
-			//std::cout << line << std::endl;
-		}
-		
+		fWordList.push_back(std::string(words_list.StringAt(index).Trim().String()));
 	}
-
 	
 	return fWordList;
 }	

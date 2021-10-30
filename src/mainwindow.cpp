@@ -23,9 +23,9 @@
 #define B_TRANSLATION_CONTEXT "MainWindow"
 
 
-MainWindow::MainWindow(std::string title, BRect frame, std::string DataDirectory)
+MainWindow::MainWindow(BString title, BRect frame, std::string DataDirectory)
 	:
-	BWindow(frame, title.c_str(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
+	BWindow(frame, title.String(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
 	
 	//initialize GUI Objects
