@@ -12,6 +12,7 @@
 #include <exception>
 #include <system_error>
 #include <sqlite3.h>
+#include <fstream>
 #include <iostream>
 
 DataInterface::DataInterface()
@@ -86,6 +87,23 @@ DataInterface::GetSoundFilename()
 	BString sound_filename;
 	sound_filename << fDataDirPath.Path() << "/shakeit.wav";
 	return sound_filename;
+}
+
+
+BString
+DataInterface::GetLanguageDescription(BString language)
+{
+
+	BString language_desc_filename;
+	language_desc_filename << fDataDirPath.Path() << "/languages/" << language << "/" << language << ".desc";
+
+	std::ifstream language_desc_file;
+	language_desc_file.open(language_desc_filename.String());
+	std::string language_desc;
+	getline(language_desc_file,language_desc);
+	language_desc_file.close();
+
+	return BString(language_desc.c_str());
 }
 
 DataInterface

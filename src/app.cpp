@@ -250,7 +250,7 @@ App::ReadyToRun()
 					mainwindow_anchor.y+mainwindow_size.Height()+vert_dist_windows);
 
 
-		fMainWindow = new MainWindow(mainwindow_title, BRect(mainwindow_anchor,mainwindow_size), DataInterface::Data().GetDataDirectoryPath().Path());
+		fMainWindow = new MainWindow(mainwindow_title, BRect(mainwindow_anchor,mainwindow_size));
 		fInputWindow = new InputWindow(inputwindow_title, BRect(inputwindow_anchor,inputwindow_size));
 		fTimerWindow = new TimerWindow(timerwindow_title, BRect(timerwindow_anchor,timerwindow_size));
 

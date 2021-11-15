@@ -17,6 +17,7 @@ public:
 	void GetDictionary(BString language, std::vector<std::string> &dictionary);
 	BPath& GetDataDirectoryPath();
 	BString GetSoundFilename();
+	BString GetLanguageDescription(BString language);
 	static DataInterface &Data();
 
 private:

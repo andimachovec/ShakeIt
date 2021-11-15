@@ -39,7 +39,7 @@ enum
 class MainWindow : public BWindow {
 public:
 
-	MainWindow(BString title, BRect frame, BPath data_path);
+	MainWindow(BString title, BRect frame);
 	void MessageReceived(BMessage *msg);
 	bool QuitRequested();
 

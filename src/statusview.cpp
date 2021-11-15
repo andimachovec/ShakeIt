@@ -6,12 +6,12 @@
 
 #include "statusview.h"
 #include "configparser.h"
+#include "datainterface.h"
 
 #include <Catalog.h>
 #include <Resources.h>
 #include <Application.h>
 
-#include <fstream>
 #include <string>
 
 
@@ -19,11 +19,9 @@
 #define B_TRANSLATION_CONTEXT "StatusView"
 
 
-StatusView::StatusView(BPath data_path)
+StatusView::StatusView()
 	:
-	BStringView("statusview",""),
-	fDataDirectory(data_path.Path())
-
+	BStringView("statusview","")
 {
 
 	UpdateStatus();
@@ -38,17 +36,6 @@ StatusView::UpdateStatus()
 		BString game_language = ConfigParser::Config().GetGameLanguage();
 		uint8 minimum_word_length = ConfigParser::Config().GetMinWordLength();
 		bool sound = ConfigParser::Config().GetSound();
-
-		//fetch language description from config dir
-		BString language_desc_filename;
-		language_desc_filename << fDataDirectory << "/languages/" << game_language << "/" << game_language << ".desc";
-		std::ifstream language_desc_file;
-		language_desc_file.open(language_desc_filename.String());
-
-		std::string language_description;
-		getline(language_desc_file,language_description);
-
-		language_desc_file.close();
 
 
 		//set sound status (for translation)
@@ -65,7 +52,7 @@ StatusView::UpdateStatus()
 		//build status message and display it
 		BString status_message;
 		status_message << "  " <<
-				B_TRANSLATE("Game language") << ": " << language_description.c_str() << "     " <<
+				B_TRANSLATE("Game language") << ": " << DataInterface::Data().GetLanguageDescription(game_language) << "     " <<
 				B_TRANSLATE("Minimum word length") << ": " << minimum_word_length << "     " <<
 				B_TRANSLATE("Sound") << ": " << sound_status;
 

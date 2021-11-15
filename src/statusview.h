@@ -13,12 +13,10 @@
 
 class StatusView : public BStringView {
 public:
-	StatusView(BPath data_path);
+	StatusView();
 	void UpdateStatus();
 
 private:
-
-	BString fDataDirectory;
 
 };
 
