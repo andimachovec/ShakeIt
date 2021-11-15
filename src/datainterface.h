@@ -16,6 +16,7 @@ class DataInterface {
 public:
 	void GetDictionary(BString language, std::vector<std::string> &dictionary);
 	BPath& GetDataDirectoryPath();
+	BString GetSoundFilename();
 	static DataInterface &Data();
 
 private:

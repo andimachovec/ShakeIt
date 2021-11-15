@@ -210,9 +210,7 @@ App::ReadyToRun()
 		fGameController = new GameController(fDictionary,std::string(dice_file_path.String()),minimum_word_length);
 
 		//create sound player
-		BString sound_file_path;
-		sound_file_path << DataInterface::Data().GetDataDirectoryPath().Path() << "/shakeit.wav";
-		fGameSound = new BSimpleGameSound(sound_file_path.String());
+		fGameSound = new BSimpleGameSound(DataInterface::Data().GetSoundFilename().String());
 		fGameSound->SetIsLooping(false);
 
 		//set app pulse to 1 second	(for the timer)

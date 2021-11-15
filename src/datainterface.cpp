@@ -80,6 +80,14 @@ DataInterface::GetDataDirectoryPath()
 }
 
 
+BString
+DataInterface::GetSoundFilename()
+{
+	BString sound_filename;
+	sound_filename << fDataDirPath.Path() << "/shakeit.wav";
+	return sound_filename;
+}
+
 DataInterface
 &DataInterface::Data()
 {
