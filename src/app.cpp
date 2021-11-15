@@ -6,6 +6,7 @@
 
 #include "app.h"
 #include "configparser.h"
+#include "datainterface.h"
 
 #include <SupportDefs.h>
 #include <AboutWindow.h>
@@ -13,9 +14,9 @@
 #include <Alert.h>
 #include <Screen.h>
 #include <Resources.h>
-#include <FindDirectory.h>
 #include <AppFileInfo.h>
 #include <String.h>
+#include <FindDirectory.h>
 
 #include <chrono>
 #include <thread>
@@ -23,7 +24,7 @@
 #include <vector>
 #include <sstream>
 #include <array>
-#include <sqlite3.h>
+
 
 
 #undef B_TRANSLATION_CONTEXT
@@ -34,10 +35,6 @@ App::App()
 	:
 	BApplication("application/x-vnd.BlueSky-ShakeIt")
 {
-
-	//get data directory path
-	get_data_dir(fDataPath);
-
 	//get settings directory path
 	BPath settings_path;
 	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
@@ -83,7 +80,7 @@ App::MessageReceived(BMessage *msg)
 
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow(fDataPath);
+			SettingsWindow *settings_window = new SettingsWindow(DataInterface::Data().GetDataDirectoryPath());
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;
@@ -108,10 +105,10 @@ App::MessageReceived(BMessage *msg)
 			{
 				BString game_language(lang_str);
 				ConfigParser::Config().SetGameLanguage(game_language);
-				load_dictionary(game_language);
+				DataInterface::Data().GetDictionary(game_language, fDictionary);
 				fGameController->SetDictionary(fDictionary);
 				BString dice_file_path;
-				dice_file_path << fDataPath.Path() << "/languages/" << game_language << "/" << game_language << ".dice";
+				dice_file_path << DataInterface::Data().GetDataDirectoryPath().Path() << "/languages/" << game_language << "/" << game_language << ".dice";
 				fGameController->SetDiceFile(std::string(dice_file_path.String()));
 				must_save=true;
 			}
@@ -201,20 +198,20 @@ App::ReadyToRun()
 	try
 	{
 
-		//initialize config parser
+		//initialize config parser and data interface
 		ConfigParser::Config().ReadConfigFromFile();
 
 		//create game controller
 		int minimum_word_length = ConfigParser::Config().GetMinWordLength();
 		BString game_language = ConfigParser::Config().GetGameLanguage();
-		load_dictionary(game_language);
+		DataInterface::Data().GetDictionary(game_language, fDictionary);
 		BString dice_file_path;
-		dice_file_path << fDataPath.Path() << "/languages/" << game_language << "/" << game_language << ".dice";
+		dice_file_path << DataInterface::Data().GetDataDirectoryPath().Path() << "/languages/" << game_language << "/" << game_language << ".dice";
 		fGameController = new GameController(fDictionary,std::string(dice_file_path.String()),minimum_word_length);
 
 		//create sound player
 		BString sound_file_path;
-		sound_file_path << fDataPath.Path() << "/shakeit.wav";
+		sound_file_path << DataInterface::Data().GetDataDirectoryPath().Path() << "/shakeit.wav";
 		fGameSound = new BSimpleGameSound(sound_file_path.String());
 		fGameSound->SetIsLooping(false);
 
@@ -255,7 +252,7 @@ App::ReadyToRun()
 					mainwindow_anchor.y+mainwindow_size.Height()+vert_dist_windows);
 
 
-		fMainWindow = new MainWindow(mainwindow_title, BRect(mainwindow_anchor,mainwindow_size), fDataPath);
+		fMainWindow = new MainWindow(mainwindow_title, BRect(mainwindow_anchor,mainwindow_size), DataInterface::Data().GetDataDirectoryPath().Path());
 		fInputWindow = new InputWindow(inputwindow_title, BRect(inputwindow_anchor,inputwindow_size));
 		fTimerWindow = new TimerWindow(timerwindow_title, BRect(timerwindow_anchor,timerwindow_size));
 
@@ -451,64 +448,6 @@ App::end_game(int reason)
 	//disable the settings menu
 	fMainWindow->PostMessage(new BMessage(MW_MENU_SETTINGS_ENABLE));
 
-}
-
-
-void
-App::get_data_dir(BPath &data_path)
-{
-
-	find_directory(B_SYSTEM_NONPACKAGED_DATA_DIRECTORY, &data_path);
-	BDirectory data_directory(data_path.Path());
-
-	if (!data_directory.Contains("ShakeIt", B_DIRECTORY_NODE))
-	{
-		find_directory(B_SYSTEM_DATA_DIRECTORY, &data_path);
-	}
-
-	data_path.Append("ShakeIt");
-
-}
-
-
-void
-App::load_dictionary(BString game_language)
-{
-
-	fDictionary.clear();
-
-	BString dictionary_filename;
-	dictionary_filename << game_language << ".dict";
-
-	BPath dictionary_path(fDataPath);
-	dictionary_path.Append("languages");
-	dictionary_path.Append(game_language.String());
-	dictionary_path.Append(dictionary_filename.String());
-
-	//open database
-	sqlite3 *dictionary_db = nullptr;
-	int result = sqlite3_open_v2(dictionary_path.Path(), &dictionary_db, SQLITE_OPEN_READONLY, NULL);
-
-	if (result != SQLITE_OK)
-	{
-		std::cout << "Error opening dictionary database" << std::endl;
-		//TODO: throw error
-	}
-
-	//fetch data and fill into dictionary vector
-	sqlite3_stmt *statement = nullptr;
-	sqlite3_prepare_v2(dictionary_db,"select name from words order by name", -1, &statement, NULL);
-
-	while (sqlite3_step(statement) != SQLITE_DONE)
-	{
-			std::string dictionary_word(reinterpret_cast<const char*>(sqlite3_column_text(statement,0)));
-			fDictionary.push_back(dictionary_word);
-	}
-
-	sqlite3_finalize(statement);
-
-	//close database
-	sqlite3_close(dictionary_db);
 }
 
 

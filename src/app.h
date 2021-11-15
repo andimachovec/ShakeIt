@@ -10,7 +10,6 @@
 
 #include <Application.h>
 #include <SimpleGameSound.h>
-#include <Path.h>
 #include <string>
 #include <vector>
 
@@ -44,8 +43,6 @@ private:
 
 	void start_game();
 	void end_game(int reason);
-	void get_data_dir(BPath &data_path);
-	void load_dictionary(BString game_language);
 
 	MainWindow	*fMainWindow;
 	InputWindow	*fInputWindow;
@@ -53,7 +50,6 @@ private:
 
 	GameController 				*fGameController;
 	BSimpleGameSound			*fGameSound;
-	BPath 						fDataPath;
 	std::vector<std::string> 	fDictionary;
 
 };
