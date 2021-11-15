@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -13,14 +13,13 @@
 #include <PopUpMenu.h>
 #include <Button.h>
 #include <String.h>
-
-#include <string>
+#include <Path.h>
 
 #include "letterview.h"
 #include "statusview.h"
 
 
-enum  
+enum
 {
 	MW_MENU_ABOUT_CLICKED = 'mw00',
 	MW_MENU_SETTINGS_CLICKED,
@@ -34,25 +33,25 @@ enum
 	MW_GIVEUP_BUTTON_DISABLE,
 	MW_BOARD_SETUP,
 	MW_STATUSVIEW_UPDATE
-};	
+};
 
 
 class MainWindow : public BWindow {
 public:
-	
-	MainWindow(BString title, BRect frame, std::string DataDirectory);
+
+	MainWindow(BString title, BRect frame, BPath data_path);
 	void MessageReceived(BMessage *msg);
 	bool QuitRequested();
-		
+
 private:
-		
+
 	BMenuBar	*fTopMenubar;
 	LetterView	*fLetterView;
 	BButton		*fGoButton;
 	BButton		*fGiveupButton;
-	StatusView	*fStatusView;		
+	StatusView	*fStatusView;
 	bool 		fGameRunning;
-		
+
 };
 
 

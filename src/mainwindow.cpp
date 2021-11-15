@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #include "mainwindow.h"
 
 #include <Application.h>
@@ -23,19 +23,19 @@
 #define B_TRANSLATION_CONTEXT "MainWindow"
 
 
-MainWindow::MainWindow(BString title, BRect frame, std::string DataDirectory)
+MainWindow::MainWindow(BString title, BRect frame, BPath data_path)
 	:
 	BWindow(frame, title.String(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
-	
+
 	//initialize GUI Objects
 	fTopMenubar = new BMenuBar("topmenubar");
 	fLetterView = new LetterView();
 	fGoButton = new BButton(B_TRANSLATE("Shake it, baby!"), new BMessage(MW_GO_BUTTON_CLICKED));
 	fGiveupButton = new BButton(B_TRANSLATE("Give Up"), new BMessage(MW_GIVEUP_BUTTON_CLICKED));
 	fGiveupButton->SetEnabled(false);
-	fStatusView = new StatusView(DataDirectory);	
-	
+	fStatusView = new StatusView(data_path);
+
 	//build the menu layout
 	BLayoutBuilder::Menu<>(fTopMenubar)
 		.AddMenu(B_TRANSLATE("File"))
@@ -45,9 +45,9 @@ MainWindow::MainWindow(BString title, BRect frame, std::string DataDirectory)
 		.AddMenu(B_TRANSLATE("Help"))
 			.AddItem(B_TRANSLATE("About"), MW_MENU_ABOUT_CLICKED)
 		.End()
-	.End();	
-		
-	
+	.End();
+
+
 	//build the main layout
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
@@ -57,154 +57,154 @@ MainWindow::MainWindow(BString title, BRect frame, std::string DataDirectory)
 			.AddGroup(B_HORIZONTAL,3)
 				.Add(fGoButton)
 				.Add(fGiveupButton)
-			.End()	
+			.End()
 			.Add(new BSeparatorView(B_HORIZONTAL, B_PLAIN_BORDER),0)
-			.Add(fStatusView,1)	
+			.Add(fStatusView,1)
 		.End()
-	.Layout();	
-		
-	
-	fGameRunning=false;	
+	.Layout();
+
+
+	fGameRunning=false;
 }
 
 
-void 
+void
 MainWindow::MessageReceived(BMessage *msg)
 {
-	
-	switch (msg->what)	
+
+	switch (msg->what)
 	{
-		
+
 		case MW_MENU_ABOUT_CLICKED:
 		{
 			be_app->PostMessage(B_ABOUT_REQUESTED);
-			break;	
-		}		
-		
-		
+			break;
+		}
+
+
 		case MW_MENU_SETTINGS_CLICKED:
 		{
 			be_app->PostMessage(msg);
 			break;
 		}
-				
-				
+
+
 		case MW_GO_BUTTON_CLICKED:
 		{
-			be_app->PostMessage(msg);	
+			be_app->PostMessage(msg);
 			break;
 		}
-		
-		
+
+
 		case MW_MENU_SETTINGS_ENABLE:
 		{
 			BMenuItem *settings_menu=fTopMenubar->FindItem(MW_MENU_SETTINGS_CLICKED);
 			settings_menu->SetEnabled(true);
 			break;
-		}	
-		
-		
+		}
+
+
 		case MW_MENU_SETTINGS_DISABLE:
 		{
 			BMenuItem *settings_menu=fTopMenubar->FindItem(MW_MENU_SETTINGS_CLICKED);
 			settings_menu->SetEnabled(false);
 			break;
 		}
-		
-		
+
+
 		case MW_GO_BUTTON_ENABLE:
 		{
 			fGoButton->SetEnabled(true);
 			fGameRunning=false;
 			break;
-		}			
-		
+		}
+
 		case MW_GO_BUTTON_DISABLE:
 		{
 			fGoButton->SetEnabled(false);
 			fGameRunning=true;
 			break;
-		}	
-		
+		}
+
 		case MW_GIVEUP_BUTTON_CLICKED:
 		{
-			be_app->PostMessage(msg);	
+			be_app->PostMessage(msg);
 			break;
 		}
-		
+
 		case MW_GIVEUP_BUTTON_ENABLE:
 		{
-			fGiveupButton->SetEnabled(true);	
+			fGiveupButton->SetEnabled(true);
 			break;
-		}	
-		
+		}
+
 		case MW_GIVEUP_BUTTON_DISABLE:
 		{
-			fGiveupButton->SetEnabled(false);	
+			fGiveupButton->SetEnabled(false);
 			break;
-		}	
-		
-				
+		}
+
+
 		case MW_BOARD_SETUP:
 		{
-			
-			
+
+
 			//get board data from message
 			std::vector<std::string> board_letters;
 			std::vector<int> board_letter_orientation;
-				
+
 			for (int i=0; i<16; ++i)
 			{
 				board_letters.push_back(std::string(msg->GetString("letter",i,NULL)));
-				board_letter_orientation.push_back(msg->GetInt32("orientation",i,0));	
-			}	
-			
+				board_letter_orientation.push_back(msg->GetInt32("orientation",i,0));
+			}
+
 			//pass the board data to the letter view
 			fLetterView->SetLetters(board_letters,board_letter_orientation);
-			
-			break;	
-		}	
-		
+
+			break;
+		}
+
 		case MW_STATUSVIEW_UPDATE:
 			fStatusView->UpdateStatus();
 			break;
-		
-						
+
+
 		default:
 		{
 			BWindow::MessageReceived(msg);
 			break;
 		}
-	
-	
+
+
 	}
 
-}	
+}
 
 
-bool 
+bool
 MainWindow::QuitRequested()
 {
 	bool do_quit=true;
-	
+
 	if (fGameRunning)
 	{
-		
+
 		BAlert *quit_alert = new BAlert("Boggle",
 										B_TRANSLATE("Game still in progress. Do you really want to quit?"),
 										B_TRANSLATE("Yes"),
 										B_TRANSLATE("No"));
-		if (quit_alert->Go() == 1)								
-		{	
+		if (quit_alert->Go() == 1)
+		{
 			do_quit=false;
-		}		
-	}	 
-	
+		}
+	}
+
 	if (do_quit)
 	{
-		be_app->PostMessage(B_QUIT_REQUESTED);	
+		be_app->PostMessage(B_QUIT_REQUESTED);
 	}
-	
+
 	return do_quit;
-}	
+}
 
