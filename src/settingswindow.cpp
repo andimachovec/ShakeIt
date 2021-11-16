@@ -6,6 +6,7 @@
 
 #include "settingswindow.h"
 #include "configparser.h"
+#include "datainterface.h"
 
 #include <LayoutBuilder.h>
 #include <Layout.h>
@@ -17,22 +18,19 @@
 #include <Resources.h>
 #include <Directory.h>
 
-#include <fstream>
 #include <iostream>
-#include <cstring>
+
 
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "SettingsWindow"
 
 
-SettingsWindow::SettingsWindow(BPath data_path)
+SettingsWindow::SettingsWindow()
 		:
-		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS),
-		fDataPath(data_path)
+		BWindow(BRect(100,100,400,240),B_TRANSLATE("Settings"), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS)
 {
 
-
-	fLanguageDefault=std::string(ConfigParser::Config().GetGameLanguage());
+	fLanguageDefault=ConfigParser::Config().GetGameLanguage();
 	fMinWordLengthDefault=ConfigParser::Config().GetMinWordLength();
 
 	if (ConfigParser::Config().GetSound() == true)
@@ -53,19 +51,19 @@ SettingsWindow::SettingsWindow(BPath data_path)
 
 
 	fLanguageSelectorMenuPopup = new BPopUpMenu("languageselectormenu");
-	load_language_choices();
-	std::vector<std::pair<std::string,std::string>>::iterator language_iter;
+	DataInterface::Data().GetAvailableLanguages(fAvailableLanguages);
+	std::vector<std::pair<BString, BString>>::iterator language_iter;
 
 	//populate languages dropdown menu
 	for (language_iter=fAvailableLanguages.begin(); language_iter!=fAvailableLanguages.end(); ++language_iter)
 	{
 
-		BMenuItem *new_menuitem = new BMenuItem(language_iter->second.c_str(), new BMessage());
+		BMenuItem *new_menuitem = new BMenuItem(language_iter->second.String(), new BMessage());
 		fLanguageSelectorMenuPopup->AddItem(new_menuitem);
 		if (language_iter->first == fLanguageDefault)
 		{
 			new_menuitem->SetMarked(true);
-			fLanguageDefaultDescription=language_iter->second.c_str();
+			fLanguageDefaultDescription=language_iter->second.String();
 		}
 
 	}
@@ -110,7 +108,7 @@ SettingsWindow::MessageReceived(BMessage *msg)
 			{
 
 				int selected_language_index=fLanguageSelectorMenuPopup->FindMarkedIndex();
-				save_settings_msg->AddString("gamelanguage",fAvailableLanguages[selected_language_index].first.c_str());
+				save_settings_msg->AddString("gamelanguage",fAvailableLanguages[selected_language_index].first.String());
 
 			}
 
@@ -161,40 +159,3 @@ SettingsWindow::MessageReceived(BMessage *msg)
 	}
 
 }
-
-
-void
-SettingsWindow::load_language_choices()
-{
-
-
-	fDataPath.Append("languages");
-	BDirectory languages_directory(fDataPath.Path());
-	BEntry language_dir_entry;
-
-	while (languages_directory.GetNextEntry(&language_dir_entry) != B_ENTRY_NOT_FOUND)
-	{
-		if (language_dir_entry.IsDirectory())
-		{
-			BPath language_dir_path(&language_dir_entry);
-			BString language_code(language_dir_path.Leaf());
-			BString language_file_name(language_dir_path.Path());
-			language_file_name+="/";
-			language_file_name+=language_code;
-			language_file_name+=".desc";
-
-
-			std::ifstream language_desc_file;
-			language_desc_file.open(language_file_name.String());
-			if (language_desc_file.good())
-			{
-				std::string language_description;
-				getline(language_desc_file,language_description);
-				fAvailableLanguages.push_back(std::make_pair(std::string(language_code.String()),language_description));
-
-				language_desc_file.close();
-			}
-		}
-	}
-}
-

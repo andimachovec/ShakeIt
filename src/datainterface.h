@@ -11,6 +11,7 @@
 #include <Path.h>
 #include <vector>
 #include <string>
+#include <utility>
 
 class DataInterface {
 public:
@@ -18,6 +19,7 @@ public:
 	BPath& GetDataDirectoryPath();
 	BString GetSoundFilename();
 	BString GetLanguageDescription(BString language);
+	void GetAvailableLanguages(std::vector<std::pair<BString, BString>> &available_languages);
 	static DataInterface &Data();
 
 private:

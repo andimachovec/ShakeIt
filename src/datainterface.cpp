@@ -106,6 +106,43 @@ DataInterface::GetLanguageDescription(BString language)
 	return BString(language_desc.c_str());
 }
 
+
+void
+DataInterface::GetAvailableLanguages(std::vector<std::pair<BString, BString>> &available_languages)
+{
+
+	BPath languages_directory_path(fDataDirPath);
+	languages_directory_path.Append("languages");
+	BDirectory languages_directory(languages_directory_path.Path());
+	BEntry language_dir_entry;
+
+	while (languages_directory.GetNextEntry(&language_dir_entry) != B_ENTRY_NOT_FOUND)
+	{
+		if (language_dir_entry.IsDirectory())
+		{
+			BPath language_dir_path(&language_dir_entry);
+			BString language_code(language_dir_path.Leaf());
+			BString language_file_name(language_dir_path.Path());
+			language_file_name+="/";
+			language_file_name+=language_code;
+			language_file_name+=".desc";
+
+			std::ifstream language_desc_file;
+			language_desc_file.open(language_file_name.String());
+			if (language_desc_file.good())
+			{
+				std::string language_description;
+				getline(language_desc_file,language_description);
+				available_languages.push_back(std::make_pair(language_code,BString(language_description.c_str())));
+
+				language_desc_file.close();
+			}
+		}
+	}
+
+}
+
+
 DataInterface
 &DataInterface::Data()
 {

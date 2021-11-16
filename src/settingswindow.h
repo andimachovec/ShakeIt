@@ -14,9 +14,8 @@
 #include <PopUpMenu.h>
 #include <MenuField.h>
 #include <CheckBox.h>
-#include <Path.h>
+#include <String.h>
 
-#include <string>
 #include <utility>
 #include <vector>
 
@@ -33,14 +32,10 @@ enum
 
 class SettingsWindow : public BWindow {
 public:
-
-	SettingsWindow(BPath data_path);
+	SettingsWindow();
 	void MessageReceived(BMessage *msg);
 
 private:
-
-	void load_language_choices();
-
 	BButton *fSaveButton;
 	BButton *fCancelButton;
 	BPopUpMenu	*fLanguageSelectorMenuPopup;
@@ -48,13 +43,11 @@ private:
 	BCheckBox	*fSoundCheckbox;
 	BSpinner *fMinWordLengthSpinner;
 
-	std::string fLanguageDefault;
+	BString fLanguageDefault;
 	const char *fLanguageDefaultDescription;
 	int fMinWordLengthDefault;
 	int32 fSoundDefault;
-	std::vector<std::pair<std::string, std::string>> fAvailableLanguages;
-	BPath fDataPath;
-
+	std::vector<std::pair<BString, BString>> fAvailableLanguages;
 };
 
 

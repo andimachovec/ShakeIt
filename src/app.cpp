@@ -80,7 +80,7 @@ App::MessageReceived(BMessage *msg)
 
 		case MW_MENU_SETTINGS_CLICKED:
 		{
-			SettingsWindow *settings_window = new SettingsWindow(DataInterface::Data().GetDataDirectoryPath());
+			SettingsWindow *settings_window = new SettingsWindow();
 			settings_window->CenterOnScreen();
 			settings_window->Show();
 			break;
