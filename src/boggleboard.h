@@ -3,30 +3,24 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #ifndef BOGGLEBOARD_H
 #define BOGGLEBOARD_H
 
 #include <string>
-
+#include <array>
 #include "boggledie.h"
 
 class BoggleBoard
 {
-
 	public:
-		BoggleBoard(std::string DiceFilename);
-		BoggleDie *GetDie(int position);		
+		BoggleBoard();
+		BoggleDie& GetDie(int position);
 		void Shake();
-		void LoadDiceFile(std::string DiceFilename);
+		void LoadDice();
 
 	private:
-		BoggleDie *boggle_dice[16];
-		void load_data_from_file();
-
-		std::string dice_filename;
-		std::string letters[16][6];
-
+		std::array<BoggleDie,16> dice;
 };
 
 #endif

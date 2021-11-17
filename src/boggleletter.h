@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #ifndef BOGGLELETTER_H
 #define BOGGLELETTER_H
 
@@ -14,7 +14,7 @@ class BoggleLetter
 {
 
 	public:
-		BoggleLetter(std::string Name);
+		BoggleLetter();
 		std::string GetName();
 		int	GetOrientation();
 		void SetOrientation(int Orientation);

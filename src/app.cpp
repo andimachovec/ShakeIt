@@ -107,9 +107,7 @@ App::MessageReceived(BMessage *msg)
 				ConfigParser::Config().SetGameLanguage(game_language);
 				DataInterface::Data().GetDictionary(game_language, fDictionary);
 				fGameController->SetDictionary(fDictionary);
-				BString dice_file_path;
-				dice_file_path << DataInterface::Data().GetDataDirectoryPath().Path() << "/languages/" << game_language << "/" << game_language << ".dice";
-				fGameController->SetDiceFile(std::string(dice_file_path.String()));
+				fGameController->ReloadData();
 				must_save=true;
 			}
 
@@ -205,9 +203,8 @@ App::ReadyToRun()
 		int minimum_word_length = ConfigParser::Config().GetMinWordLength();
 		BString game_language = ConfigParser::Config().GetGameLanguage();
 		DataInterface::Data().GetDictionary(game_language, fDictionary);
-		BString dice_file_path;
-		dice_file_path << DataInterface::Data().GetDataDirectoryPath().Path() << "/languages/" << game_language << "/" << game_language << ".dice";
-		fGameController = new GameController(fDictionary,std::string(dice_file_path.String()),minimum_word_length);
+
+		fGameController = new GameController(fDictionary,minimum_word_length);
 
 		//create sound player
 		fGameSound = new BSimpleGameSound(DataInterface::Data().GetSoundFilename().String());

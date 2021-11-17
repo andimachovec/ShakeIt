@@ -15,14 +15,14 @@
 #include <algorithm>
 
 
-GameController::GameController(std::vector<std::string> Dictionary, std::string DiceFile, int MinimumWordLength)
+GameController::GameController(std::vector<std::string> Dictionary, int MinimumWordLength)
 	:
 	dictionary_words(Dictionary),
 	minimum_word_length(MinimumWordLength)
 {
 
 	//create Board Object
-	boggle_board = new BoggleBoard(DiceFile);
+	boggle_board = BoggleBoard();
 
 	//initialize properties
 	points_total=0;
@@ -64,11 +64,8 @@ void
 GameController::StartRound()
 {
 
-	//shake the board
-	boggle_board->Shake();
-
-	//fill the letter matrix
-	this->setup_letter_matrix();
+	boggle_board.Shake();
+	setup_letter_matrix();
 
 	round_running=true;
 
@@ -219,6 +216,12 @@ GameController::IsGameRunning()
 }
 
 
+void
+GameController::ReloadData()
+{
+
+}
+
 bool
 GameController::SetDictionary(std::vector<std::string> Dictionary)
 {
@@ -234,25 +237,6 @@ GameController::SetDictionary(std::vector<std::string> Dictionary)
 	{
 		return false;
 	}
-
-}
-
-
-bool
-GameController::SetDiceFile(std::string DiceFileName)
-{
-
-	if (!round_running)
-	{
-		boggle_board->LoadDiceFile(DiceFileName);
-		return true;
-	}
-
-	else
-	{
-		return false;
-	}
-
 
 }
 
@@ -481,10 +465,10 @@ GameController::setup_letter_matrix()
 
 	for (int i=0; i<16; ++i)
 	{
-		BoggleDie *current_die = boggle_board->GetDie(i);
-		BoggleLetter *current_letter = current_die->GetActiveLetter();
-		std::string output_str(current_letter->GetName());
-		int letter_orientation=current_letter->GetOrientation();
+		BoggleDie current_die = boggle_board.GetDie(i);
+		BoggleLetter current_letter = current_die.GetActiveLetter();
+		std::string output_str(current_letter.GetName());
+		int letter_orientation=current_letter.GetOrientation();
 
 		//fill letters and their orientation into matrix (used later for validation)
 		letter_matrix[row][col]=output_str[0];

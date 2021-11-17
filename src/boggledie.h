@@ -3,29 +3,29 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #ifndef BOGGLEDIE_H
 #define BOGGLEDIE_H
 
 #include <string>
-
+#include <array>
 #include "boggleletter.h"
 
 class BoggleDie
 {
 
 	public:
-		BoggleDie(std::string Letters[6]);
-		BoggleLetter *GetActiveLetter();
+		BoggleDie();
+		BoggleLetter& GetActiveLetter();
 		void SetActiveLetter(int Position);
 		void SetActiveLetterOrientation(int Orientation);
-		void SetLetters(std::string Letters[6]);
+		void SetLetters(std::array<std::string, 6> Letters);
 
 
 	private:
-		BoggleLetter *letters[6];
+		std::array<BoggleLetter, 6> letters;
 		int active_letter_position;
-		
+
 };
 
 #endif

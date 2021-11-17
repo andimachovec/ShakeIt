@@ -143,6 +143,46 @@ DataInterface::GetAvailableLanguages(std::vector<std::pair<BString, BString>> &a
 }
 
 
+void
+DataInterface::GetDiceLetters(BString language, std::array<std::array<std::string, 6>,16> &letters)
+{
+
+	BString dice_filename;
+	dice_filename << fDataDirPath.Path() << "/languages/" << language << "/" << language << ".dice";
+
+	std::ifstream dice_file;
+	dice_file.open(dice_filename.String());
+
+	std::string line;
+
+	while (getline(dice_file,line))
+	{
+		if (line != "")
+		{
+			//split line in the different parameters
+			int die_number;
+			int side_number;
+			std::string letter;
+
+			size_t position1=line.find(",");
+			die_number=std::stoi(line.substr(0,position1));
+
+			++position1;
+			size_t position2=line.find(",",position1);
+			side_number=std::stoi(line.substr(position1,position2-position1));
+
+			letter=line.substr(position2+1);
+
+			//add letter to the letter array
+			letters[die_number][side_number]=letter;
+		}
+	}
+
+	dice_file.close();
+
+}
+
+
 DataInterface
 &DataInterface::Data()
 {

@@ -28,7 +28,7 @@ class GameController
 {
 
 	public:
-		GameController(std::vector<std::string> Dictionary, std::string DiceFile, int MinimumWordLength);
+		GameController(std::vector<std::string> Dictionary, int MinimumWordLength);
 		~GameController();
 		void StartGame();
 		void GameFinished();
@@ -41,9 +41,8 @@ class GameController
 		int GetTotalPoints();
 		std::vector<std::string> GetMissingWords();
 
-
+		void ReloadData();
 		bool SetDictionary(std::vector<std::string> Dictionary);
-		bool SetDiceFile(std::string DiceFileName);
 		bool SetMinimumWordLength(int MinimumWordLength);
 
 		bool IsRoundRunning();
@@ -68,7 +67,7 @@ class GameController
 		void find_missing_words();      //finds the words in the dictionary that are possible but that the player didn´t find
 
 		//properties
-		BoggleBoard *boggle_board;
+		BoggleBoard boggle_board;
 
 		char_matrix	letter_matrix;				//matrix of letters on the game board, populated by setup_letter_matrix()
 		bool_matrix	already_used_matrix; 		//bool matrix of the positions that were already used by word_search()

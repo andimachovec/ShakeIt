@@ -3,18 +3,17 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #include "boggleletter.h"
 
 
 #include <string>
 
 //-----------------------------------------------------------------------------
-BoggleLetter::BoggleLetter(std::string Name)
+BoggleLetter::BoggleLetter()
 //-----------------------------------------------------------------------------
 {
 
-	name=Name;
 	orientation=0;
 
 }
