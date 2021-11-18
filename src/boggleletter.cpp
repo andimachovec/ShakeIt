@@ -5,13 +5,10 @@
  */
 
 #include "boggleletter.h"
-
-
 #include <string>
 
-//-----------------------------------------------------------------------------
+
 BoggleLetter::BoggleLetter()
-//-----------------------------------------------------------------------------
 {
 
 	orientation=0;
@@ -19,9 +16,8 @@ BoggleLetter::BoggleLetter()
 }
 
 
-//-----------------------------------------------------------------------------
-std::string BoggleLetter::GetName()
-//-----------------------------------------------------------------------------
+std::string
+BoggleLetter::GetName()
 {
 
 	return name;
@@ -29,9 +25,8 @@ std::string BoggleLetter::GetName()
 }
 
 
-//-----------------------------------------------------------------------------
-void BoggleLetter::SetOrientation(int Orientation)
-//-----------------------------------------------------------------------------
+void
+BoggleLetter::SetOrientation(int Orientation)
 {
 
 	orientation=Orientation;
@@ -39,9 +34,8 @@ void BoggleLetter::SetOrientation(int Orientation)
 }
 
 
-//-----------------------------------------------------------------------------
-int BoggleLetter::GetOrientation()
-//-----------------------------------------------------------------------------
+int
+BoggleLetter::GetOrientation()
 {
 
 	return orientation;
@@ -49,11 +43,8 @@ int BoggleLetter::GetOrientation()
 }
 
 
-
-//-----------------------------------------------------------------------------
-void BoggleLetter::SetName(std::string Name)
-//-----------------------------------------------------------------------------
+void
+BoggleLetter::SetName(std::string Name)
 {
 	name=Name;
 }
-

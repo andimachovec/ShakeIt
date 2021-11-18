@@ -11,21 +11,17 @@
 #include <array>
 #include "boggleletter.h"
 
-class BoggleDie
-{
+class BoggleDie {
+public:
+	BoggleDie();
+	BoggleLetter& GetActiveLetter();
+	void SetActiveLetter(int Position);
+	void SetActiveLetterOrientation(int Orientation);
+	void SetLetters(std::array<std::string, 6> Letters);
 
-	public:
-		BoggleDie();
-		BoggleLetter& GetActiveLetter();
-		void SetActiveLetter(int Position);
-		void SetActiveLetterOrientation(int Orientation);
-		void SetLetters(std::array<std::string, 6> Letters);
-
-
-	private:
-		std::array<BoggleLetter, 6> letters;
-		int active_letter_position;
-
+private:
+	std::array<BoggleLetter, 6> letters;
+	int active_letter_position;
 };
 
 #endif

@@ -6,9 +6,8 @@
 
 #include "boggledie.h"
 
-//-----------------------------------------------------------------------------
+
 BoggleDie::BoggleDie()
-//-----------------------------------------------------------------------------
 {
 
 		for (int i=0; i<6; ++i)
@@ -21,10 +20,7 @@ BoggleDie::BoggleDie()
 }
 
 
-
-//-----------------------------------------------------------------------------
 BoggleLetter& BoggleDie::GetActiveLetter()
-//-----------------------------------------------------------------------------
 {
 
 	return letters[active_letter_position];
@@ -32,10 +28,8 @@ BoggleLetter& BoggleDie::GetActiveLetter()
 }
 
 
-
-//-----------------------------------------------------------------------------
-void BoggleDie::SetActiveLetter(int Position)
-//-----------------------------------------------------------------------------
+void
+BoggleDie::SetActiveLetter(int Position)
 {
 
 	active_letter_position=Position;
@@ -43,10 +37,8 @@ void BoggleDie::SetActiveLetter(int Position)
 }
 
 
-
-//-----------------------------------------------------------------------------
-void BoggleDie::SetActiveLetterOrientation(int Orientation)
-//-----------------------------------------------------------------------------
+void
+BoggleDie::SetActiveLetterOrientation(int Orientation)
 {
 
 	letters[active_letter_position].SetOrientation(Orientation);
@@ -54,10 +46,8 @@ void BoggleDie::SetActiveLetterOrientation(int Orientation)
 }
 
 
-
-//-----------------------------------------------------------------------------
-void BoggleDie::SetLetters(std::array<std::string, 6> Letters)
-//-----------------------------------------------------------------------------
+void
+BoggleDie::SetLetters(std::array<std::string, 6> Letters)
 {
 
 	for (int i=0; i<6; ++i)
@@ -66,9 +56,3 @@ void BoggleDie::SetLetters(std::array<std::string, 6> Letters)
 		}
 
 }
-
-
-
-
-
-

@@ -25,6 +25,7 @@ StatusView::StatusView()
 {
 
 	UpdateStatus();
+
 }
 
 
@@ -36,7 +37,6 @@ StatusView::UpdateStatus()
 		BString game_language = ConfigParser::Config().GetGameLanguage();
 		uint8 minimum_word_length = ConfigParser::Config().GetMinWordLength();
 		bool sound = ConfigParser::Config().GetSound();
-
 
 		//set sound status (for translation)
 		BString sound_status;

@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #ifndef TIMERVIEW_H
 #define TIMERVIEW_H
 
@@ -18,28 +18,25 @@ enum
 
 class TimerView : public BView {
 public:
-	
 	TimerView();
 	void Draw(BRect update_rect);
 	void StartTimer();
 	void StopTimer();
 	void UpdateTimer();
-	
+
 private:
-		
 	void time_over();
 	void update_display();
-	
+
 	bool fIsRunning;
 	bigtime_t fStartTime;
 	bigtime_t fElapsedTimeSeconds;
-		
+
 	int fMinutesToGo;
 	int fSecondsToGo;
 
 	float fTextHeight;
 	float fTextWidth;
 };
-
 
 #endif

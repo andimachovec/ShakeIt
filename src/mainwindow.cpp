@@ -47,7 +47,6 @@ MainWindow::MainWindow(BString title, BRect frame)
 		.End()
 	.End();
 
-
 	//build the main layout
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
@@ -63,8 +62,8 @@ MainWindow::MainWindow(BString title, BRect frame)
 		.End()
 	.Layout();
 
-
 	fGameRunning=false;
+
 }
 
 
@@ -74,13 +73,11 @@ MainWindow::MessageReceived(BMessage *msg)
 
 	switch (msg->what)
 	{
-
 		case MW_MENU_ABOUT_CLICKED:
 		{
 			be_app->PostMessage(B_ABOUT_REQUESTED);
 			break;
 		}
-
 
 		case MW_MENU_SETTINGS_CLICKED:
 		{
@@ -88,13 +85,11 @@ MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}
 
-
 		case MW_GO_BUTTON_CLICKED:
 		{
 			be_app->PostMessage(msg);
 			break;
 		}
-
 
 		case MW_MENU_SETTINGS_ENABLE:
 		{
@@ -103,14 +98,12 @@ MainWindow::MessageReceived(BMessage *msg)
 			break;
 		}
 
-
 		case MW_MENU_SETTINGS_DISABLE:
 		{
 			BMenuItem *settings_menu=fTopMenubar->FindItem(MW_MENU_SETTINGS_CLICKED);
 			settings_menu->SetEnabled(false);
 			break;
 		}
-
 
 		case MW_GO_BUTTON_ENABLE:
 		{
@@ -147,8 +140,6 @@ MainWindow::MessageReceived(BMessage *msg)
 
 		case MW_BOARD_SETUP:
 		{
-
-
 			//get board data from message
 			std::vector<std::string> board_letters;
 			std::vector<int> board_letter_orientation;
@@ -169,14 +160,11 @@ MainWindow::MessageReceived(BMessage *msg)
 			fStatusView->UpdateStatus();
 			break;
 
-
 		default:
 		{
 			BWindow::MessageReceived(msg);
 			break;
 		}
-
-
 	}
 
 }
@@ -185,11 +173,11 @@ MainWindow::MessageReceived(BMessage *msg)
 bool
 MainWindow::QuitRequested()
 {
+
 	bool do_quit=true;
 
 	if (fGameRunning)
 	{
-
 		BAlert *quit_alert = new BAlert("Boggle",
 										B_TRANSLATE("Game still in progress. Do you really want to quit?"),
 										B_TRANSLATE("Yes"),
@@ -206,5 +194,5 @@ MainWindow::QuitRequested()
 	}
 
 	return do_quit;
-}
 
+}

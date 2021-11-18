@@ -20,8 +20,6 @@
 #include "gamecontroller.h"
 
 
-
-
 enum
 {
 	ENDGAME_REASON_TIMEOVER=0,
@@ -40,7 +38,6 @@ public:
 	void Pulse();
 
 private:
-
 	void start_game();
 	void end_game(int reason);
 
@@ -52,8 +49,6 @@ private:
 	BSimpleGameSound							*fGameSound;
 	std::vector<std::string> 					fDictionary;
 	std::array<std::array<std::string, 6>, 16>	fDiceLetters;
-
 };
-
 
 #endif

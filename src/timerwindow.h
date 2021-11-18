@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #ifndef TIMERWINDOW_H
 #define TIMERWINDOW_H
 
@@ -12,7 +12,6 @@
 #include <String.h>
 
 #include "timerview.h"
-
 
 enum
 {
@@ -23,22 +22,13 @@ enum
 };
 
 
-
 class TimerWindow : public BWindow{
 public:
 	TimerWindow(BString title, BRect frame);
 	void MessageReceived(BMessage *msg);
-	
-	
-	
+
 private:
-
-
 	TimerView *fTimerView;
-
-
-
-
 };
 
 #endif

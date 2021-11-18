@@ -7,7 +7,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-
 #include <Window.h>
 #include <MenuBar.h>
 #include <PopUpMenu.h>
@@ -17,7 +16,6 @@
 
 #include "letterview.h"
 #include "statusview.h"
-
 
 enum
 {
@@ -38,21 +36,17 @@ enum
 
 class MainWindow : public BWindow {
 public:
-
 	MainWindow(BString title, BRect frame);
 	void MessageReceived(BMessage *msg);
 	bool QuitRequested();
 
 private:
-
 	BMenuBar	*fTopMenubar;
 	LetterView	*fLetterView;
 	BButton		*fGoButton;
 	BButton		*fGiveupButton;
 	StatusView	*fStatusView;
 	bool 		fGameRunning;
-
 };
-
 
 #endif

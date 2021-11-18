@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #include "timerview.h"
 
 #include <Application.h>
@@ -16,9 +16,9 @@ TimerView::TimerView()
 {
 
 	fIsRunning=false;
-	
+
 	SetDrawingMode(B_OP_COPY);
-	
+
 	BFont clock_font(be_fixed_font);
 	clock_font.SetSize(28.0);
 	SetFont(&clock_font);
@@ -50,16 +50,19 @@ TimerView::Draw(BRect update_rect)
 void
 TimerView::StartTimer()
 {
+
 	fIsRunning=true;
 	fStartTime=system_time();
+
 }
 
 
 void
 TimerView::StopTimer()
 {
+
 	fIsRunning=false;
-	
+
 }
 
 
@@ -68,35 +71,33 @@ TimerView::UpdateTimer()
 {
 
 	if(fIsRunning)
-	{	
-	
+	{
 		fElapsedTimeSeconds=(system_time()-fStartTime)/1000/1000;
-		
+
 		if (fElapsedTimeSeconds < 180)
 		{
-			update_display();	
+			update_display();
 		}
-		
 		else
 		{
-			time_over();	
-		}	
-
+			time_over();
+		}
 	}
-}	
+
+}
 
 
 void
 TimerView::time_over()
 {
+
 	fIsRunning=false;
-	
+
 	fElapsedTimeSeconds=180;
 	update_display();
-	
+
 	BMessage *time_over_message = new BMessage(TV_TIME_OVER);
 	be_app->PostMessage(time_over_message);
-	
 
 }
 
@@ -106,11 +107,11 @@ TimerView::update_display()
 {
 
 	int fMinutesToGo=(180-fElapsedTimeSeconds) / 60;
-	int fSecondsToGo=(180-fElapsedTimeSeconds) % 60; 
-	
+	int fSecondsToGo=(180-fElapsedTimeSeconds) % 60;
+
 	BString output_string;
 	output_string.SetToFormat("%02d:%02d",fMinutesToGo,fSecondsToGo);
-	
+
 	BPoint TextAnchor;
 	TextAnchor.x = (Bounds().Width()-fTextWidth) / 2;
 	TextAnchor.y = ((Bounds().Height()-fTextHeight) / 2) + fTextHeight;

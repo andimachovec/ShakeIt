@@ -12,9 +12,7 @@
 #include <algorithm>
 
 
-//-----------------------------------------------------------------------------
 BoggleBoard::BoggleBoard(const std::array<std::array<std::string, 6>, 16> &DiceLetters)
-//-----------------------------------------------------------------------------
 {
 
 	//initialize dice objects
@@ -28,23 +26,16 @@ BoggleBoard::BoggleBoard(const std::array<std::array<std::string, 6>, 16> &DiceL
 }
 
 
-
-
-//-----------------------------------------------------------------------------
 BoggleDie& BoggleBoard::GetDie(int position)
-//-----------------------------------------------------------------------------
 {
-
 
 	return dice[position];
 
 }
 
 
-
-//-----------------------------------------------------------------------------
-void BoggleBoard::Shake()
-//-----------------------------------------------------------------------------
+void
+BoggleBoard::Shake()
 {
 
 	//randomize the position of each die on the board
@@ -74,7 +65,3 @@ BoggleBoard::SetDiceLetters(const std::array<std::array<std::string, 6>, 16> &Di
 	}
 
 }
-
-
-
-

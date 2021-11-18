@@ -26,7 +26,6 @@
 #include <array>
 
 
-
 #undef B_TRANSLATION_CONTEXT
 #define B_TRANSLATION_CONTEXT "App"
 
@@ -35,6 +34,7 @@ App::App()
 	:
 	BApplication("application/x-vnd.BlueSky-ShakeIt")
 {
+
 	//get settings directory path
 	BPath settings_path;
 	find_directory(B_USER_SETTINGS_DIRECTORY, &settings_path);
@@ -64,7 +64,6 @@ App::MessageReceived(BMessage *msg)
 
 	switch(msg->what)
 	{
-
 		case MW_GIVEUP_BUTTON_CLICKED:
 		{
 			end_game(ENDGAME_REASON_GIVENUP);
@@ -76,7 +75,6 @@ App::MessageReceived(BMessage *msg)
 			end_game(ENDGAME_REASON_TIMEOVER);
 			break;
 		}
-
 
 		case MW_MENU_SETTINGS_CLICKED:
 		{
@@ -137,13 +135,11 @@ App::MessageReceived(BMessage *msg)
 			break;
 		}
 
-
 		default:
 		{
 			BApplication::MessageReceived(msg);
 			break;
 		}
-
 	}
 
 }
@@ -196,7 +192,6 @@ App::ReadyToRun()
 
 	try
 	{
-
 		//initialize config parser and data interface
 		ConfigParser::Config().ReadConfigFromFile();
 
@@ -260,7 +255,6 @@ App::ReadyToRun()
 		fMainWindow->Activate(true);
 	}
 
-
 	catch(const std::runtime_error &e)
 	{
 		BAlert *error_alert = new BAlert("ShakeIt",e.what(),"OK");
@@ -279,9 +273,8 @@ App::Pulse() //sends a message every second to update the timer
 	{
 		fTimerWindow->PostMessage(new BMessage(TW_TIMER_UPDATE));
 	}
+
 }
-
-
 
 
 void
@@ -293,7 +286,6 @@ App::start_game()
 
 	//disable the go button
 	fMainWindow->PostMessage(new BMessage(MW_GO_BUTTON_DISABLE));
-
 
 	//play sound if activated
 	if (ConfigParser::Config().GetSound() == true)
@@ -323,10 +315,8 @@ App::start_game()
 
 	fMainWindow->PostMessage(board_setup_msg);
 
-
 	//start the timer
 	fTimerWindow->PostMessage(new BMessage(TW_TIMER_START));
-
 
 	//clear the input window and enable text input
 	fInputWindow->PostMessage(new BMessage(IW_TEXT_ENABLE_EDIT));
@@ -334,7 +324,6 @@ App::start_game()
 
 	//activate the input window
 	fInputWindow->PostMessage(new BMessage(IW_ACTIVATE));
-
 
 	//enable the giveup button
 	fMainWindow->PostMessage(new BMessage(MW_GIVEUP_BUTTON_ENABLE));
@@ -347,13 +336,12 @@ App::start_game()
 void
 App::end_game(int reason)
 {
+
 	//stop the timer
 	fTimerWindow->PostMessage(new BMessage(TW_TIMER_STOP));
 
-
 	//disable text editing on the input window
 	fInputWindow->PostMessage(new BMessage(IW_TEXT_DISABLE_EDIT));
-
 
 	//inform the user that the time is over
 	if (reason == ENDGAME_REASON_TIMEOVER)
@@ -366,14 +354,11 @@ App::end_game(int reason)
 	std::vector<std::string>::iterator iter;
 	std::vector<std::string> word_list = fInputWindow->GetWordList();
 
-
 	//give the word list to the gamecontroller for evaluation
 	fGameController->SetWordList(word_list);
 
-
 	//Let the GameController evaluate the words and get back the results
 	round_results results=fGameController->RoundFinished();
-
 
 	//get the missing words from the gamecontroller
 	std::vector<std::string> missing_words = fGameController->GetMissingWords();
@@ -386,18 +371,13 @@ App::end_game(int reason)
 	result_text[3]=B_TRANSLATE("not in dictionary");
 	result_text[4]=B_TRANSLATE("duplicate");
 
-
-
 	//Display the results on the input window
 	std::stringstream result_stream;
 
 	for (unsigned int i=0; i < word_list.size(); ++i)
 	{
-
 		int result_code = results[i].first;
 		int result_points = results[i].second;
-
-
 
 		if (result_code == 0)  //display the valid word along with the given points
 		{
@@ -408,17 +388,14 @@ App::end_game(int reason)
 		{
 			result_stream << word_list[i] << " (" << result_text[result_code] << ")\n";
 		}
-
 	}
 
 	//total points in this round
 	result_stream << "\n" << B_TRANSLATE("Points in this round") << ": " << fGameController->GetCurrentRoundPoints() << "\n";
 
-
 	//missing words
 	if (!missing_words.empty())
 	{
-
 		result_stream << "\n\n";
 		result_stream << B_TRANSLATE("Missing words") << ":\n";
 
@@ -428,18 +405,15 @@ App::end_game(int reason)
 		{
 			result_stream << *mw_iter << "\n";
 		}
-
 	}
 
 	BMessage *result_display_message=new BMessage(IW_TEXT_SHOW);
 	result_display_message->AddString("text",result_stream.str().c_str());
 	fInputWindow->PostMessage(result_display_message);
 
-
 	//enable the go button and disable the giveup button
 	fMainWindow->PostMessage(new BMessage(MW_GO_BUTTON_ENABLE));
 	fMainWindow->PostMessage(new BMessage(MW_GIVEUP_BUTTON_DISABLE));
-
 
 	//enable the settings menu again
 	//disable the settings menu

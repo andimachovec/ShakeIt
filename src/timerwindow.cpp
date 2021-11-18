@@ -3,7 +3,7 @@
  * All rights reserved. Distributed under the terms of the MIT license.
  *
  */
- 
+
 #include "timerwindow.h"
 
 #include <LayoutBuilder.h>
@@ -11,7 +11,7 @@
 
 TimerWindow::TimerWindow(BString title, BRect frame)
 	:
-	BWindow(frame, title.String(), B_TITLED_WINDOW, 
+	BWindow(frame, title.String(), B_TITLED_WINDOW,
 		B_ASYNCHRONOUS_CONTROLS|
 		B_NOT_CLOSABLE|
 		B_NOT_H_RESIZABLE|
@@ -19,18 +19,12 @@ TimerWindow::TimerWindow(BString title, BRect frame)
 		B_AVOID_FOCUS)
 {
 
-
-	
-
-
 	fTimerView = new TimerView();
-
 
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
 		.Add(fTimerView)
 	.Layout();
-
 
 }
 
@@ -41,7 +35,6 @@ TimerWindow::MessageReceived(BMessage *msg)
 
 	switch (msg->what)
 	{
-
 		case TW_TIMER_UPDATE:
 			fTimerView->UpdateTimer();
 			break;
@@ -49,7 +42,7 @@ TimerWindow::MessageReceived(BMessage *msg)
 		case TW_TIMER_START:
 			fTimerView->StartTimer();
 			break;
-		
+
 		case TW_TIMER_STOP:
 			fTimerView->StopTimer();
 			break;
@@ -57,7 +50,6 @@ TimerWindow::MessageReceived(BMessage *msg)
 		default:
 			BWindow::MessageReceived(msg);
 			break;
-
 	}
 
 }
