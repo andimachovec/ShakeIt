@@ -5,8 +5,6 @@
  */
 
 #include "boggleboard.h"
-#include "datainterface.h"
-#include "configparser.h"
 
 #include <ctime>
 #include <chrono>
@@ -15,7 +13,7 @@
 
 
 //-----------------------------------------------------------------------------
-BoggleBoard::BoggleBoard()
+BoggleBoard::BoggleBoard(const std::array<std::array<std::string, 6>, 16> &DiceLetters)
 //-----------------------------------------------------------------------------
 {
 
@@ -25,8 +23,7 @@ BoggleBoard::BoggleBoard()
 		dice[i] = BoggleDie();
 	}
 
-
-	LoadDice();
+	SetDiceLetters(DiceLetters);
 
 }
 
@@ -67,18 +64,13 @@ void BoggleBoard::Shake()
 }
 
 
-
-//-----------------------------------------------------------------------------
-void BoggleBoard::LoadDice()
-//-----------------------------------------------------------------------------
+void
+BoggleBoard::SetDiceLetters(const std::array<std::array<std::string, 6>, 16> &DiceLetters)
 {
-
-	std::array<std::array<std::string, 6>,16> letters;
-	DataInterface::Data().GetDiceLetters(ConfigParser::Config().GetGameLanguage(), letters);
 
 	for(int i=0; i<16; ++i)
 	{
-		dice[i].SetLetters(letters[i]);
+		dice[i].SetLetters(DiceLetters[i]);
 	}
 
 }

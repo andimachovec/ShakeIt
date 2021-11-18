@@ -28,29 +28,30 @@ class GameController
 {
 
 	public:
-		GameController(std::vector<std::string> Dictionary, int MinimumWordLength);
+		GameController(	const std::vector<std::string> &Dictionary,
+						const std::array<std::array<std::string, 6>, 16> &DiceLetters,
+						int MinWordLength);
 		~GameController();
+
 		void StartGame();
 		void GameFinished();
 		void StartRound();
 		round_results RoundFinished();
+		bool IsRoundRunning();
+		bool IsGameRunning();
+
 		std::vector<std::string> GetBoardLetters();
 		std::vector<int> GetBoardLetterOrientation();
-		void SetWordList(std::vector<std::string> WordList);
 		int GetCurrentRoundPoints();
 		int GetTotalPoints();
 		std::vector<std::string> GetMissingWords();
 
-		void ReloadData();
-		bool SetDictionary(std::vector<std::string> Dictionary);
-		bool SetMinimumWordLength(int MinimumWordLength);
-
-		bool IsRoundRunning();
-		bool IsGameRunning();
-
+		void SetWordList(std::vector<std::string> WordList);
+		void SetDictionary(std::vector<std::string> Dictionary);
+		void SetMinWordLength(int MinWordLength);
+		void SetDiceLetters(std::array<std::array<std::string, 6>, 16> DiceLetters);
 
 	private:
-
 		//methods
 		int validate_word(std::string word);					//validate a word according to game rules
 

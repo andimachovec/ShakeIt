@@ -5,7 +5,7 @@
  */
 
 #include "gamecontroller.h"
-
+#include "configparser.h"
 
 #include <boost/algorithm/string.hpp>
 #include <iostream>
@@ -15,14 +15,14 @@
 #include <algorithm>
 
 
-GameController::GameController(std::vector<std::string> Dictionary, int MinimumWordLength)
+GameController::GameController(	const std::vector<std::string> &Dictionary,
+								const std::array<std::array<std::string, 6>, 16> &DiceLetters,
+								int MinWordLength)
 	:
+	boggle_board(DiceLetters),
 	dictionary_words(Dictionary),
-	minimum_word_length(MinimumWordLength)
+	minimum_word_length(MinWordLength)
 {
-
-	//create Board Object
-	boggle_board = BoggleBoard();
 
 	//initialize properties
 	points_total=0;
@@ -217,46 +217,38 @@ GameController::IsGameRunning()
 
 
 void
-GameController::ReloadData()
-{
-
-}
-
-bool
 GameController::SetDictionary(std::vector<std::string> Dictionary)
 {
 
 	if (!round_running)
 	{
-
-		dictionary_words=Dictionary;
-		return true;
-	}
-
-	else
-	{
-		return false;
+		dictionary_words = Dictionary;
 	}
 
 }
 
 
-bool
-GameController::SetMinimumWordLength(int MinimumWordLength)
+void
+GameController::SetMinWordLength(int MinWordLength)
 {
-
 	if (!round_running)
 	{
-		minimum_word_length=MinimumWordLength;
-		return true;
+		minimum_word_length = MinWordLength;
 	}
+}
 
-	else
+
+void
+GameController::SetDiceLetters(std::array<std::array<std::string, 6>, 16> DiceLetters)
+{
+	if (!round_running)
 	{
-		return false;
+		boggle_board.SetDiceLetters(DiceLetters);
 	}
 
 }
+
+
 
 
 int
@@ -578,3 +570,4 @@ GameController::word_search(std::string word,int start_row, int start_col,unsign
 	return valid;
 
 }
+

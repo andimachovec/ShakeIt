@@ -14,10 +14,10 @@
 class BoggleBoard
 {
 	public:
-		BoggleBoard();
+		BoggleBoard(const std::array<std::array<std::string ,6>, 16> &DiceLetters);
 		BoggleDie& GetDie(int position);
 		void Shake();
-		void LoadDice();
+		void SetDiceLetters(const std::array<std::array<std::string, 6>, 16> &DiceLetters);
 
 	private:
 		std::array<BoggleDie,16> dice;

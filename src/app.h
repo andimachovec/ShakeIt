@@ -48,9 +48,10 @@ private:
 	InputWindow	*fInputWindow;
 	TimerWindow	*fTimerWindow;
 
-	GameController 				*fGameController;
-	BSimpleGameSound			*fGameSound;
-	std::vector<std::string> 	fDictionary;
+	GameController 								*fGameController;
+	BSimpleGameSound							*fGameSound;
+	std::vector<std::string> 					fDictionary;
+	std::array<std::array<std::string, 6>, 16>	fDiceLetters;
 
 };
 

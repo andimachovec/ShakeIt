@@ -106,15 +106,16 @@ App::MessageReceived(BMessage *msg)
 				BString game_language(lang_str);
 				ConfigParser::Config().SetGameLanguage(game_language);
 				DataInterface::Data().GetDictionary(game_language, fDictionary);
+				DataInterface::Data().GetDiceLetters(game_language, fDiceLetters);
 				fGameController->SetDictionary(fDictionary);
-				fGameController->ReloadData();
+				fGameController->SetDiceLetters(fDiceLetters);
 				must_save=true;
 			}
 
 			if (msg->FindInt8("minimumwordlength", &minimum_word_length) == B_OK)
 			{
 				ConfigParser::Config().SetMinWordLength(minimum_word_length);
-				fGameController->SetMinimumWordLength(minimum_word_length);
+				fGameController->SetMinWordLength(minimum_word_length);
 				must_save=true;
 			}
 
@@ -203,8 +204,9 @@ App::ReadyToRun()
 		int minimum_word_length = ConfigParser::Config().GetMinWordLength();
 		BString game_language = ConfigParser::Config().GetGameLanguage();
 		DataInterface::Data().GetDictionary(game_language, fDictionary);
+		DataInterface::Data().GetDiceLetters(game_language, fDiceLetters);
 
-		fGameController = new GameController(fDictionary,minimum_word_length);
+		fGameController = new GameController(fDictionary, fDiceLetters, minimum_word_length);
 
 		//create sound player
 		fGameSound = new BSimpleGameSound(DataInterface::Data().GetSoundFilename().String());
