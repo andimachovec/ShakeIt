@@ -24,15 +24,12 @@ InputWindow::InputWindow(BString title, BRect frame)
 		BWindow(frame, title.String(), B_TITLED_WINDOW, B_ASYNCHRONOUS_CONTROLS|B_NOT_CLOSABLE)
 {
 
-
 	fWordsTextview = new BTextView("wordinput");
 	fWordsTextview->SetInsets(8,8,8,8);
 	fWordsTextview->SetViewColor(237,227,208);
 	fWordsTextviewScrollbar = new BScrollBar("wordscroll",fWordsTextview,1,100,B_VERTICAL);
 
-
 	fWordsTextview->SetText(B_TRANSLATE("Enter your words here, one by line. Case is ignored."));
-
 
 	BLayoutBuilder::Group<>(this, B_VERTICAL,0)
 		.SetInsets(0)
@@ -40,7 +37,6 @@ InputWindow::InputWindow(BString title, BRect frame)
 			.Add(fWordsTextview)
 		.End()
 	.Layout();
-
 
 }
 
@@ -51,8 +47,6 @@ InputWindow::MessageReceived(BMessage *msg)
 
 	switch (msg->what)
 	{
-
-
 		case IW_TEXT_ENABLE_EDIT:
 		{
 			fWordsTextview->MakeEditable(true);
@@ -121,10 +115,7 @@ InputWindow::WindowActivated(bool active)
 
 	if (active)
 	{
-
 		fWordsTextview->MakeFocus(true);
-
 	}
 
 }
-

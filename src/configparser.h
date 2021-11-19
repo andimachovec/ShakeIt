@@ -11,9 +11,9 @@
 #include <Message.h>
 #include <Directory.h>
 
+
 class ConfigParser {
 public:
-
 	void SetConfigDirectory(BDirectory directory);
 	void CreateConfigFile();
 	void ReadConfigFromFile();
@@ -26,7 +26,6 @@ public:
 	void SetSound(bool sound); 
 	
 	static ConfigParser &Config();		
-
 
 private:
 	ConfigParser();

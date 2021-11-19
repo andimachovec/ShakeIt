@@ -80,6 +80,7 @@ ConfigParser::WriteConfigToFile()
 BString 
 ConfigParser::GetGameLanguage()
 {
+	
 	const char *game_language;
 	
 	fConfigMessage.FindString("game_language", 0, &game_language);
@@ -91,16 +92,19 @@ ConfigParser::GetGameLanguage()
 uint8 
 ConfigParser::GetMinWordLength()
 {
+	
 	uint8 min_word_length;
 	fConfigMessage.FindUInt8("minimum_word_length", 0, &min_word_length);
 
 	return min_word_length;
+
 }
 
 
 bool 
 ConfigParser::GetSound()
 {
+	
 	bool sound;
 	fConfigMessage.FindBool("sound", 0, &sound);
 	
@@ -112,21 +116,27 @@ ConfigParser::GetSound()
 void
 ConfigParser::SetGameLanguage(BString game_language)
 {
+	
 	fConfigMessage.ReplaceString("game_language", 0, game_language.String());
+
 }
 
 
 void
 ConfigParser::SetMinWordLength(uint8 min_word_length)
 {
+	
 	fConfigMessage.ReplaceUInt8("minimum_word_length", 0, min_word_length);
+
 }
 
 
 void
 ConfigParser::SetSound(bool sound)
 {
+	
 	fConfigMessage.ReplaceBool("sound", 0, sound);
+
 } 
 
 

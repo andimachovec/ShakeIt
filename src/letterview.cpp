@@ -27,8 +27,7 @@ LetterView::LetterView()
 		fLetterFilenames[i]="empty.png";	
 		
 	}	
-	
-	
+		
 	//Intro Letters
 	fLetterFilenames[0]="S-1.png";
 	fLetterFilenames[1]="H-1.png";
@@ -40,6 +39,7 @@ LetterView::LetterView()
 	
 	load_bitmaps();
 	draw_bitmaps();
+	
 }	
 
 
@@ -61,18 +61,15 @@ LetterView::SetLetters(std::vector<std::string> Letters, std::vector<int> Letter
 
 	for (int i=0; i<16; ++i)
 	{
-		
 		std::stringstream filename_stream;
 		filename_stream << Letters[i] << "-" << LetterOrientation[i] << ".png";
 		
-		fLetterFilenames[i]=filename_stream.str();
-		
+		fLetterFilenames[i]=filename_stream.str();	
 	}	 
 	
 	load_bitmaps();
 	draw_bitmaps();
-	
-	
+		
 }	
 
 
@@ -93,12 +90,10 @@ void LetterView::draw_bitmaps()
 
 	SetDrawingMode(B_OP_ALPHA);
 	
-	
 	int view_width=static_cast<int>(Frame().Width());
 	int view_height=static_cast<int>(Frame().Height());
 	int bitmap_width=static_cast<int>(fBoardLetters[0]->Bounds().Width());
 	int bitmap_height=static_cast<int>(fBoardLetters[0]->Bounds().Height());
-
 
 	int x_delta=70;
 	int y_delta=70;	
@@ -106,12 +101,10 @@ void LetterView::draw_bitmaps()
 	int y_start=(view_height - (y_delta * 3) - bitmap_height) / 2;
 		
 	//std::cout << "x_delta: " << x_delta << std::endl;
-	
-		
+			
 	int letter_index=0;
 	int draw_coord_x=x_start;
 	int draw_coord_y=y_start;
-	
 	
 	for (int rows=0; rows<4; ++rows)
 	{
@@ -123,10 +116,8 @@ void LetterView::draw_bitmaps()
 			draw_coord_x+=x_delta;
 		}
 	
-	
 		draw_coord_x=x_start;
-		draw_coord_y+=y_delta;
-		
+		draw_coord_y+=y_delta;	
 	}
 		 
 }	
