@@ -7,7 +7,6 @@
 #include "gamecontroller.h"
 #include "configparser.h"
 
-#include <boost/algorithm/string.hpp>
 #include <iostream>
 #include <sstream>
 #include <exception>
@@ -266,9 +265,6 @@ GameController::validate_word(std::string word)
 
 	int returncode;
 	size_t word_length=word.length();
-
-	//convert word to uppercase
-	boost::to_upper(word);
 
 	//check if the word is a duplicate
 	if (!check_duplicate(word))  //check duplicate returns true if the word is a duplicate
